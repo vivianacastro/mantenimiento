@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<div>
+    <div><b><h2>Solicitudes de Mantenimiento</h2></b><br></div>
+
+    <div><h4><b>Informaci&oacute;n del Solicitante</b></h4></div>
+    <div>Campos obligatorios (<font color="red">*</font>)</div>
+    
+    <div class="div_izquierda"><b>Nombre completo:</b> </div>
+    <input class="form-control formulario" type="text" name="nombre" id="nombre" value="" readonly required/>
+
+    <div class="div_izquierda"><b>Correo electr&oacute;nico:</b> </div>
+    <input class="form-control formulario" type="email" name="correo" id="correo" value="" readonly required/>
+
+    <div class="div_izquierda"><b>Tel&eacute;fono:</b> </div>
+    <input class="form-control formulario" type="text" name="telefono" id="telefono" value="" readonly required/>
+
+    <div class="div_izquierda"><b>Extensi&oacute;n:</b> </div>
+    <input class="form-control formulario" type="text" name="extension" id="extension" value="" readonly required/><br>
+
+    <div><h4><b>Informaci&oacute;n del Espacio</b></h4></div>
+
+    <div class="div_izquierda"><b>Sede:</b> </div>
+    <input class="form-control formulario" type="text" name="sede" id="sede" value="Cali" readonly required/>
+    
+    <div class="div_izquierda"><font color="red">*</font><b>Campus:</b> </div>
+    <select class="form-control formulario" name="campus" id="campus"></select>
+
+    <div class="div_izquierda"><font color="red">*</font><b>Edificio:</b> </div>
+    <select class="form-control formulario" name="edificio" id="edificio" disabled></select>
+
+    <div class="div_izquierda"><font color="red">*</font><b>Piso:</b> </div>
+    <select class="form-control formulario" name="piso" id="piso" disabled></select>      
+
+    <div class="div_izquierda"><font color="red">*</font><b>Espacio:</b> </div>
+    <input class="form-control formulario" type="text" name="espacio" id="espacio" value="" placeholder="Ingrese el número o destinación del espacio" title="Ingrese el número o destinación del espacio" maxlength="60" disabled />
+
+    <div class="div_izquierda"><font color="red">*</font><b>Contacto:</b> </div>
+    <input class="form-control formulario" type="text" name="contacto" id="contacto" value="" maxlength="30" placeholder="Ingrese el contacto" title="Ingrese el nombre de una persona a contactar en el espacio proporcionado" disabled required/><br>
+
+    <div class="table-responsive" id="divTabla">
+        <table class="table table-bordered" cellspacing="0" width="100%"> 
+            <caption><center><h4><b>Informaci&oacute;n de la Novedad</b></h4></center></caption>
+            <thead>
+                <tr>
+
+                    <th bgcolor="#D8D8D8" style="text-align:center"><font color="red">*</font><b>Novedad</b></th>
+                    <th bgcolor="#D8D8D8" style="text-align:center"><font color="red">*</font><b>Descripción de la Novedad</b></th>
+                    <th bgcolor="#D8D8D8" style="text-align:center"><font color="red">*</font><b>Cantidad</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="35%">
+                        <select class="form-control select_descripcion" name="descripcion" id="descripcion" disabled></select>                        
+                    </td>
+                    <td width="55%">
+                        <input class="form-control input_descripcion" type="textarea" name="descripcion_novedad" id="descripcion_novedad" value="" maxlength="60" placeholder="" title="Ingrese una breve descripción de la novedad" disabled />
+                    </td>
+                    <td width="10%">
+                        <input class="form-control cantidad" type="number" min="1" name="cantidad" id="cantidad" value="" maxlength="2" placeholder="#" disabled />
+                    </td>
+                </tr>
+                <tr id="tr1" name="tr1" style='display:none'>
+                    <td width="35%">
+                        <select class="form-control" name="descripcion2" id="descripcion2" disabled></select>                        
+                    </td>
+                    <td width="55%">
+                        <input class="form-control input_descripcion" type="textarea" name="descripcion_novedad2" id="descripcion_novedad2" value="" maxlength="60" placeholder="" title="Ingrese una breve descripción de la novedad" disabled />
+                    </td>
+                    <td width="10%">
+                        <input class="form-control" type="number" min="1" name="cantidad2" id="cantidad2" value="" maxlength="2" placeholder="#" disabled />
+                    </td>
+                </tr>
+                <tr id="tr3" name="tr3" style='display:none'>
+                    <td width="35%">
+                        <select class="form-control select_descripcion" name="descripcion3" id="descripcion3" disabled></select>                        
+                    </td>
+                    <td width="55%">
+                        <input class="form-control input_descripcion" type="textarea" name="descripcion_novedad3" id="descripcion_novedad3" value="" maxlength="60" placeholder="" title="Ingrese una breve descripción de la novedad" disabled />
+                    </td>
+                    <td width="10%">
+                        <input class="form-control" type="number" min="1" name="cantidad3" id="cantidad3" value="" maxlength="2" placeholder="#" disabled />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form_button">
+        <input type="button" class="btn btn-primary btn-lg btn-formulario" name="agregar" id="agregar" value="Añadir Novedad" title="Agregue una nueva novedad. Máximo 2 por solicitud" disabled />
+        <input type="button" class="btn btn-primary btn-lg btn-formulario" name="eliminar" id="eliminar" value="Eliminar Novedad" title="Elimina una novedad añadida anteriormente" disabled /><br><br>
+        <input type="submit" class="btn btn-primary btn-lg btn-formulario" name="enviar_orden" id="enviar_orden" value="Enviar Solicitud" title="Generar solicitud de mantenimiento" />
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="divDialogSolicitud">
+    <div class="modal-dialog" id="divSolicitud">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title titulo_tabla">Últimas 5 solicitudes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" id="divTabla">
+                    <table class="table table-bordered table-striped" cellspacing="0" width="100%" id="tablaSolicitud">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center">Número Solicitud</th>
+                                <th style="text-align:center">Fecha</th>
+                                <!--<th style="text-align:center">Usuario</th>-->
+                                <!--<th style="text-align:center">Campus</th>-->
+                                <th style="text-align:center">Edificio</th>
+                                <th style="text-align:center">Piso</th>
+                                <th style="text-align:center">Espacio</th>
+                                <th style="text-align:center">Descripción Novedad 1</th>
+                                <th style="text-align:center">Descripción Novedad 2</th>
+                                <th style="text-align:center">Descripción Novedad 3</th>
+                                <th style="text-align:center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>      
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="divDialogNotificaciones">
+    <div class="modal-dialog" id="divNotificacion">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title titulo_tabla">Notificaciones</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" cellspacing="0" width="100%" id="tablaSolicitud">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center">Número Solicitud</th>
+                                <th style="text-align:center">Usuario</th>
+                                <th style="text-align:center">Campus</th>
+                                <th style="text-align:center">Edificio</th>
+                                <th style="text-align:center">Piso</th>
+                                <th style="text-align:center">Espacio</th>
+                                <th style="text-align:center">Descripción Novedad 1</th>
+                                <th style="text-align:center">Descripción Novedad 2</th>
+                                <th style="text-align:center">Descripción Novedad 3</th>
+                                <th style="text-align:center">Fecha</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>      
+        </div>
+    </div>
+</div>

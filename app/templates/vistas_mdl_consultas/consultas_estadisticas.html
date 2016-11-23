@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<div id="divBusqueda">
+    <p class="text-left">Campus:</p>
+    <div id="divSelectConsulta">
+        <select class="form-control" name="campusSearch" id="campusSearch">
+            <option value="0">Seleccionar</option>
+            <option value="1">Meléndez</option>
+            <option value="2">San-Fernando</option>
+            <option value="3">Otro</option>
+        </select>
+    </div>
+    <br>
+    <p class="text-left">Sistema:</p>
+    <div id="divSelectConsulta">
+        <select class="form-control" name="sistemaSearch" id="sistemaSearch">
+            <option value="0">Seleccionar</option>
+            <option value="-1">TODOS</option>
+            <option value="1">Sistema Hidráulico y Sanitario</option>
+            <option value="2">Sistema Eléctrico</option>
+            <option value="3">Sistema Planta Física</option>
+            <option value="4">Sistema Equipos</option>
+            <option value="5">Sistema Cubiertas</option>
+        </select>
+    </div>
+    <br>
+    <p class="text-left">Ingrese el rango de fechas:</p>
+    <div class="col-md-12" id="divSelectRangoFechas">
+        <div class="row">
+            <div class="input-daterange input-group" id="datepicker">
+                <input type="text" placeholder="Fecha Inicio" class="input-sm form-control" id="searchFechaInicial" name="start" />
+                <span class="input-group-addon">a</span>
+                <input type="text" placeholder="Fecha Fin" class="input-sm form-control" id="searchFechaFinal" name="end" />
+            </div>
+        </div>
+    </div>
+</div><br><br><br>
+
+<div class="container-fluid">
+    <input type="button" class="btn btn-primary btn-lg btn-4col" name="visualizarEstadisticas" id="visualizarEstadisticas" value="Ver Estadísticas" title="Ver Estadísticas"/>
+</div><br><br>
+
+<div id="divGraficos" class="container-fluid"><canvas id="myChart" height="450" width="600"></canvas></div>

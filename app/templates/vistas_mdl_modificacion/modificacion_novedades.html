@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<div class="container-fluid">
+    <input type="button" class="btn btn-primary btn-lg btn-4col" name="crearNovedad" id="crearNovedad" value="Crear Novedad" title="Crear Novedad"/>
+    <input type="button" class="btn btn-primary btn-lg btn-4col" name="modificarNovedad" id="modificarNovedad" value="Modificar Novedad" title="Modificar Novedad"/>
+</div><br><br>
+
+<div class="modal fade" role="dialog" id="divDialogModificacion">
+    <div class="modal-dialog" id="divModificacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title titulo_tabla">Modificar Novedad</h4>
+            </div>
+            <div class="modal-body">
+                <b>Informaci&oacute;n de la Novedad</b>
+                <div>
+                    <p class="text-left">Nombre novedad:</p>
+                    <input type="text" class="form-control" name="novedad" id="novedad" value=""/><br>
+                    <p class="text-left">Sistema:</p>
+                    <div id="divSelectSistema">
+                        <select class="form-control" name="selectSistema" id="selectSistema">
+                            <option value="Sistema Eléctrico">Sistema Eléctrico</option>
+                            <option value="Sistema Hidráulico y Sanitario">Sistema Hidráulico y Sanitario</option>
+                            <option value="Sistema Mobiliario y Equipos">Sistema Mobiliario y Equipos</option>
+                            <option value="Sistema Planta Física">Sistema Planta Física</option>
+                        </select>
+                    </div><br><br>
+                <div class="divBotonMod">
+                    <input type="button" class="btn btn-primary btn-actualizarNovedad" name="btGuardarModNovedad" id="btGuardarModNovedad" value="Actualizar Novedad" title="Actualizar Novedad"/>
+                </div><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="divDialogCreacion">
+    <div class="modal-dialog" id="divCreacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title titulo_tabla">Crear Novedad</h4>
+            </div>
+            <div class="modal-body">
+                <b>Informaci&oacute;n de la Novedad</b>
+                <div>
+                    <p class="text-left">Nombre novedad:</p>
+                    <input type="text" class="form-control" name="novedadNueva" id="novedadNueva" value=""/><br>
+                    <p class="text-left">Sistema:</p>
+                    <div id="divSelectConsulta">
+                        <select class="form-control" name="selectSistemaNueva" id="selectSistemaNueva">
+                            <option value="Sistema Eléctrico">Sistema Eléctrico</option>
+                            <option value="Sistema Hidráulico y Sanitario">Sistema Hidráulico y Sanitario</option>
+                            <option value="Sistema Mobiliario y Equipos">Sistema Mobiliario y Equipos</option>
+                            <option value="Sistema Planta Física">Sistema Planta Física</option>
+                        </select>
+                    </div><br><br>
+                <div class="divBotonMod">
+                    <input type="button" class="btn btn-primary btn-actualizarNovedad" name="btGuardarNovedad" id="btGuardarNovedad" value="Crear Novedad" title="Crear Novedad"/>
+                </div><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divTablas" style="display:none">
+    <div class="table-responsive" id="divTabla">
+        <table class="table table-bordered table-striped" cellspacing="0" width="100%" id="tablaNovedades"> 
+            <caption><b>Novedades Sistema<b></caption>
+            <thead>
+                <tr>
+                    <th style="text-align:center">Descripción Novedad</th>
+                    <th style="text-align:center">Sistema</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>

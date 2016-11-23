@@ -1,0 +1,399 @@
+/*!
+ * Start Bootstrap - Business Casual Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    background: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: uppercase;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+p {
+    font-size: 1.25em;
+    line-height: 1.6;
+    color: #000;
+}
+
+hr {
+    max-width: 400px;
+    border-color: #999999;
+}
+
+.brand,
+.address-bar {
+    display: none;
+}
+
+.navbar-brand {
+    padding: 2% 1% 1%;
+    /*text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 2px;*/
+}
+
+.navbar-nav {
+    /*text-transform: capitalize;*/
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+.btn-primary{
+    background-color: #e60013;
+    border-color: transparent;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+    background-color: #e15661;
+    border-color: transparent;
+}
+
+.pull-right{
+    color: #e60013;
+}
+
+.img-full {
+    min-width: 100%;
+}
+
+.brand-before,
+.brand-name {
+    text-transform: capitalize;
+}
+
+.brand-before {
+    margin: 15px 0;
+}
+
+.brand-name {
+    margin: 0;
+    font-size: 4em;
+}
+
+.pagination>.active>a{
+    color: white;
+    background-color: #e60013;
+    border-color: transparent;
+}
+
+.pagination>.active>a:hover{
+    color: white;
+    background-color: #e15661;
+    border-color: transparent;
+}
+
+.pagination>.active>a:focus{
+    color: white;
+    background-color: #e15661;
+    border-color: transparent;
+}
+
+.pagination>li>a{
+    color: #e60013;
+    background-color: white;
+    border-radius: 4px;
+    border-color: #e60013;
+}
+
+.pagination>li>a:hover{
+    color: white;
+    background-color: #e15661;
+    border-color: #e60013;
+}
+
+.pagination>li>a:focus{
+    color: white;
+    background-color: #e15661;
+    border-color: transparent;
+}
+
+.tagline-divider {
+    margin: 15px auto 3px;
+    max-width: 250px;
+    border-color: #999999;
+}
+
+.box {
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+
+.intro-text {
+    text-transform: uppercase;
+    font-size: 1.25em;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.img-border {
+    float: none;
+    margin: 0 auto 0;
+    border: #999999 solid 1px;
+}
+
+.img-left {
+    float: none;
+    margin: 0 auto 0;
+}
+
+.input-lg{
+    width: 100%;
+}
+
+#mensaje{
+    letter-spacing: 0.3px;
+}
+
+#copyrigth{
+    color: #e60013;
+}
+
+#spanRegistrar{
+    color: #e60013;
+}
+
+footer {
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+
+footer p {
+    margin: 0;
+    padding: 50px 0;
+}
+
+@media screen and (min-width:768px) {
+    .brand {
+        display: inherit;
+        margin: 0;
+        padding: 0 0 0;
+        text-align: left;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 5em;
+        font-weight: 700;
+        line-height: normal;
+        color: #e60013;
+    }
+
+    .top-divider {
+        margin-top: 0;
+    }
+
+    .img-left {
+        float: left;
+        margin-right: 25px;
+    }
+
+    .address-bar {
+        display: inherit;
+        margin: 0 auto;
+        padding: 2% 2% 2%;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0);
+        /*text-transform: capitalize;*/
+        font-size: 170%;
+        font-weight: 400;
+        background: #e60013;
+        color: #ffffff;
+    }
+
+    .navbar {
+        border-radius: 0;
+    }
+
+    .navbar-header {
+        display: none;
+    }
+
+    .navbar {
+        min-height: 0;
+    }
+
+    .navbar-default {
+        border: none;
+        background: #fff;
+        background: rgba(255,255,255,0.9);
+    }
+
+    .nav>li>a {
+        padding: 10% 10% 10%;
+        color: white;
+    }
+
+    .navbar-nav>li>a {
+        line-height: normal;
+    }
+
+    .navbar-nav {
+        display: table;
+        float: none;
+        margin: 0 auto;
+        table-layout: fixed;
+        font-size: 150%;
+        background: #e60013;
+        width: 100%;
+        height: auto;
+    }
+
+    #mensaje{
+        padding: 0 1% 0;
+        color: white;
+    }
+
+    #divMenu ul{
+        width: 100%;
+    }
+
+    #divMenu {
+       float:left;
+       width:100%;
+       overflow:hidden;
+    }
+    #divMenu ul {
+       clear:left;
+       float:left;
+       list-style:none;
+       margin:0;
+       width: 100%;
+       padding:0 0 0;
+       text-align:center;
+       background-color: transparent;
+    }
+
+    #divMenu ul li {
+       display:block;
+       float:left;
+       list-style:none;
+       margin:0;
+       padding:0;
+    }
+
+    #divMenu li {
+       border-style: solid;
+       border-color: white;
+       background-color: #e60013;
+       padding: 0 0 0;
+    }
+
+    #divMenu ul li a {
+       display: block;
+       margin: 0 0 0 1px;
+       padding: 3px 10px;
+       color: white;
+       text-decoration: none;
+       line-height: 1.3em;
+    }
+
+    #divMenu ul li a:hover {
+       background: #e15661;
+       color: #fff;
+       border-color: transparent;
+    }
+
+    #divMenu ul li a.active,
+    #divMenu ul li a.active:hover {
+       color: #fff;
+       background: #e15661;
+       font-weight: bold;
+       border-color: transparent;
+    }
+
+    #divMenu a{
+        text-align: center;
+        font-size: 85%;
+        letter-spacing: 0.3px;
+        padding-left:25%;
+    }
+
+    #navMenu li ul {
+        position: absolute;
+        width: 0;
+        overflow: hidden;
+    }
+
+    #navMenu li li {
+        display: block;
+        width: 100%;
+    }
+    #navMenu li:hover li a, #menu_gral li:focus li a {
+        display: block;
+        background: #e60013;
+    }
+
+    #navMenu li li a:hover, #navMenu li li a:focus {
+        background: #e15661;
+    }
+
+    #navMenu li:hover ul, #menu_gral li:focus ul {
+        width: 100%;
+        z-index: 5;
+    }
+
+    #divTabla{
+        padding: 0 5% 0;
+    }
+
+    #tabla{
+        width: 100%;
+        margin: auto;
+        text-align: left;
+    }
+
+    #menu2{
+        width: 50%;
+    }
+
+    #menu3{
+        width: 33.33%;
+    }
+
+    #menu4{
+        width: 25%;
+    }
+
+    #menu5{
+        width: 20%;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+@media screen and (max-width:767px) {
+    #mensaje{
+        padding: 0 1% 0;
+        color: #e60013;
+    }
+
+    #divMenu li ul {
+        display:none;
+    }
+
+    #divMenu li:hover ul {
+        display: block;
+    }
+
+    #divMenu a{
+        color: #e60013;
+    }
+}

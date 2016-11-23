@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<div class="container-fluid">
+    <input type="button" class="btn btn-primary btn-lg btn-4col" name="crearUsuarioAutorizado" id="crearUsuarioAutorizado" value="Crear usuario" title="Crear Usuario"/>
+    <input type="button" class="btn btn-primary btn-lg btn-4col" name="modificarUsuarioAutorizado" id="modificarUsuarioAutorizado" value="Modificar usuario" title="Modificar usuario"/>
+    <input type="button" class="btn btn-primary btn-lg btn-4col" name="eliminarUsuarioAutorizado" id="eliminarUsuarioAutorizado" value="Eliminar usuario" title="Eliminar usuario"/>    
+</div><br><br>
+
+<div class="modal fade" role="dialog" id="divCrearNuevoUsuario">    
+    <div class="modal-dialog" id="divFormUsuarioNuevo">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title titulo_tabla">Crear Usuario</h4>
+            </div>
+            <div class="modal-body">
+                <b>Informaci&oacute;n del Usuario</b><br><br>
+
+                <div class="div_izquierda"><font color="red">*</font>Nombre Completo del Usuario: </div>
+                <div class="form_requerid">
+                    <input class="form-control formulario" type="text" name="nombre_usuario" id="nombre_usuario" value="" placeholder="Ingrese el Nombre del Usuario" maxlength="100" />
+                </div><br>
+
+                <div class="div_izquierda"><font color="red">*</font>Usuario: </div>
+                <div class="form_requerid">
+                    <input class="form-control formulario" type="text" name="login" id="login" value="" placeholder="Ingrese el Login de Usuario" maxlength="60" />
+                </div><br>
+
+                <div class="div_izquierda"><font color="red">*</font>Contrase&ntilde;a: </div>
+                <div class="form_requerid">
+                    <input class="form-control formulario" type="password" name="password" id="password" value="" placeholder="*********" />
+                </div><br>
+
+                <div class="div_izquierda" id="div_r_password"><font color="red">*</font>Repita la Contrase&ntilde;a: </div>
+                <div class="form_requerid">
+                    <input class="form-control formulario" type="password" name="r_password" id="r_password" value="" placeholder="*********" />
+                </div><br>
+
+                <div class="div_izquierda"><font color="red">*</font>Perfil del Usuario: </div>
+                <div class="form_requerid">
+                    <select class="form-control formulario" name="perfil" id="perfil">
+                        <optgroup label="Usuario Normal">
+                            <option value="normal" title="Perfil para usuarios/empleados">Usuario Normal</option>
+                            <option value="" title="" disabled></option>
+                        </optgroup>
+                        <optgroup label="Jefes de Sistema (Melendez)">
+                            <option value="electrico" title="Perfil para Jefe del Sistema El&eacute;ctrico">Jefe Sistema El&eacute;ctrico</option>
+                            <option value="hidraulico" title="Perfil para Jefe del Sistema Hidr&aacute;ulico y Sanitario">Jefe Sistema Hidr&aacute;ulico y Sanitario</option>
+                            <option value="mobiliario" title="Perfil para Jefe del Sistema Mobiliario y Equipos">Jefe Sistema Mobiliario y Equipos</option>
+                            <option value="planta" title="Perfil para Jefe del Sistema Planta F&iacute;sica">Jefe Sistema Planta F&iacute;sica</option>
+                            <option value="" title="" disabled></option>
+                        </optgroup>
+                        <optgroup label="Jefe de Sistema (San Fernando)">
+                            <option value="sanfernando" title="Perfil para Jefe de los Sistemas Sede San Fernando">Jefe Sistemas San Fernando</option>
+                            <option value="" title="" disabled></option>
+                        </optgroup>
+                        <optgroup label="Administrador Sistema">
+                            <option value="admin" title="Perfil para el Administrador del Sistema">Administrador del Sistema</option>
+                        </optgroup>
+                    </select>
+                </div><br>
+                <div class="div_izquierda"><font color="red">*</font>Correo El&eacute;ctronico: </div>
+                <div class="fomr_requerid">
+                    <input class="form-control formulario" type="email" name="correo" id="correo" value="" placeholder="Ingrese el correo eléctronico" />
+                </div><br>
+                <div class="div_izquierda"><font color="red">*</font>Tel&eacute;fono: </div>
+                <div class="fomr_requerid">
+                    <input class="form-control formulario" type="text" name="telefono" id="telefono" value="" maxlength="10"/ placeholder="ingrese su número teléfonico">
+                </div><br>
+                <div class="div_izquierda"><font color="red">*</font>Extensi&oacute;n: </div>
+                <div class="fomr_requerid">
+                    <input class="form-control formulario" type="text" name="extension" id="extension" value="" maxlength="4"/ placeholder="Ingrese su estensión">
+                </div><br>
+                <div class="divBotonMod">
+                    <input type="button" class="btn btn-primary btn-actualizarNovedad" name="crear_usuario" id="crear_usuario" value="Crear usuario" title="Crear usuario"/>
+                </div><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" role="dialog" id="divDialogModificacion">
+    <div class="modal-dialog" id="divModificacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title titulo_tabla">Modificar Usuario</h4>
+            </div>
+            <div class="modal-body">
+                <b>Informaci&oacute;n del Usuario</b>
+                
+                <div class="div_izquierda">Nombre del Usuario: </div>
+                <div class="form_requerid">
+                    <input class="form-control formulario" type="text" name="campUsuario" id="campUsuario" value="" readonly/>
+                </div><br>
+                
+                <div class="div_izquierda">Login: </div>
+                <div class="form_requerid">
+                    <input class="form-control formulario" type="text" name="campLogin" id="campLogin" value="" readonly />
+                </div><br>
+                
+                <div class="div_izquierda"><font color="red">*</font>Perfil &oacute; Privilegios: </div>
+                <div class="form_requerid">
+                    <select class="form-control formulario" name="campPerfil" id="campPerfil">
+                        <optgroup label="Usuario Normal">
+                            <option value="normal" title="Perfil para usuarios/empleados">Usuario Normal</option>
+                            <option value="" title="" disabled></option>
+                        </optgroup>
+                        <optgroup label="Jefes de Sistema (Melendez)">
+                            <option value="electrico" title="Perfil para Jefe del Sistema El&eacute;ctrico">Jefe Sistema El&eacute;ctrico</option>
+                            <option value="hidraulico" title="Perfil para Jefe del Sistema Hidr&aacute;ulico y Sanitario">Jefe Sistema Hidr&aacute;ulico y Sanitario</option>
+                            <option value="mobiliario" title="Perfil para Jefe del Sistema Mobiliario y Equipos">Jefe Sistema Mobiliario y Equipos</option>
+                            <option value="planta" title="Perfil para Jefe del Sistema Planta F&iacute;sica">Jefe Sistema Planta F&iacute;sica</option>
+                            <option value="" title="" disabled></option>
+                        </optgroup>
+                        <optgroup label="Jefe de Sistema (San Fernando)">
+                            <option value="sanfernando" title="Perfil para Jefe de los Sistemas Sede San Fernando">Jefe Sistemas San Fernando</option>
+                            <option value="" title="" disabled></option>
+                        </optgroup>
+                        <optgroup label="Administrador Sistema">
+                            <option value="admin" title="Perfil para el Administrador del Sistema">Administrador del Sistema</option>
+                        </optgroup>
+                    </select>
+                </div><br><br>
+                <div class="divBotonMod">
+                    <input type="button" class="btn btn-primary btn-actualizarNovedad" name="btGuardarModUsuarioAutorizado" id="btGuardarModUsuarioAutorizado" value="Modificar usuario" title="Modificar informacióm de usuario"/>
+                </div><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divTablas" style="display:none">
+    <div class="table-responsive" id="divTabla">
+        <table class="table table-bordered table-striped" cellspacing="0" width="100%" id="tablaUsuarios"> 
+            <caption><b>Usuarios Registrados<b></caption>
+            <thead>
+                <tr>
+                    <th style="text-align:center">Nombre</th>
+                    <th style="text-align:center">Login</th>
+                    <th style="text-align:center">Perfil</th>
+                    <th style="text-align:center">Correo</th>
+                    <th style="text-align:center">Tel&eacute;fono</th>
+                    <th style="text-align:center">Extensi&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
