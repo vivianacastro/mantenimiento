@@ -3988,9 +3988,6 @@ $(document).ready(function() {
             var elementosSeleccionadosSolicitado = tablaSolicitado.rows('.selected').data();
             var elementosSeleccionadosRevisado = tablaRevisado.rows('.selected').data();
             var elementosSeleccionadosRealizado = tablaRealizado.rows('.selected').data();
-            console.log(elementosSeleccionadosSolicitado.length);
-            console.log(elementosSeleccionadosRealizado.length);
-            console.log(elementosSeleccionadosRevisado.length);
 
             var totalElementos = elementosSeleccionadosSolicitado.length + elementosSeleccionadosRevisado.length + elementosSeleccionadosRealizado.length;
 
@@ -4002,21 +3999,22 @@ $(document).ready(function() {
                 $("#divOperario").css('display','none');
                 $('#divSelectOperario').css('display','none');
 
-                $.each(elementosSeleccionadosSolicitado, function(index, record){
-                    data = buscarSolicitud(record[0]);
-                });
-
-                $.each(elementosSeleccionadosRevisado, function(index, record){
-                    data = buscarSolicitud(record[0]);
-                });
-
-                $.each(elementosSeleccionadosRealizado, function(index, record){
-                    data = buscarSolicitud(record[0]);
-                });
-
                 if(totalElementos == 1){
                      var data = [];
 
+                     $.each(elementosSeleccionadosSolicitado, function(index, record){
+                         data = buscarSolicitud(record[0]);
+                     });
+
+                     $.each(elementosSeleccionadosRevisado, function(index, record){
+                         data = buscarSolicitud(record[0]);
+                     });
+
+                     $.each(elementosSeleccionadosRealizado, function(index, record){
+                         data = buscarSolicitud(record[0]);
+                     });
+
+                     console.log(data);
                     $.each(data, function(index, record) {
                         if($.isNumeric(index)) {
                             $("#divDialogModificacion4").modal("show");
@@ -4113,6 +4111,8 @@ $(document).ready(function() {
                         record.descripcion3,
                         record.cantidad3,
                         record.contacto,
+                        record.telefono,
+                        record.extension,
                         record.estado]).draw(false);
                 }
                 else if(record.estado == 'Revisado'){
@@ -4132,6 +4132,8 @@ $(document).ready(function() {
                         record.descripcion3,
                         record.cantidad3,
                         record.contacto,
+                        record.telefono,
+                        record.extension,
                         record.estado]).draw(false);
                 }
                 else if(record.estado == 'Realizado' || record.estado == 'Duplicado' || record.estado == 'No Aplica'){
@@ -4151,6 +4153,8 @@ $(document).ready(function() {
                         record.descripcion3,
                         record.cantidad3,
                         record.contacto,
+                        record.telefono,
+                        record.extension,
                         record.estado]).draw(false);
                 }
             }

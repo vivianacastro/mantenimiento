@@ -10,29 +10,29 @@ class Modelo_modificacion {
 
     /**
      * Función contructur de la clase Modelo
-     * @param string $dbname nombre de la base de datos a la que se va a 
+     * @param string $dbname nombre de la base de datos a la que se va a
      * conectar el modelo.
-     * @param string $dbuser usuario con el que se va a conectar a la 
+     * @param string $dbuser usuario con el que se va a conectar a la
      * base de datos.
      * @param string $dbpass contraseña para poder acceder a la base de datos.
      * @param string $dbhost Host en donde se encuentra la base de datos.
-     */    
+     */
     public function __construct($dbname,$dbuser,$dbpass,$dbhost) {
-        
+
         $conn_string = 'pgsql:host='.$dbhost.';port=5432;dbname='.$dbname;
-        
+
         try
-        { 
-            $bd_conexion = new PDO($conn_string, $dbuser, $dbpass); 
-            $this->conexion = $bd_conexion;  
-            
+        {
+            $bd_conexion = new PDO($conn_string, $dbuser, $dbpass);
+            $this->conexion = $bd_conexion;
+
         }
         catch (PDOException $e)
         {
             var_dump( $e->getMessage());
-        }       
+        }
     }
-    
+
 
     /**
      * Función que permite buscar ordenes en el sistema utilizando el nombre
@@ -53,7 +53,7 @@ class Modelo_modificacion {
 
         if (!$l_stmt)
         {
-            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;            
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
         }
         else
         {
@@ -70,12 +70,12 @@ class Modelo_modificacion {
             else
             {
                 $GLOBALS['mensaje'] = "No hay registro asociado a su consulta con el nombre de usuario que ingreso";
-            }              
-        } 
-        
+            }
+        }
+
         return $result;
-    } 
-    
+    }
+
     /**
      * Función que permite consultar una orden en el sistema por medio de su
      * serial.
@@ -85,12 +85,14 @@ class Modelo_modificacion {
     {
         $k = htmlspecialchars(trim($k));
 
-        $sql = "SELECT * FROM solicitudes_mantenimiento WHERE numero_solicitud = '".$k."' AND estado <> 'Eliminado';";
+        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+        FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
+        WHERE numero_solicitud = '".$k."' AND a.estado <> 'Eliminado';";
 
         $l_stmt = $this->conexion->prepare($sql);
         if (!$l_stmt)
         {
-            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;            
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
         }
         else
         {
@@ -107,9 +109,9 @@ class Modelo_modificacion {
             else
             {
                 $GLOBALS['mensaje'] = "No hay registro asociado a su consulta";
-            }           
-        } 
-        
+            }
+        }
+
         return $result;
     }
 
@@ -120,7 +122,7 @@ class Modelo_modificacion {
         $l_stmt = $this->conexion->prepare($sql);
         if (!$l_stmt)
         {
-            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;            
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
         }
         else
         {
@@ -137,9 +139,9 @@ class Modelo_modificacion {
             else
             {
                 $GLOBALS['mensaje'] = "No hay novedades registradas en el sistema";
-            }           
-        } 
-        
+            }
+        }
+
         return $result;
     }
 
@@ -153,7 +155,7 @@ class Modelo_modificacion {
 
         if (!$l_stmt)
         {
-            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;            
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
         }
         else
         {
@@ -170,9 +172,9 @@ class Modelo_modificacion {
             else
             {
                 $GLOBALS['mensaje'] = "No hay novedades registradas en el sistema";
-            }           
-        } 
-        
+            }
+        }
+
         return $result;
     }
 
@@ -200,7 +202,7 @@ class Modelo_modificacion {
         $l_stmt = $this->conexion->prepare($sql);
         if (!$l_stmt)
         {
-            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;            
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
         }
         else
         {
@@ -217,9 +219,9 @@ class Modelo_modificacion {
             else
             {
                 $GLOBALS['mensaje'] = "No hay novedades registradas en el sistema";
-            }           
-        } 
-        
+            }
+        }
+
         return $result;
     }
 
@@ -256,10 +258,10 @@ class Modelo_modificacion {
                 return true;
             }
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Función que permite modificar los datos de una orden.
      * @param numerico $n, Entero que hace referencia al numero de la solicitud .
@@ -320,11 +322,11 @@ class Modelo_modificacion {
 
         return true;
     }
-        
-    
+
+
     /**
      * Función que permite eliminar una o mas ordenes del sistema.
-     * @param array $id, Arreglo que contiene los ids de las ordenes 
+     * @param array $id, Arreglo que contiene los ids de las ordenes
      * a eliminar.
      * @return boolean
      */
@@ -334,7 +336,7 @@ class Modelo_modificacion {
         {
             $sql = "UPDATE solicitudes_mantenimiento SET estado = 'Eliminado' "
                     . "WHERE numero_solicitud = ".$id[$i];
-            
+
             $l_stmt = $this->conexion->prepare($sql);
             if (!$l_stmt)
             {
@@ -348,12 +350,12 @@ class Modelo_modificacion {
                     $GLOBALS['mensaje'] = MJ_DELETE_FALLIDA;
                     return false;
                 }
-            }            
+            }
         }
-        
+
         $GLOBALS['mensaje'] = MJ_DELETE_EXITOSA;
         return true;
-    }    
+    }
 
     /**
      * Función que permite validar los datos.
@@ -369,7 +371,7 @@ class Modelo_modificacion {
         $u = htmlspecialchars($u);
         $e = htmlspecialchars($e);
         $d = htmlspecialchars($d);
-        
+
         if(is_string($u) & is_string($e) & is_string($d) & $n != 0 & $u != '' & $e !='Seleccionar' & $d != '')
         {
             return true;
@@ -380,14 +382,14 @@ class Modelo_modificacion {
             return false;
         }
     }
-    
+
     /**
      * [Funcion que obtiene el nombre de la novedad]
      * @param  [integer] $n [Hace referencia al identificador de la novedad]
      * @return [type]    [description]
      */
     public function getNombreNovedad($n){
-    	
+
         $n = htmlspecialchars(trim($n));
 
         $sql = "SELECT novedad FROM novedad_sistema WHERE id = '".$n."';";
@@ -415,7 +417,7 @@ class Modelo_modificacion {
     }
 
     /**
-     * funcion que permite obtener el login del usuario 
+     * funcion que permite obtener el login del usuario
      * @return $dato. Hace referencia a el nombre del usuario
      */
     public function getLoginUsuario($dato)
@@ -431,7 +433,7 @@ class Modelo_modificacion {
         if(!$l_stmt->execute()){
            $GLOBALS['mensaje'] = var_export($this->conexion->errorInfo(),true);;
         }
-        
+
         if($l_stmt->rowCount() > 0){
             $result = $l_stmt->fetchAll();
         }
@@ -440,14 +442,14 @@ class Modelo_modificacion {
 
         return $data;
     }
-    
+
     /**
      * [Funcion que obtiene el correo de un usuario]
      * @param  [integer] $n [Hace referencia al login del usuario]
      * @return [type]    [description]
      */
     public function getCorreoUsuario($u){
-    	
+
         $u = htmlspecialchars(trim($u));
 
         $sql = "SELECT correo FROM usuarios_autorizados_sistema WHERE login = '".$u."';";
@@ -471,22 +473,22 @@ class Modelo_modificacion {
                 $result['0'] = "Usuario no encontrado";
             }
         }
-        
+
         return $result;
     }
-    
-    
+
+
     /**
      * Función que envía un correo
-     */    
+     */
     public function enviarMail($e,$u,$n,$d,$s){
     	$n = htmlspecialchars($n);
         $e = htmlspecialchars($e);
         $d = htmlspecialchars($d);
 		$s = htmlspecialchars($s);
-    	
+
     	$mail = new PHPMailer();
-    	
+
     	$mail->IsSMTP();
 		//$mail->SMTPDebug  = 2;
         //$mail->Debugoutput = 'html';
@@ -495,11 +497,11 @@ class Modelo_modificacion {
 		$mail->Host = "smtp.gmail.com";
 		$mail->Port = 465;
 		$mail->CharSet = 'UTF-8';
-		
+
 		//Nuestra cuenta
 		$mail->Username = EMAIL;
 		$mail->Password = PASS; //Su password
-		
+
 		if($s == 1){
 			$email = EMAILSISTHIDRAULICO;
 		}else if($s == 2){
@@ -511,10 +513,10 @@ class Modelo_modificacion {
 		}else{
 			$email = 'mantenimiento.univalle@correounivalle.edu.co';
 		}
-		
+
 		$mail->From = $email;
 		$mail->FromName= 'Mantenimiento Universidad del Valle';
-		
+
 		//Agregar destinatario
 		$mail->AddAddress($u);
 		//$mail->AddAddress('juan.camilo.lopez@correounivalle.edu.co');
