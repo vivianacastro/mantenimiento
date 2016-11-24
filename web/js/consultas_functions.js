@@ -3988,6 +3988,9 @@ $(document).ready(function() {
             var elementosSeleccionadosSolicitado = tablaSolicitado.rows('.selected').data();
             var elementosSeleccionadosRevisado = tablaRevisado.rows('.selected').data();
             var elementosSeleccionadosRealizado = tablaRealizado.rows('.selected').data();
+            console.log(elementosSeleccionadosSolicitado.length);
+            console.log(elementosSeleccionadosRealizado.length);
+            console.log(elementosSeleccionadosRevisado.length);
 
             var totalElementos = elementosSeleccionadosSolicitado.length + elementosSeleccionadosRevisado.length + elementosSeleccionadosRealizado.length;
 
@@ -3999,20 +4002,20 @@ $(document).ready(function() {
                 $("#divOperario").css('display','none');
                 $('#divSelectOperario').css('display','none');
 
+                $.each(elementosSeleccionadosSolicitado, function(index, record){
+                    data = buscarSolicitud(record[0]);
+                });
+
+                $.each(elementosSeleccionadosRevisado, function(index, record){
+                    data = buscarSolicitud(record[0]);
+                });
+
+                $.each(elementosSeleccionadosRealizado, function(index, record){
+                    data = buscarSolicitud(record[0]);
+                });
+
                 if(totalElementos == 1){
                      var data = [];
-
-                    $.each(elementosSeleccionadosSolicitado, function(index, record){
-                        data = buscarSolicitud(record[0]);
-                    });
-
-                    $.each(elementosSeleccionadosRevisado, function(index, record){
-                        data = buscarSolicitud(record[0]);
-                    });
-
-                    $.each(elementosSeleccionadosRealizado, function(index, record){
-                        data = buscarSolicitud(record[0]);
-                    });
 
                     $.each(data, function(index, record) {
                         if($.isNumeric(index)) {
@@ -4034,13 +4037,9 @@ $(document).ready(function() {
                         }
                     });
                 }else{
-                    $.each(data, function(index, record) {
-                        if($.isNumeric(index)) {
-                            $("#divDialogModificacion3").modal("show");
-                            $('#selectEstado').val('Seleccionar');
-                            $("#descripcion4").val("");
-                        }
-                    });
+                    $("#divDialogModificacion4").modal("show");
+                    $('#selectEstado').val('Seleccionar');
+                    $("#descripcion4").val("");
                 }
             }
         }
