@@ -2679,7 +2679,7 @@ $(document).ready(function() {
             saveData = [campus,edificio,sistema,piso,fechaInicial,fechaFinal];
             //console.log(saveData);
             var data =  buscarOrdenesParametrosAvanzados(saveData);
-            //console.log(data);
+            console.log(data);
             actualizarTablaOrdenes2(data);
             $("#divTablas").show();
             $("#btImprimir3").removeAttr('Disabled');
