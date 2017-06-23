@@ -80,8 +80,7 @@ if(pg_num_rows($result3) == 0) {
       } catch (Exception $e) {
         //return $e->getMessage();
       }
-      echo "<script type='text/javascript'>confirm('Se ha enviado un correo a ".$correo." con la informaci\u00F3n para reestablecer la contrase\u00F1a. Resive la carpeta
-      de SPAM de su correo.');</script>";
+      echo "<script type='text/javascript'>confirm('Se ha enviado un correo a ".$correo." con la informaci\u00F3n para reestablecer la contrase\u00F1a. Revise la bandeja de SPAM de su correo.');</script>";
       echo '<script type="text/javascript">' . "\n";
       echo 'window.location="http://192.168.46.53/mantenimiento/web/index.php";'; 
       echo '</script>';
