@@ -292,7 +292,7 @@ class Modelo_consultas
         $fechaInicio = htmlspecialchars(trim($fechaInicio));
         $fechaFin = htmlspecialchars(trim($fechaFin));
 
-        if($sistema == 5){
+        if($sistema == -1){
             $sql = "SELECT codigo_edificio, COUNT(*) AS conteosolicitudes FROM solicitudes_mantenimiento WHERE estado <> 'Eliminado' AND codigo_campus = '".$campus."' AND fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY codigo_edificio ORDER BY conteosolicitudes DESC LIMIT 10;";
         }else{
             $sql = "SELECT solicitudes_mantenimiento.codigo_edificio, COUNT(*) AS conteosolicitudes FROM solicitudes_mantenimiento JOIN novedad_sistema ON solicitudes_mantenimiento.descripcion1 = novedad_sistema.id WHERE solicitudes_mantenimiento.estado <> 'Eliminado' AND solicitudes_mantenimiento.codigo_campus = '".$campus."' AND novedad_sistema.cod_sistema = '".$sistema."' AND solicitudes_mantenimiento.fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY solicitudes_mantenimiento.codigo_edificio ORDER BY conteosolicitudes DESC LIMIT 10;";
@@ -382,7 +382,7 @@ class Modelo_consultas
         $fechaInicio = htmlspecialchars(trim($fechaInicio));
         $fechaFin = htmlspecialchars(trim($fechaFin));
 
-        if($sistema == 5){
+        if($sistema == -1){
             $sql = "SELECT codigo_edificio, espacio, COUNT(*) AS conteosolicitudes FROM solicitudes_mantenimiento WHERE estado <> 'Eliminado' AND codigo_campus = '".$campus."' AND fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY codigo_edificio, espacio ORDER BY conteosolicitudes DESC LIMIT 10;";
         }else{
             $sql = "SELECT solicitudes_mantenimiento.codigo_edificio, solicitudes_mantenimiento.espacio, COUNT(*) AS conteosolicitudes FROM solicitudes_mantenimiento JOIN novedad_sistema ON solicitudes_mantenimiento.descripcion1 = novedad_sistema.id WHERE solicitudes_mantenimiento.estado <> 'Eliminado' AND solicitudes_mantenimiento.codigo_campus = '".$campus."' AND novedad_sistema.cod_sistema = '".$sistema."' AND solicitudes_mantenimiento.fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY solicitudes_mantenimiento.codigo_edificio, solicitudes_mantenimiento.espacio ORDER BY conteosolicitudes DESC LIMIT 10;";
@@ -427,7 +427,7 @@ class Modelo_consultas
         $fechaInicio = htmlspecialchars(trim($fechaInicio));
         $fechaFin = htmlspecialchars(trim($fechaFin));
 
-        if($sistema == 5){
+        if($sistema == -1){
             $sql = "SELECT operario, COUNT(*) AS conteosolicitudes FROM solicitudes_mantenimiento WHERE estado <> 'Eliminado' AND codigo_campus = '".$campus."' AND fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' AND operario <> 'NULL' GROUP BY operario ORDER BY operario DESC;";
         }else{
             $sql = "SELECT solicitudes_mantenimiento.operario, COUNT(*) AS conteosolicitudes FROM solicitudes_mantenimiento JOIN novedad_sistema ON solicitudes_mantenimiento.descripcion1 = novedad_sistema.id WHERE solicitudes_mantenimiento.estado <> 'Eliminado' AND solicitudes_mantenimiento.codigo_campus = '".$campus."' AND novedad_sistema.cod_sistema = '".$sistema."' AND solicitudes_mantenimiento.fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' AND operario <> 'NULL' GROUP BY solicitudes_mantenimiento.operario ORDER BY operario DESC;";
