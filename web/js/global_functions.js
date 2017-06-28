@@ -2,6 +2,9 @@
 *funciones globales de la aplicacion 
 */
 $(document).ready(function () {
+	var ano = (new Date).getFullYear();
+	$("#copyrigth").html("Universidad del Valle<br>"+ano);
+	
 	setTimeout(function() {
         $("#divDialogTimeOut").modal('show');
     },1200000);
