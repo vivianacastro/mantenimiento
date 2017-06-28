@@ -439,9 +439,7 @@ $(document).ready(function() {
         $('#tablaSolicitud').dataTable().fnClearTable();
 
         if(data.mensaje != ""){
-            alert("A continuación usted podrá ver las últimas 5 solicitudes asociadas al campus, edificio y piso seleccionadas."
-                    + "\nRevise que su novedad no haya sido reportada aún.");
-            $("#divDialogSolicitud").modal('show');
+            var tipoUsuario = "";
             $.each(data, function(index, record) {
                 if($.isNumeric(index)) {
                     tabla.row.add([
@@ -456,8 +454,15 @@ $(document).ready(function() {
                         record.descripcion2,
                         record.descripcion3,
                         record.estado]).draw(false);
+                    tipoUsuario = record.tipo_usuario;
                 }
             });
+            console.log(tipoUsuario);
+            if (tipoUsuario == 'normal') {
+                alert("A continuación usted podrá ver las últimas 5 solicitudes asociadas al campus, edificio y piso seleccionadas."
+                    + "\nRevise que su novedad no haya sido reportada aún.");
+                $("#divDialogSolicitud").modal('show');
+            }
         }
     }
 

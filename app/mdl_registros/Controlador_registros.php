@@ -273,6 +273,7 @@ class Controlador_registros
                     'descripcion3' => $novedad3,
                     'estado' => $valor['estado'],
                     'fecha' => $valor['fecha'],
+                    'tipo_usuario' => $_SESSION["perfil"],
                     );
                 array_push($dataNew, $arrayAux);
                 
