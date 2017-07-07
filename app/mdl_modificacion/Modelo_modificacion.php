@@ -190,7 +190,7 @@ class Modelo_modificacion {
             $cod_sistema = 2;
         }else if($sistema == 'Sistema Planta Física'){
             $cod_sistema = 3;
-        }else if($sistema == 'Sistema Equipos'){
+        }else if($sistema == 'Sistema Aires Acondicionados'){
             $cod_sistema = 4;
         }else if($sistema == 'Sistema Cubiertas'){
             $cod_sistema = 5;
@@ -238,7 +238,7 @@ class Modelo_modificacion {
             $cod_sistema = 2;
         }else if($sistema == 'Sistema Planta Física'){
             $cod_sistema = 3;
-        }else if($sistema == 'Sistema Equipos'){
+        }else if($sistema == 'Sistema Aires Acondicionados'){
             $cod_sistema = 4;
         }else if($sistema == 'Sistema Cubiertas'){
             $cod_sistema = 5;

@@ -192,7 +192,7 @@ class Controlador_consultas
         $GLOBALS['mensaje'] = "";
 
         $data = array(
-            'mensaje' => 'Órdenes del Sistema Equipos',
+            'mensaje' => 'Órdenes del Sistema Aires Acondicionados',
         );
 
         $v = new Controlador_vista();
