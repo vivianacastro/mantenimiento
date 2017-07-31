@@ -236,7 +236,7 @@ $(document).ready(function() {
                 }else if (record.cod_sistema == '3') {
                     nombreSistema = "Planta Física";
                 }else if (record.cod_sistema == '4') {
-                    nombreSistema = "Equipos";
+                    nombreSistema = "Aires Acondicionados";
                 }else if (record.cod_sistema == '5') {
                     nombreSistema = "Cubiertas de los Edificios";
                 }

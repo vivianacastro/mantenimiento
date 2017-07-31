@@ -192,7 +192,7 @@ class Controlador_consultas
         $GLOBALS['mensaje'] = "";
 
         $data = array(
-            'mensaje' => 'Órdenes del Sistema Equipos',
+            'mensaje' => 'Órdenes del Sistema Aires Acondicionados',
         );
 
         $v = new Controlador_vista();
@@ -442,6 +442,8 @@ class Controlador_consultas
                   $arrayAux = array(
                     'numero_solicitud' => $valor['numero_solicitud'],
                     'usuario' => $valor['usuario'],
+                    'telefono' => $valor['telefono'],
+                    'extension' => $valor['extension'],
                     'cod_sede' => $valor['cod_sede'],
                     'codigo_campus' => $valor['codigo_campus'],
                     'codigo_edificio' => $valor['codigo_edificio'],
@@ -518,7 +520,9 @@ class Controlador_consultas
                 }
 
                 if($tipoUser == 'sanfernando'){
-                    $info['campus'] = 2;
+                    if ($sistema == -1) {
+                        $info['campus'] = 2;
+                    }                    
                 }
 
                 $data = $m->buscarOrdenesParametrosAvanzados($info['campus'], $info['edificio'], $info['sistema'], $info['piso'], $info['fechaInicio'], $info['fechaFin']);

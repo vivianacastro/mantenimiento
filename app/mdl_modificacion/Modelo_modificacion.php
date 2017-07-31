@@ -190,8 +190,10 @@ class Modelo_modificacion {
             $cod_sistema = 2;
         }else if($sistema == 'Sistema Planta Física'){
             $cod_sistema = 3;
-        }else if($sistema == 'Sistema Mobiliario y Equipos'){
+        }else if($sistema == 'Sistema Aires Acondicionados'){
             $cod_sistema = 4;
+        }else if($sistema == 'Sistema Cubiertas'){
+            $cod_sistema = 5;
         }
 
         $sql = "UPDATE novedad_sistema SET "
@@ -236,8 +238,10 @@ class Modelo_modificacion {
             $cod_sistema = 2;
         }else if($sistema == 'Sistema Planta Física'){
             $cod_sistema = 3;
-        }else if($sistema == 'Sistema Mobiliario y Equipos'){
+        }else if($sistema == 'Sistema Aires Acondicionados'){
             $cod_sistema = 4;
+        }else if($sistema == 'Sistema Cubiertas'){
+            $cod_sistema = 5;
         }
 
         $sql = "INSERT INTO novedad_sistema (novedad,cod_sistema) VALUES ('".$novedad."','".$cod_sistema."');";
@@ -469,7 +473,7 @@ class Modelo_modificacion {
                 return true;
             }
             else{
-            	 return false;
+                 return false;
                 $result['0'] = "Usuario no encontrado";
             }
         }
@@ -482,59 +486,59 @@ class Modelo_modificacion {
      * Función que envía un correo
      */
     public function enviarMail($e,$u,$n,$d,$s){
-    	$n = htmlspecialchars($n);
+        $n = htmlspecialchars($n);
         $e = htmlspecialchars($e);
         $d = htmlspecialchars($d);
-		$s = htmlspecialchars($s);
+        $s = htmlspecialchars($s);
 
-    	$mail = new PHPMailer();
+        $mail = new PHPMailer();
 
-    	$mail->IsSMTP();
-		//$mail->SMTPDebug  = 2;
+        $mail->IsSMTP();
+        //$mail->SMTPDebug  = 2;
         //$mail->Debugoutput = 'html';
-		$mail->SMTPAuth = true;
-		$mail->SMTPSecure = "ssl";
-		$mail->Host = "smtp.gmail.com";
-		$mail->Port = 465;
-		$mail->CharSet = 'UTF-8';
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = "ssl";
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 465;
+        $mail->CharSet = 'UTF-8';
 
-		//Nuestra cuenta
-		$mail->Username = EMAIL;
-		$mail->Password = PASS; //Su password
+        //Nuestra cuenta
+        $mail->Username = EMAIL;
+        $mail->Password = PASS; //Su password
 
-		if($s == 1){
-			$email = EMAILSISTHIDRAULICO;
-		}else if($s == 2){
-			$email = EMAILSISTELECTRICO;
-		}else if($s == 3){
-			$email = EMAILSISTPLANTAFISICA;
-		}else if($s == 4){
-			$email = EMAILSISTMOBILIARIO;
-		}else{
-			$email = 'mantenimiento.univalle@correounivalle.edu.co';
-		}
+        if($s == 1){
+            $email = EMAILSISTHIDRAULICO;
+        }else if($s == 2){
+            $email = EMAILSISTELECTRICO;
+        }else if($s == 3){
+            $email = EMAILSISTPLANTAFISICA;
+        }else if($s == 4){
+            $email = EMAILSISTMOBILIARIO;
+        }else{
+            $email = 'mantenimiento.univalle@correounivalle.edu.co';
+        }
 
-		$mail->From = $email;
-		$mail->FromName= 'Mantenimiento Universidad del Valle';
+        $mail->From = $email;
+        $mail->FromName= 'Mantenimiento Universidad del Valle';
 
-		//Agregar destinatario
-		$mail->AddAddress($u);
-		//$mail->AddAddress('juan.camilo.lopez@correounivalle.edu.co');
-		$mail->Subject = 'Actualización Orden Mantenimiento #'.$n;
-		$mail->Body = "La solicitud número ".$n." fue ".$e." con la descripción: ".$d." email: ".$u;
+        //Agregar destinatario
+        $mail->AddAddress($u);
+        //$mail->AddAddress('juan.camilo.lopez@correounivalle.edu.co');
+        $mail->Subject = 'Actualización Orden Mantenimiento #'.$n;
+        $mail->Body = "La solicitud número ".$n." fue ".$e." con la descripción: ".$d." email: ".$u;
 
-		//Enviar correo
-		try {
-			$mail->Send();
-			$GLOBALS['mensaje'] = "Exito";
-			return true;
-		} catch (phpmailerException $e) {
-			$GLOBALS['mensaje'] = "Error";
-			return $e->errorMessage();
-		} catch (Exception $e) {
-			$GLOBALS['mensaje'] = "Error";
-			return $e->getMessage();
-		}
+        //Enviar correo
+        try {
+            $mail->Send();
+            $GLOBALS['mensaje'] = "Exito";
+            return true;
+        } catch (phpmailerException $e) {
+            $GLOBALS['mensaje'] = "Error";
+            return $e->errorMessage();
+        } catch (Exception $e) {
+            $GLOBALS['mensaje'] = "Error";
+            return $e->getMessage();
+        }
     }
 }
 ?>

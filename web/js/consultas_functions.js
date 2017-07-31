@@ -871,8 +871,7 @@ $(document).ready(function() {
                         record.telefono,
                         record.extension,
                         record.estado]).draw(false);
-                }
-                else if(record.estado == 'Revisado'){
+                }else if(record.estado == 'Revisado'){
                     tablaRevisado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1633,7 +1632,7 @@ $(document).ready(function() {
             return "Sistema Planta Física ";
         }
         else if(data == 4){
-            return "Sistema Equipos";
+            return "Sistema Aires Acondicionados";
         }
         else if(data == 5){
             return "Sistema Cubiertas";
@@ -2411,7 +2410,7 @@ $(document).ready(function() {
                 }if (sistema == 3) {
                     nombreSistema = "Sistema Planta Física";
                 }if (sistema == 4) {
-                    nombreSistema = "Sistema Equipos";
+                    nombreSistema = "Sistema Aires Acondicionados";
                 }if (sistema == 5) {
                     nombreSistema = "Sistema Cubiertas";
                 }if (sistema == -1) {
@@ -2476,7 +2475,7 @@ $(document).ready(function() {
                 }if (sistema == 3) {
                     nombreSistema = "Sistema Planta Física";
                 }if (sistema == 4) {
-                    nombreSistema = "Sistema Mobiliario y Equipos";
+                    nombreSistema = "Sistema Aires Acondicionados";
                 }if (sistema == 5) {
                     nombreSistema = "Sistema Cubiertas";
                 }if (sistema == -1) {
