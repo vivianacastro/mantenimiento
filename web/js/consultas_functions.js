@@ -871,8 +871,7 @@ $(document).ready(function() {
                         record.telefono,
                         record.extension,
                         record.estado]).draw(false);
-                }
-                else if(record.estado == 'Revisado'){
+                }else if(record.estado == 'Revisado'){
                     tablaRevisado.row.add([
                         record.numero_solicitud,
                         record.impreso,
