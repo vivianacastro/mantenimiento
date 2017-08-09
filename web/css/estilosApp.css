@@ -281,6 +281,10 @@ tbody>tr{
     font-size: 130%;
 }
 
+.framePDF{
+    width: 100%;
+}
+
 input[type=date]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     display: none;
@@ -417,6 +421,10 @@ footer p {
         background: #e60013;
         width: 100%;
         height: auto;
+    }
+
+    .framePDF{
+        height: 300px;
     }
 
     #divMensaje{
@@ -568,11 +576,19 @@ footer p {
         display: table;
         clear: both;
     }
+
+    .framePDF{
+        height: 600px;
+    }
 }
 
 @media screen and (max-width:1200px) {
     .modal-dialog{
         width: 80%;
+    }
+
+    .framePDF{
+        height: 500px;
     }
 }
 
@@ -593,6 +609,9 @@ footer p {
         padding-right: 1%;
     }
 
+    .framePDF{
+        height: 400px;
+    }
 
     #divMensaje{
         padding: 0 0% 0;

@@ -1912,6 +1912,9 @@ $(document).ready(function() {
         //Definir la orientacion del pdf
         pdf.pageSetOrientation(false);
 
+        //Titulo PDF
+        pdf.propertiesSet("Órdenes Mantenimiento", "Órdenes Mantenimiento", "Órdenes, Mantenimiento", "Mantenimiento Univalle", "Mantenimiento Univalle");
+
         for(i=0;i<numeroSolicitudes;i++){
             var dataOrder = buscarOrdenes(arregloSolicitudes[i]);
             var dataUser = buscarDatosUsuario(arregloUsers[i]);
@@ -2798,7 +2801,7 @@ $(document).ready(function() {
      */
     $("#btImprimir").click(function (e) {
         if(confirm("¿Está seguro que desea generar PDF con la(s) orden(es) de mantenimiento?")){
-            var myWindow = window.open('');
+
             var tablaOrdenes = $('#tablaOrdenes').DataTable();
 
             var elementoSeleccionado = tablaOrdenes.rows('.selected').data();
@@ -2826,7 +2829,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    myWindow.location = 'data:application/pdf;base64,' + PDFContentBase64;
+                    $("#divDialogVisualizacionPDF").modal("show");
+                    $("#divDialogVisualizacionPDF").modal("show");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -2851,7 +2855,7 @@ $(document).ready(function() {
             var elementosSeleccionados = elementosSeleccionadosSolicitado.length + elementosSeleccionadosRevisado.length + elementosSeleccionadosRealizado.length;
 
             if(elementosSeleccionados > 0){
-                var myWindow = window.open('');
+
                 var elementSelect = [];
                 var solicitud = [];
                 var usuario = [];
@@ -2888,7 +2892,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    myWindow.location = 'data:application/pdf;base64,' + PDFContentBase64;
+                    $("#divDialogVisualizacionPDF").modal("show");
+                    window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -2913,7 +2918,7 @@ $(document).ready(function() {
             var elementosSeleccionados = elementosSeleccionadosSolicitado.length + elementosSeleccionadosRevisado.length + elementosSeleccionadosRealizado.length;
 
             if(elementosSeleccionados > 0){
-                var myWindow = window.open('');
+
                 var elementSelect = [];
                 var solicitud = [];
                 var usuario = [];
@@ -2950,7 +2955,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    myWindow.location = 'data:application/pdf;base64,' + PDFContentBase64;
+                    $("#divDialogVisualizacionPDF").modal("show");
+                    window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -2975,7 +2981,7 @@ $(document).ready(function() {
             var elementosSeleccionados = elementosSeleccionadosSolicitado.length + elementosSeleccionadosRevisado.length + elementosSeleccionadosRealizado.length;
 
             if(elementosSeleccionados > 0){
-                var myWindow = window.open('');
+
                 var elementSelect = [];
                 var solicitud = [];
                 var usuario = [];
@@ -3012,7 +3018,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    myWindow.location = 'data:application/pdf;base64,' + PDFContentBase64;
+                    $("#divDialogVisualizacionPDF").modal("show");
+                    window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -3037,7 +3044,7 @@ $(document).ready(function() {
             var elementosSeleccionados = elementosSeleccionadosSolicitado.length + elementosSeleccionadosRevisado.length + elementosSeleccionadosRealizado.length;
 
             if(elementosSeleccionados > 0){
-                var myWindow = window.open('');
+
                 var elementSelect = [];
                 var solicitud = [];
                 var usuario = [];
@@ -3074,7 +3081,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    myWindow.location = 'data:application/pdf;base64,' + PDFContentBase64;
+                    $("#divDialogVisualizacionPDF").modal("show");
+                    window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
