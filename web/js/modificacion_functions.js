@@ -33,7 +33,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data) {
@@ -70,7 +69,6 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -89,11 +87,11 @@ $(document).ready(function() {
     /**
      * Función que actualiza la tabla en donde se muestran las novedades que hay
      * registrados en el sistema.
-     */    
+     */
     function actualizarTablaNovedades(data) {
         var URLactual = window.location;
 
-        if(URLactual['href'].indexOf('novedades') >= 0){            
+        if(URLactual['href'].indexOf('novedades') >= 0){
             if(data == null){
                 $('#tablaNovedades').dataTable().fnClearTable();
                 data = obtenerNovedades();
@@ -113,7 +111,7 @@ $(document).ready(function() {
     /**
      * Se captura el evento cuando de da click en el boton modificar y se
      * realiza la operacion correspondiente.
-     */    
+     */
     $("#modificarNovedad").click(function (e) {
         try {
             var tablaNovedades = $('#tablaNovedades').DataTable();
@@ -126,7 +124,7 @@ $(document).ready(function() {
                 $("#novedad").val(record[0]);
                 $("#selectSistema").val(record[1]);
             });
-        } 
+        }
         catch(ex) {
             console.log(ex);
             alert("Error");
@@ -136,47 +134,45 @@ $(document).ready(function() {
     /**
      * Se captura el evento cuando de da click en el boton modificar y se
      * realiza la operacion correspondiente.
-     */    
+     */
     $("#crearNovedad").click(function (e) {
         try {
             $("#novedadNueva").val("");
             $("#selectSistemaNueva").val("Sistema Eléctrico");
             $("#divDialogCreacion").modal("show");
-        } 
+        }
         catch(ex) {
             console.log(ex);
             alert("Error");
-        }         
+        }
     });
 
     /**
      * Se captura el evento cuando de da click en el boton guardar modificación
      * y se realiza la operacion correspondiente.
-     */     
+     */
     function guardarModNovedad(){
         try {
 
             var tablaNovedades = $('#tablaNovedades').DataTable();
 
             var elementoSeleccionado = tablaNovedades.rows('.selected').data();
-            
+
             if($.trim($("#novedad").val()) == ""){
                 alert("Error, la descripción de la novedad no puede estar vacía");
                 $("#novedad").focus();
             }else{
                 var saveData = {}, novedad;
-                          
+
                 $.each(elementoSeleccionado, function(index, record) {
                     novedad = record[0];
                 });
-                
+
                 saveData["novedad"] = novedad;
                 saveData["novedadNueva"] = $("#novedad").val();
                 saveData["sistema"] = $.trim($("#selectSistema").find(':selected').val());
 
                 var jObject = JSON.stringify(saveData);
-
-                //console.log(saveData);
 
                 $.ajax({
                     type: "POST",
@@ -185,7 +181,6 @@ $(document).ready(function() {
                     dataType: "json",
                     error: function(error){
                         alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                        console.log(error.toString());
                         location.reload(true);
                     },
                     success: function(result){
@@ -209,27 +204,24 @@ $(document).ready(function() {
                 });
             }
         }
-        catch(ex)
-        {
+        catch(ex) {
             console.log(ex);
             alert("Error");
-        }        
+        }
     }
 
     /**
      * Se captura el evento cuando de da click en el boton guardar modificación
      * y se realiza la operacion correspondiente.
-     */     
+     */
     function guardarNovedad(){
-        try {           
+        try {
             var saveData = {};
-                          
+
             saveData["novedad"] = $("#novedadNueva").val();
             saveData["sistema"] = $.trim($("#selectSistemaNueva").find(':selected').val());
 
             var jObject = JSON.stringify(saveData);
-
-            console.log(saveData);
 
             $.ajax({
                 type: "POST",
@@ -238,7 +230,6 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(result){
@@ -253,17 +244,16 @@ $(document).ready(function() {
                 }
             });
         }
-        catch(ex)
-        {
+        catch(ex) {
             console.log(ex);
             alert("Error");
-        }        
+        }
     }
 
     /**
      * evento que permite guardar las modificaciones de las novedades en la ventana modal
      */
-    $("#btGuardarModNovedad").click(function() {  
+    $("#btGuardarModNovedad").click(function() {
         if(confirm("¿Esta seguro(a) que desea guardar" + " los cambios realizados a la novedad?","Confirmación"))
         {
             guardarModNovedad();
@@ -273,7 +263,7 @@ $(document).ready(function() {
     /**
      * evento que permite guardar las modificaciones de las novedades en la ventana modal
      */
-    $("#btGuardarNovedad").click(function() {  
+    $("#btGuardarNovedad").click(function() {
         if(confirm("¿Esta seguro(a) que desea guardar" + " la novedad?","Confirmación"))
         {
             guardarNovedad();

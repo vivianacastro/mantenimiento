@@ -17,7 +17,7 @@ $(document).ready(function() {
         } );
 
     actualizarTablaUsuariosAutorizados();
-    
+
     /**
      * Función que permite consultar uno o varios usuarios con acceso al sistema
      * @param {strign} consulta, palabra clave.
@@ -36,7 +36,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data) {
@@ -68,7 +67,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data) {
@@ -81,11 +79,11 @@ $(document).ready(function() {
             alert("ERROR: Ocurrio un error " + ex);
         }
     }
-    
+
     /**
-     * Función que actualiza la tabla en donde se muestran los usuarios con 
+     * Función que actualiza la tabla en donde se muestran los usuarios con
      * acceso al sistema registrados.
-     */      
+     */
     function actualizarTablaUsuariosAutorizados(data) {
         var info;
         var URLactual = window.location;
@@ -101,7 +99,6 @@ $(document).ready(function() {
                         info = buscarUsuarioAutorizado(record[1]);
                     }
                 });
-                //console.log(info);
             }
 
             $.each(info, function(index, record) {
@@ -117,14 +114,14 @@ $(document).ready(function() {
             });
             $("#divTablas").show();
         }
-    }  
-    
+    }
+
     /**
      * Se captura el evento cuando de dar click en el boton crear_usuario y se
      * realiza la operacion correspondiente.
-     */     
+     */
     $("#crear_usuario").click(function () {
-        try {           
+        try {
             var nombre_usuario = $.trim($("#nombre_usuario").val());
             var login = $.trim($("#login").val());
             var password = $.trim($("#password").val());
@@ -133,16 +130,16 @@ $(document).ready(function() {
             var correo = $.trim($("#correo").val());
             var telefono = $.trim($("#telefono").val());
             var extension = $.trim($("#extension").val());
-                        
+
             if(nombre_usuario == '' || login == '' || password == '' || r_password == '' || perfil == '' || correo == '' || telefono == '' || extension == '') {
                 alert("Por favor llene todos los campos.");
                 return false;
             }
-            
+
             var saveData = {};
             saveData["nombre_usuario"] = nombre_usuario;
             saveData["login"] = login;
-            
+
             if(password == r_password) {
                 saveData["password"] = password;
                 //$("#div_r_password").html("<font color='red'>*</font>Repita la contraseña:");
@@ -158,8 +155,6 @@ $(document).ready(function() {
             saveData["telefono"] = telefono;
             saveData["extension"] = extension;
 
-            console.log(saveData);
-            
             var jObject = JSON.stringify(saveData);
             $.ajax({
                 type: "POST",
@@ -168,7 +163,6 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    //console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(result){
@@ -190,13 +184,13 @@ $(document).ready(function() {
             });
         } catch(ex) {
             alert("ERROR: Ocurrio un error " + ex);
-        }        
+        }
     });
 
     $("#cerrar").click(function () {
         $("#crearUsuarioAutorizado").show();
         $("#divBusqueda").show();
-        $(".divBotonOpcionU").show(); 
+        $(".divBotonOpcionU").show();
         $("#divCrearNuevoUsuario").hide();
     });
 
@@ -208,8 +202,7 @@ $(document).ready(function() {
     function eliminarUsuarioAutorizado(data) {
         try {
             var jObject = JSON.stringify($.extend({},data));
-            console.log(jObject);
-            
+
             $.ajax({
                 type: "POST",
                 url: "index.php?action=eliminar_usuario_autorizado_adm_sistema",
@@ -217,10 +210,9 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
-                success: function(result){  
+                success: function(result){
                     if(result.value == true) {
                         var rows = tablaUsuarios
                                 .rows('.selected')
@@ -233,16 +225,16 @@ $(document).ready(function() {
                     }
                 }
             });
-        } 
+        }
         catch(ex) {
             alert("ERROR: Ocurrio un error " + ex);
-        }          
+        }
     }
-    
+
     /**
      * Se captura el evento cuando de da click en el boton eliminar y se
      * realiza la operacion correspondiente.
-     */      
+     */
     $("#eliminarUsuarioAutorizado").click(function() {
         var data = [];
 
@@ -250,30 +242,30 @@ $(document).ready(function() {
 
         var elementoSeleccionado = tablaUsuarios.rows('.selected').data();
 
-        if (elementoSeleccionado.length > 0) { 
-            if(confirm("¿Esta seguro(a) que desea eliminar" 
+        if (elementoSeleccionado.length > 0) {
+            if(confirm("¿Esta seguro(a) que desea eliminar"
                     + " el/los usuario(s) seleccionado(s)?")) {
                 $.each(elementoSeleccionado, function(index, record) {
                     data.push(record[1]);
                 });
                 eliminarUsuarioAutorizado(data);
             }
-        } else { 
-            alert("Error. Por favor seleccione por lo menos un usuario"); 
+        } else {
+            alert("Error. Por favor seleccione por lo menos un usuario");
             return;
-        }      
+        }
     });
-    
+
     /**
      * Se captura el evento cuando de da click en el boton modificar y se
      * realiza la operacion correspondiente.
-     */    
+     */
     $("#modificarUsuarioAutorizado").click(function() {
         try {
             var tablaUsuarios = $('#tablaUsuarios').DataTable();
 
             var elementoSeleccionado = tablaUsuarios.rows('.selected').data();
-            
+
             if(elementoSeleccionado.length == 0) {
                 alert("Error. Seleccione por lo menos un elemento");
             }else if(elementoSeleccionado.length == 1){
@@ -295,23 +287,23 @@ $(document).ready(function() {
             else{
                 alert("Error. Solamente se puede modificar un usuario a la vez");
             }
-        } 
+        }
         catch(ex) {
             console.log(ex);
             alert("Error");
         }
     });
-    
+
     /**
      * Función que permite modificar los datos de un usuario con acceso al
      * sistema.
-     */     
+     */
     function guardarModUsuarioAutorizado() {
         try {
 
             var tablaUsuarios = $('#tablaUsuarios').DataTable();
 
-            var elementoSeleccionado = tablaUsuarios.rows('.selected').data();          
+            var elementoSeleccionado = tablaUsuarios.rows('.selected').data();
 
             var saveData = {};
 
@@ -328,7 +320,6 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(result){
@@ -340,7 +331,7 @@ $(document).ready(function() {
                                 .draw();
 
                         $("#divDialogModificacion").modal('toggle');
-                        alert(result.mensaje);                        
+                        alert(result.mensaje);
                     }
                     else {
                         alert(result.mensaje);
@@ -349,28 +340,28 @@ $(document).ready(function() {
             });
         } catch(ex) {
             alert(ex);
-        }        
+        }
     }
-    
+
     /**
      * Se captura el evento cuando de da click en el boton guardar modificación
      * y se realiza la operacion correspondiente.
-     */      
-    $("#btGuardarModUsuarioAutorizado").click(function() {    
-        if(confirm("Esta seguro(a) que desea guardar" 
+     */
+    $("#btGuardarModUsuarioAutorizado").click(function() {
+        if(confirm("Esta seguro(a) que desea guardar"
                 + " los cambios realizados al usuario","Confirmación")) {
             guardarModUsuarioAutorizado();
-        } 
-    });    
-    
+        }
+    });
+
     /*------------------------------------------------------------------------*/
     /*------------------------Actualizar Datos-------------------------------*/
 
     /**
      * Se captura el evento cuando de da click en el guardar cambio.
      * y se realiza la operacion correspondiente.
-     */ 
-    
+     */
+
     function cambiarDatos() {
         try {
             var act_password = $("#act_password").val();
@@ -379,9 +370,9 @@ $(document).ready(function() {
             var correo = $("#correo").val();
             var telefono = $("#telefono").val();
             var extension = $("#extension").val();
-            
+
             //validar campos null
-            if(act_password == '' & password == '' & r_password == '' & 
+            if(act_password == '' & password == '' & r_password == '' &
                 correo == '' & telefono == '' & extension == '') {
                 alert("Por favor llene alguno los campos");
                 return false;
@@ -437,7 +428,6 @@ $(document).ready(function() {
             saveData["correo"] = correo;
             saveData["telefono"] = telefono;
             saveData["extension"] = extension;
-            //console.log(saveData);
             var jObject = JSON.stringify(saveData);
 
             $.ajax({
@@ -447,18 +437,17 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(result){
                     if(result.value == true) {
-                        alert(result.mensaje);     
+                        alert(result.mensaje);
                         $("#act_password").val('');
                         $("#password").val('');
                         $("#r_password").val('');
                         $("#correo").val('');
                         $("#telefono").val('');
-                        $("#extension").val('');                        
+                        $("#extension").val('');
                     }
                     else {
                         alert(result.mensaje);
@@ -467,24 +456,24 @@ $(document).ready(function() {
                         $("#r_password").val('');
                         $("#correo").val('');
                         $("#telefono").val('');
-                        $("#extension").val('');                          
+                        $("#extension").val('');
                     }
                 }
             });
         } catch(ex) {
             alert(ex);
-        }        
+        }
     }
-    
+
     /**
      * Se captura el evento cuando de da click en el boton cambiar datos
      * y se realiza la operacion correspondiente.
-     */     
+     */
     $("#cambiar_datos").click(function () {
-        if(confirm("Esta seguro(a) que desea realizar" 
+        if(confirm("Esta seguro(a) que desea realizar"
                 + " los cambios en su datos de usuario","Confirmación")) {
             cambiarDatos();
-        }       
+        }
     });
 
     /**
@@ -514,13 +503,13 @@ $(document).ready(function() {
     $("#divCrearNuevoUsuario").hide();
 
     /**
-     * eventos para controlar lo que se muestra en la vista del modulo de usuario 
+     * eventos para controlar lo que se muestra en la vista del modulo de usuario
      */
     $("#crearUsuarioAutorizado").click(function (e) {
         $("#divCrearNuevoUsuario").modal("show");
         /*$(this).hide();
         $("#divBusqueda").hide();
-        $(".divBotonOpcionU").hide(); 
+        $(".divBotonOpcionU").hide();
         $("#divCrearNuevoUsuario").show();*/
     });
 

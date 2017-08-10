@@ -28,7 +28,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 beforeSend: function() {
@@ -68,7 +67,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data) {
@@ -115,7 +113,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -163,7 +160,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -211,7 +207,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -259,7 +254,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -307,7 +301,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -355,7 +348,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -407,7 +399,6 @@ $(document).ready(function() {
                 async: false,
                 error: function(error){
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -442,7 +433,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -475,7 +465,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function(data){
@@ -507,7 +496,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -540,7 +528,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -572,7 +559,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -604,7 +590,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -636,7 +621,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -668,7 +652,6 @@ $(document).ready(function() {
                 async: false,
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -1444,7 +1427,6 @@ $(document).ready(function() {
             async: false,
             error: function(error){
                 alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                console.log(error.toString());
                 location.reload(true);
             },
             success: function(data){
@@ -1662,7 +1644,6 @@ $(document).ready(function() {
             async: false,
             error: function(error){
                 alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                console.log(error.toString());
                 location.reload(true);
             },
             success: function(data){
@@ -1730,7 +1711,6 @@ $(document).ready(function() {
                     dataType: "json",
                     error: function(error){
                         alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                        console.log(error.toString());
                         location.reload(true);
                     },
                     success: function(result){
@@ -1750,7 +1730,7 @@ $(document).ready(function() {
                         }
                         else {
                             alert("Error");
-                            console.log(result.mensaje);
+                            //console.log(result.mensaje);
                         }
                     }
                 });
@@ -1838,7 +1818,6 @@ $(document).ready(function() {
                     dataType: "json",
                     error: function(error){
                         alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                        console.log(error.toString());
                         location.reload(true);
                     },
                     success: function(result){
@@ -1879,7 +1858,7 @@ $(document).ready(function() {
                         }
                         else {
                             alert("Error");
-                            console.log(result.mensaje);
+                            //console.log(result.mensaje);
                         }
                     }
                 });
@@ -2403,9 +2382,6 @@ $(document).ready(function() {
                     infoSolicitud[4] = parseInt(informacion[4]);
                 }
 
-                console.log(label,informacion);
-                console.log(label,infoSolicitud);
-
                 if (sistema == 1) {
                     nombreSistema = "Sistema Hidráulico y Sanitario";
                 }if (sistema == 2) {
@@ -2436,7 +2412,6 @@ $(document).ready(function() {
 
                 $.each(data, function(posicion, info){
                     if(posicion < 2){
-                        console.log(info);
                         label.push(info.operario);
                         informacion.push(info.conteosolicitudes);
                     }
@@ -2495,7 +2470,6 @@ $(document).ready(function() {
                 generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
             }else if(URLactual['href'].indexOf('estadisticas_novedades') >= 0){
                 estadisticas = obtenerEstadisticasNovedades(saveData);
-                //console.log(estadisticas);
                 label = [], informacion = [];
                 tipo = "Novedad";
 
@@ -2679,9 +2653,7 @@ $(document).ready(function() {
         if(campus != 0 & sistema != 0 & edificio != "--" & fechaInicial != "" & fechaFinal != "")
         {
             saveData = [campus,edificio,sistema,piso,fechaInicial,fechaFinal];
-            //console.log(saveData);
             var data =  buscarOrdenesParametrosAvanzados(saveData);
-            console.log(data);
             actualizarTablaOrdenes2(data);
             $("#divTablas").show();
             $("#btImprimir3").removeAttr('Disabled');
@@ -2741,7 +2713,6 @@ $(document).ready(function() {
         {
             saveData = [campus,edificio,sistema,piso,fechaInicial,fechaFinal];
             var data =  buscarOrdenesParametrosAvanzados(saveData);
-            console.log(data);
             actualizarTablaOrdenes3(data);
             $("#divTablas").show();
             $("#btImprimir5").removeAttr('Disabled');
@@ -4021,7 +3992,6 @@ $(document).ready(function() {
                          data = buscarSolicitud(record[0]);
                      });
 
-                     console.log(data);
                     $.each(data, function(index, record) {
                         if($.isNumeric(index)) {
                             $("#divDialogModificacion4").modal("show");

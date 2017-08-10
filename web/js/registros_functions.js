@@ -1,10 +1,10 @@
 $(document).ready(function() {
     var campus, arregloEdificios, edificiosSotano = ['100','106','116','118','124','310','316','318'], edificiosTerraza = ['316'];
-    
+
 
 /************** Funciones de consultas *****************/
     /**
-     * Función que realiza una consulta de los edificios 
+     * Función que realiza una consulta de los edificios
      * con base en una palabra clave.
      * @param {type} consulta, palabra clave para realizar la consulta.
      * @returns {data} object json
@@ -21,18 +21,17 @@ $(document).ready(function() {
                 dataType: "json",
                 async: false,
                 error: function (request, status, error) {
-                    console.log(error.toString());
                     location.reload(true);
                 },
-                success: function(data){  
+                success: function(data){
                     dataResult = data;
                 }
             });
             return dataResult;
-        } 
+        }
         catch(ex) {
             alert("ERROR: Ocurrio un error " + ex);
-        }          
+        }
     }
 
     /**
@@ -53,18 +52,17 @@ $(document).ready(function() {
                 dataType: "json",
                 async: false,
                 error: function (request, status, error) {
-                    console.log(error.toString());
                     location.reload(true);
                 },
-                success: function(data){  
+                success: function(data){
                     dataResult = data;
                 }
             });
             return dataResult;
-        } 
+        }
         catch(ex) {
             alert("ERROR: Ocurrio un error " + ex);
-        }          
+        }
     }
 
     /**
@@ -84,19 +82,18 @@ $(document).ready(function() {
                 data: "buscar=" + consulta,
                 dataType: "json",
                 async: false,
-                error: function (request, status, error) {                    
-                    console.log(error.toString());
+                error: function (request, status, error) {
                     location.reload(true);
                 },
-                success: function(data){  
+                success: function(data){
                     dataResult = data;
                 }
             });
             return dataResult;
-        } 
+        }
         catch(ex) {
             alert("ERROR: Ocurrio un error " + ex);
-        }          
+        }
 
     }
 
@@ -118,15 +115,14 @@ $(document).ready(function() {
                 dataType: "json",
                 async: false,
                 error: function (request, status, error) {
-                    console.log(error.toString());
                     location.reload(true);
                 },
-                success: function(data){  
+                success: function(data){
                     dataResult = data;
                 }
             });
             return dataResult;
-        } 
+        }
         catch(ex) {
             alert("ERROR: Ocurrio un error " + ex);
         }
@@ -134,7 +130,7 @@ $(document).ready(function() {
 
     /**
      * funcion que permite buscar los datos de un usuario para cargar el frm de registro
-     * @param  consulta hace referencia a un valor de busqueda 
+     * @param  consulta hace referencia a un valor de busqueda
      * @return json dataResult objeto con la informacion de usuario.
      */
     function buscarUsuario(consulta)
@@ -149,7 +145,6 @@ $(document).ready(function() {
                 dataType: "json",
                 async: false,
                 error: function (request, status, error) {
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (data){
@@ -174,11 +169,11 @@ $(document).ready(function() {
         var edificio = $.trim($("#edificio").find(':selected').val());
         var piso = $.trim($("#piso").find(':selected').val());
         var saveData = {};
-    
+
         saveData['campus'] = campus;
         saveData['edificio'] = edificio;
         saveData['piso'] = piso;
-        
+
         var jObject = JSON.stringify(saveData);
 
         try {
@@ -190,10 +185,9 @@ $(document).ready(function() {
                 async: false,
                 error: function (error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
-                success: function(data){  
+                success: function(data){
                     dataResult = data;
                 }
             });
@@ -222,11 +216,11 @@ $(document).ready(function() {
         var codSistema;
         var nombreSistema;
         var row, row2, row3;
-        
+
         $("#"+selector+"").empty();
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
-                
+
                 codSistema = record.cod_sistema;
 
                 if (record.cod_sistema == '1') {
@@ -254,7 +248,7 @@ $(document).ready(function() {
                     //row3.text(record.novedad);
                     //row3.appendTo("#descripcion", "#descripcion2", "#descripcion3");
                     codSistemaActual = record.cod_sistema;
-                }else if ((codSistemaActual == codSistema) & ((record.cod_sistema != null) || (record.novedad != 'Seleccionar'))) {         
+                }else if ((codSistemaActual == codSistema) & ((record.cod_sistema != null) || (record.novedad != 'Seleccionar'))) {
                     row3 = $("<option value='" + record.novedad + "'>"+record.novedad+"</option>");
                     row2.append(row3);
                     //row.text(record.novedad);
@@ -281,7 +275,7 @@ $(document).ready(function() {
             }
         });
     }
-    
+
 /**
      * Función que llena y actualiza el selector de novedad con el id asociado.
      * @param {array} data, datos que se van a actualizar en el selector.
@@ -291,27 +285,27 @@ $(document).ready(function() {
     {
         var tableName = "novedades"
         var data = buscarNovedad(tableName);
-        
+
         $("#"+id).empty();
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
                 var row = $("<option value='" + record.novedad + "'/>");
                 row.text(record.novedad);
-                row.appendTo("#"+id);                            
+                row.appendTo("#"+id);
             }
         });
     }
-    
+
     /**
      * Función que llena y actualiza el selector de Edificio.
      * @param {array} data, datos que se van a actualizar en el selector.
      * @returns {undefined}
-    **/    
+    **/
     function actualizarSelectEdificio(idSelect)
     {
         var data = buscarEdificio(idSelect);
         arregloEdificios = data;
-          
+
         $("#edificio").empty();
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
@@ -320,46 +314,46 @@ $(document).ready(function() {
                 row.appendTo("#edificio");
                 /*var row2 = $("<option value='" + record.pisos + "'/>");
                 row2.text(record.pisos);
-                row2.appendTo("#piso");*/                                  
+                row2.appendTo("#piso");*/
             }
-        });        
-    }   
-    
+        });
+    }
+
     /**
      * Función que llena y actualiza el selector de operarios.
      * @param {array} data, datos que se van a actualizar en el selector.
      * @returns {undefined}
-    **/   
+    **/
     function actualizarSelectCampus()
     {
         var tableName = "campus";
         var data = buscarCampus(tableName);
-        
+
         $("#campus").empty();
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
                 var row = $("<option value='" + record.nombre + "'/>");
                 row.text(record.nombre);
-                row.appendTo("#campus");                            
+                row.appendTo("#campus");
             }
-        });      
-    } 
-    
+        });
+    }
+
     /**
      * Función que llena y actualiza el selector de piso.
      * @param {array} data, datos que se van a actualizar en el selector.
      * @returns {undefined}
-    **/  
+    **/
     function limpiarSelectorPiso()
     {
        $("#piso").empty();
     }
-    
+
     /**
      * Función que llena y actualiza el selector de piso de acuerdo al edificio seleccionado.
      * @param {array} data, datos que se van a actualizar en el selector.
      * @returns {undefined}
-    **/  
+    **/
     function actualizarSelectPisoEdificio(edificio)
     {
          var codigo = edificio.split(" ")[0];
@@ -369,7 +363,7 @@ $(document).ready(function() {
          $("#piso").empty();
         $.each(data, function(index, record) {
             if(data[index].codigo == codigo) {
-                 numeroPisos = record.pisos;                       
+                 numeroPisos = record.pisos;
             }
         });
         var row = $("<option value='" + mensaje + "'/>");
@@ -389,7 +383,7 @@ $(document).ready(function() {
             var row4 = $("<option value='" + terraza + "'/>");
          row4.text(terraza);
          row4.appendTo("#piso");
-            }  
+            }
     }
 
     /**
@@ -400,12 +394,12 @@ $(document).ready(function() {
     {
         var tableName = "usuarios";
         var data = buscarUsuario(tableName);
-        
+
         $("#nombre").empty();
         $("#correo").empty();
         $("#telefono").empty();
         $("#extension").empty();
-        
+
         $.each(data, function(index, record) {
             if($.isNumeric(index)){
                 $('#nombre').val(record.nombre_usuario);
@@ -435,7 +429,7 @@ $(document).ready(function() {
                 "url":          "js/plugins/Espanol.json",
                         }
         });
-        
+
         $('#tablaSolicitud').dataTable().fnClearTable();
 
         if(data.mensaje != ""){
@@ -457,7 +451,6 @@ $(document).ready(function() {
                     tipoUsuario = record.tipo_usuario;
                 }
             });
-            console.log(tipoUsuario);
             if (tipoUsuario == 'normal') {
                 alert("A continuación usted podrá ver las últimas 5 solicitudes asociadas al campus, edificio y piso seleccionadas."
                     + "\nRevise que su novedad no haya sido reportada aún.");
@@ -468,10 +461,10 @@ $(document).ready(function() {
 
 
 /************************ funciones del fmr de registro ****************************/
-    
+
     /**
      * funcion que permite registrar las ordenes de mantenimiento por medio de ajax,
-     * captura los valores del formulario y los envia al controlador 
+     * captura los valores del formulario y los envia al controlador
      * @return {[type]} [Devuelve el mensaje del controlador modelo si la ejecucion fue correcta o si se presento un error]
      */
     function registrarOrden()
@@ -497,7 +490,7 @@ $(document).ready(function() {
             /*var otraNovedad = $.trim($("#Otros").val());
             var otraNovedad2 = $.trim($("#Otros2").val());
             var otraNovedad3 = $.trim($("#Otros3").val());*/
-            
+
             // al usar un formato json en el metodo Post de ajax y no el tradicional dataString se necesita almacenar los datos del fmr en un objeto
             var saveData = {};
 
@@ -521,8 +514,6 @@ $(document).ready(function() {
             saveData['otranovedad2'] = otraNovedad2;
             saveData['otranovedad3'] = otraNovedad3;*/
 
-            console.log(saveData);
-            
             var jObject = JSON.stringify(saveData);
 
             $.ajax({
@@ -532,13 +523,11 @@ $(document).ready(function() {
                 dataType: "json",
                 error: function (request, status, error) {
                     alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
-                    console.log(error.toString());
                     location.reload(true);
                 },
                 success: function (result){
                     if(result.value == true)
                     {
-                        console.log(result.mensaje);
                         mostrarMensaje(result.mensaje);
                         alert(result.mensaje);
                         $("#espacio").val("");
@@ -644,7 +633,7 @@ $(document).ready(function() {
      * Función que se ejecuta al momento que se accede a la página que lo tiene
      * incluido.
      * @returns {undefined}
-     */    
+     */
     (function ()
     {
         actualizarSelectNovedad("descripcion");
@@ -697,17 +686,17 @@ $(document).ready(function() {
             $("#descripcion").prop('disabled', true);
             $("#descripcion_novedad").prop('disabled', true);
             $("#enviar_orden").hide();
-        }        
+        }
     });
 
     /**
-     * Se valida que el usuario seleccione un valor correcto 
+     * Se valida que el usuario seleccione un valor correcto
      */
     $("#edificio").change(function (e) {
         var vlr = $("#edificio").find(':selected').val();
           actualizarSelectPisoEdificio(vlr);
           $("#piso").removeAttr('disabled');
-          
+
         if(vlr == '--'){
             mostrarMensaje("Seleccione una opción válida en el selector de edificios");
             $("#piso").prop('disabled', true);
@@ -722,7 +711,7 @@ $(document).ready(function() {
     });
 
     /**
-     * Se asigna al input enviar_orden de type="submit" el evento de registrar la orden 
+     * Se asigna al input enviar_orden de type="submit" el evento de registrar la orden
      */
     $("#enviar_orden").click(function () {
         var control = true;
@@ -816,9 +805,9 @@ $(document).ready(function() {
             var vlrCampus = $.trim($("#campus").find(':selected').val());
             var vlrEdificio = $.trim($("#edificio").find(':selected').val());
             var vlrPiso = $.trim($("#piso").find(':selected').val());
-            
+
             if(vlrCampus != 'Seleccionar' & vlrEdificio != '--' & vlrPiso != 'Seleccionar Piso')
-            {                
+            {
                 actualizarTablaOrdenes();
                 $("#agregar").removeAttr('disabled');
                 $("#espacio").removeAttr("disabled");
@@ -839,13 +828,12 @@ $(document).ready(function() {
                 $("#enviar_orden").hide();
             }
         }
-        catch(ex)
-        {
+        catch(ex) {
             alert("ERROR: Ocurrio un error");
             console.log("ERROR: Ocurrio un error" + ex);
         }
     });
-    
+
 
     /**
      * Evento que permite agregar una novedad en el frm de registro de ordenes (maximo 3)
@@ -881,7 +869,7 @@ $(document).ready(function() {
         {
             alert("ERROR: Ocurrio un error" + ex);
         }
-        
+
     });
 
     /**
@@ -891,7 +879,7 @@ $(document).ready(function() {
         try{
             if(document.getElementById("tr3").style.display != "none"){
                 document.getElementById("tr3").style.display = "none";
-                //document.getElementById("tr4").style.display = "none";  
+                //document.getElementById("tr4").style.display = "none";
                 $("#agregar").show();
                 $("#cantidad3").hide();
                 $("#descripcion3").hide();
@@ -922,6 +910,6 @@ $(document).ready(function() {
         {
             alert("ERROR: Ocurrio un error" + ex);
         }
-        
+
     });
 });
