@@ -8,34 +8,34 @@ class Modelo_registros
 
     /**
      * Función contructor de la clase Modelo_registros.
-     * @param string $dbname nombre de la base de datos a la que se va a 
+     * @param string $dbname nombre de la base de datos a la que se va a
      * conectar el modelo.
-     * @param string $dbuser usuario con el que se va a conectar a la 
+     * @param string $dbuser usuario con el que se va a conectar a la
      * base de datos.
      * @param string $dbpass contraseña para poder acceder a la base de datos.
      * @param string $dbhost Host en donde se encuentra la base de datos.
      */
     public function __construct($dbname,$dbuser,$dbpass,$dbhost)
-    {    
+    {
         $conn_string = 'pgsql:host='.$dbhost.';port=5432;dbname='.$dbname;
-        
+
         try
-        { 
-            $bd_conexion = new PDO($conn_string, $dbuser, $dbpass); 
-            $this->conexion = $bd_conexion;     
+        {
+            $bd_conexion = new PDO($conn_string, $dbuser, $dbpass);
+            $this->conexion = $bd_conexion;
         }
         catch (PDOException $e)
         {
             var_dump( $e->getMessage());
-        }       
+        }
     }
     /**
      * Funcion que permite guardar las ordenes de mantenimiento en la base de datos, ademas hace una verificacion,
      * en base al parametro novedad permitiendo hacer una unica solicitud o multiples si los codigos del sistema son diferentes
-     * @param   string $nombre. Hace referencia al nombre del usuario que solicita la orden 
+     * @param   string $nombre. Hace referencia al nombre del usuario que solicita la orden
      * @param   string $sede. hace referencia a la sede Cali de Univalle.
      * @param   string $campus. Hace referencia al campus de la universidad donde se reporta la solicitud
-     * @param   int $edificio. Hace referencia al edificio seleccionado por el usuario 
+     * @param   int $edificio. Hace referencia al edificio seleccionado por el usuario
      * @param   int $piso. Hace referencia al piso seleccionado
      * @param   string $espacio. hace referencia al espacio ingresado
      * @param   string $contacto. Hace referencial contacto ingresado
@@ -87,9 +87,9 @@ class Modelo_registros
             {
                 if($codSistema == 5 and $des == 'Otro' and $codSistema2 == 5 and $des2 == 'Otro'){
 
-                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,cod_sistema,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,cod_sistema,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant2."','".$tmp_novedad2."','".$codSistema."','".$cont."','Solicitado','".$onov."','".$onov2."','".$impreso."');";
-                    
+
                     $l_stmt1 = $this->conexion->prepare($sql1);
 
                     if(!$l_stmt1)
@@ -115,9 +115,9 @@ class Modelo_registros
 
                 }
                 else{
-                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,cod_sistema,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,cod_sistema,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant2."','".$tmp_novedad2."','".$codSistema."','".$cont."','Solicitado','".$onov."','".$onov2."','".$impreso."');";
-                    
+
                     $l_stmt1 = $this->conexion->prepare($sql1);
 
                     if(!$l_stmt1)
@@ -146,7 +146,7 @@ class Modelo_registros
             {
                 if($codSistema == 5 and $des == 'Otro' and $codSistema2 != 5 and $des2 != 'Otro')
                 {
-                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$codSistema."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                     $l_stmt2 = $this->conexion->prepare($sql2);
@@ -167,10 +167,10 @@ class Modelo_registros
                         }
                     }
 
-                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                             VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$codSistema2."','".$cont."','Solicitado','".$des2."','".$impreso."');";
 
-                
+
                     $l_stmt3 = $this->conexion->prepare($sql3);
 
                     if(!$l_stmt3)
@@ -199,7 +199,7 @@ class Modelo_registros
                 }
                 else if($codSistema2 == 5 and $des2 == 'Otro' and $codSistema != 5 and $des != 'Otro')
                 {
-                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$codSistema."','".$cont."','Solicitado','".$des."','".$impreso."');";
 
                     $l_stmt2 = $this->conexion->prepare($sql2);
@@ -220,10 +220,10 @@ class Modelo_registros
                         }
                     }
 
-                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                             VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$codSistema2."','".$cont."','Solicitado','".$onov2."','".$impreso."');";
 
-                
+
                     $l_stmt3 = $this->conexion->prepare($sql3);
 
                     if(!$l_stmt3)
@@ -251,7 +251,7 @@ class Modelo_registros
                 }
                 else
                 {
-                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$codSistema."','".$cont."','Solicitado','".$des."','".$impreso."');";
 
                     $l_stmt2 = $this->conexion->prepare($sql2);
@@ -272,10 +272,10 @@ class Modelo_registros
                         }
                     }
 
-                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                             VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$codSistema2."','".$cont."','Solicitado','".$des2."','".$impreso."');";
 
-                
+
                     $l_stmt3 = $this->conexion->prepare($sql3);
 
                     if(!$l_stmt3)
@@ -302,13 +302,13 @@ class Modelo_registros
                     return true;
 
                 }
-                
+
             }
         }
         else
         {
             if($codSistema == 5 and $des == 'Otro'){
-                $sql = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                $sql = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                     VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$codSistema."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                 $l_stmt = $this->conexion->prepare($sql);
@@ -328,7 +328,7 @@ class Modelo_registros
                         return false;
                     }
                 }
-            
+
                 $numeroSolicitud = $this->getNumeroSolicitud();
 
                 $GLOBALS['mensaje'] = MJ_INSERT_REGISTROS_EXITOSA." Su solicitud es la número: ".$numeroSolicitud[0];
@@ -336,7 +336,7 @@ class Modelo_registros
                 return true;
             }
             else{
-                $sql = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso) 
+                $sql = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cod_sistema,contacto,estado,descripcion_novedad,impreso)
                     VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$codSistema."','".$cont."','Solicitado','".$des."','".$impreso."');";
 
                 $l_stmt = $this->conexion->prepare($sql);
@@ -356,24 +356,24 @@ class Modelo_registros
                         return false;
                     }
                 }
-            
+
                 $numeroSolicitud = $this->getNumeroSolicitud();
 
                 $GLOBALS['mensaje'] = MJ_INSERT_REGISTROS_EXITOSA." Su solicitud es la número: ".$numeroSolicitud[0];
 
                 return true;
             }
-        }      
+        }
     }*/
-    
-    
+
+
     /**
      * Funcion que permite guardar las ordenes de mantenimiento en la base de datos, ademas hace una verificacion,
      * en base al parametro novedad permitiendo hacer una unica solicitud o multiples si los codigos del sistema son diferentes
-     * @param   string $nombre. Hace referencia al nombre del usuario que solicita la orden 
+     * @param   string $nombre. Hace referencia al nombre del usuario que solicita la orden
      * @param   string $sede. hace referencia a la sede Cali de Univalle.
      * @param   string $campus. Hace referencia al campus de la universidad donde se reporta la solicitud
-     * @param   int $edificio. Hace referencia al edificio seleccionado por el usuario 
+     * @param   int $edificio. Hace referencia al edificio seleccionado por el usuario
      * @param   int $piso. Hace referencia al piso seleccionado
      * @param   string $espacio. hace referencia al espacio ingresado
      * @param   string $contacto. Hace referencial contacto ingresado
@@ -427,9 +427,9 @@ class Modelo_registros
             {
                 if($codSistema == 5 and $des == 'Otro' and $codSistema2 == 5 and $des2 == 'Otro'){
 
-                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov."','".$onov2."','".$impreso."');";
-                    
+
                     $l_stmt1 = $this->conexion->prepare($sql1);
 
                     if(!$l_stmt1)
@@ -455,9 +455,9 @@ class Modelo_registros
 
                 }
                 else{
-                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+                    $sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov."','".$onov2."','".$impreso."');";
-                    
+
                     $l_stmt1 = $this->conexion->prepare($sql1);
 
                     if(!$l_stmt1)
@@ -486,7 +486,7 @@ class Modelo_registros
             {
                 if($codSistema == 5 and $des == 'Otro' and $codSistema2 != 5 and $des2 != 'Otro')
                 {
-                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                     $l_stmt2 = $this->conexion->prepare($sql2);
@@ -507,10 +507,10 @@ class Modelo_registros
                         }
                     }
 
-                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                             VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov2."','".$impreso."');";
 
-                
+
                     $l_stmt3 = $this->conexion->prepare($sql3);
 
                     if(!$l_stmt3)
@@ -539,7 +539,7 @@ class Modelo_registros
                 }
                 else if($codSistema2 == 5 and $des2 == 'Otro' and $codSistema != 5 and $des != 'Otro')
                 {
-                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                     $l_stmt2 = $this->conexion->prepare($sql2);
@@ -560,10 +560,10 @@ class Modelo_registros
                         }
                     }
 
-                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                             VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov2."','".$impreso."');";
 
-                
+
                     $l_stmt3 = $this->conexion->prepare($sql3);
 
                     if(!$l_stmt3)
@@ -591,7 +591,7 @@ class Modelo_registros
                 }
                 else
                 {
-                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+                    $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                         VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                     $l_stmt2 = $this->conexion->prepare($sql2);
@@ -612,10 +612,10 @@ class Modelo_registros
                         }
                     }
 
-                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+                    $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                             VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov2."','".$impreso."');";
 
-                
+
                     $l_stmt3 = $this->conexion->prepare($sql3);
 
                     if(!$l_stmt3)
@@ -642,7 +642,7 @@ class Modelo_registros
                     return true;
 
                 }
-                
+
             }
         }else if($des2 != 'Seleccionar' and $des3 != 'Seleccionar')
         {
@@ -657,9 +657,9 @@ class Modelo_registros
 
             if($codSistema == $codSistema2 and $codSistema == $codSistema3)
             {
-            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,cantidad3,descripcion3,contacto,estado,descripcion_novedad,descripcion_novedad2,descripcion_novedad3,impreso) 
+            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,cantidad3,descripcion3,contacto,estado,descripcion_novedad,descripcion_novedad2,descripcion_novedad3,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant2."','".$tmp_novedad2."','".$cant3."','".$tmp_novedad3."','".$cont."','Solicitado','".$onov."','".$onov2."','".$onov3."','".$impreso."');";
-                    
+
                $l_stmt1 = $this->conexion->prepare($sql1);
 
                if(!$l_stmt1)
@@ -682,9 +682,9 @@ class Modelo_registros
                    return true;
             }else if($codSistema == $codSistema2 and $codSistema != $codSistema3)
             {
-            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov."','".$onov2."','".$impreso."');";
-                    
+
                $l_stmt1 = $this->conexion->prepare($sql1);
 
                if(!$l_stmt1)
@@ -702,10 +702,10 @@ class Modelo_registros
                      return false;
                      }
                }
-               
-               $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+
+               $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant3."','".$tmp_novedad3."','".$cont."','Solicitado','".$onov3."','".$impreso."');";
-                    
+
                $l_stmt2 = $this->conexion->prepare($sql2);
 
                if(!$l_stmt2)
@@ -723,18 +723,18 @@ class Modelo_registros
                      return false;
                      }
                }
-               
+
                $numeroSolicitud2 = $this->getNumeroSolicitud();
                $nSol2 = $numeroSolicitud2[0];
                $nSol1 = $nSol2 - 1;
                $GLOBALS['mensaje'] = MJ_INSERT_REGISTROS_EXITOSA." Sus solicitudes son las número: ".$nSol1."-".$nSol2;
                return true;
-               
+
             }else if($codSistema != $codSistema2 and $codSistema == $codSistema3)
             {
-            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cant3."','".$tmp_novedad3."','".$cont."','Solicitado','".$onov."','".$onov3."','".$impreso."');";
-                    
+
                $l_stmt1 = $this->conexion->prepare($sql1);
 
                if(!$l_stmt1)
@@ -752,10 +752,10 @@ class Modelo_registros
                      return false;
                      }
                }
-               
-               $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+
+               $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov2."','".$impreso."');";
-                    
+
                $l_stmt2 = $this->conexion->prepare($sql2);
 
                if(!$l_stmt2)
@@ -773,18 +773,18 @@ class Modelo_registros
                      return false;
                      }
                }
-               
+
                $numeroSolicitud2 = $this->getNumeroSolicitud();
                $nSol2 = $numeroSolicitud2[0];
                $nSol1 = $nSol2 - 1;
                $GLOBALS['mensaje'] = MJ_INSERT_REGISTROS_EXITOSA." Sus solicitudes son las número: ".$nSol1."-".$nSol2;
                return true;
-               
+
             }else if($codSistema != $codSistema2 and $codSistema2 == $codSistema3)
             {
-            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso) 
+            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,cantidad2,descripcion2,contacto,estado,descripcion_novedad,descripcion_novedad2,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$cant3."','".$tmp_novedad3."','".$cont."','Solicitado','".$ono2."','".$onov3."','".$impreso."');";
-                    
+
                $l_stmt1 = $this->conexion->prepare($sql1);
 
                if(!$l_stmt1)
@@ -802,10 +802,10 @@ class Modelo_registros
                      return false;
                      }
                }
-               
-               $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+
+               $sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cont."','Solicitado','".$onov."','".$impreso."');";
-                    
+
                $l_stmt2 = $this->conexion->prepare($sql2);
 
                if(!$l_stmt2)
@@ -823,7 +823,7 @@ class Modelo_registros
                      return false;
                      }
                }
-               
+
                $numeroSolicitud2 = $this->getNumeroSolicitud();
                $nSol2 = $numeroSolicitud2[0];
                $nSol1 = $nSol2 - 1;
@@ -832,8 +832,8 @@ class Modelo_registros
             }
             else
             {
-            	
-            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+
+            	$sql1 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
             	VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                $l_stmt1 = $this->conexion->prepare($sql1);
@@ -853,9 +853,9 @@ class Modelo_registros
                      return false;
                   }
                }
-            	
-            	
-            	$sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+
+
+            	$sql2 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
             	VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant2."','".$tmp_novedad2."','".$cont."','Solicitado','".$onov2."','".$impreso."');";
 
                $l_stmt2 = $this->conexion->prepare($sql2);
@@ -875,7 +875,7 @@ class Modelo_registros
                      return false;
                   }
                }
-               $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+               $sql3 = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant3."','".$tmp_novedad3."','".$cont."','Solicitado','".$onov3."','".$impreso."');";
 
 				   $l_stmt3 = $this->conexion->prepare($sql3);
@@ -900,14 +900,14 @@ class Modelo_registros
                $nSol2 = $nSol3 - 1;
 					$nSol1 = $nSol2 - 1;
                $GLOBALS['mensaje'] = MJ_INSERT_REGISTROS_EXITOSA." Sus solicitudes son las número: ".$nSol1."-".$nSol2."-".$nSol3;
-                  
+
                return true;
-                
+
             }
         }
         else
         {
-               $sql = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso) 
+               $sql = "INSERT INTO solicitudes_mantenimiento (usuario,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,contacto,estado,descripcion_novedad,impreso)
                    VALUES ('".$login."','".$codSede."','".$codCampus."','".$e."','".$p."','".$esp."','".$cant."','".$tmp_novedad."','".$cont."','Solicitado','".$onov."','".$impreso."');";
 
                $l_stmt = $this->conexion->prepare($sql);
@@ -927,19 +927,19 @@ class Modelo_registros
                        return false;
                    }
                }
-           
+
                $numeroSolicitud = $this->getNumeroSolicitud();
 
                $GLOBALS['mensaje'] = MJ_INSERT_REGISTROS_EXITOSA." Su solicitud es la número: ".$numeroSolicitud[0];
 
                return true;
-        }      
+        }
     }
- 
+
     /**
      * Función que permite validar si los datos son vacion
-     * @param string $c, Cadena que hace referencia al campus. 
-     * @param string $e, Cadena que hace referencia al edificio 
+     * @param string $c, Cadena que hace referencia al campus.
+     * @param string $e, Cadena que hace referencia al edificio
      * @param string $p, Cadena que hace referencia al piso.
      * @param string $es, Cadena que hace referencia al espacio.
      * @param string $con, Cadena que hace referencia al contacto.
@@ -956,10 +956,10 @@ class Modelo_registros
         $con = htmlspecialchars(trim($con));
         $des1 = htmlspecialchars(trim($des1));
         $cant1 = htmlspecialchars(trim($cant1));
-        
+
         if(is_string($c) & is_string($e) & is_string($p) & is_string($es) & is_string($con) & is_string($des1) & is_string($cant1))
         {
-            if(trim($c) != '' & trim($e) != '' & trim($p) != '' &  trim($es) != '' & trim($con) != '' & $des1 != ''  & $cant1 != '') 
+            if(trim($c) != '' & trim($e) != '' & trim($p) != '' &  trim($es) != '' & trim($con) != '' & $des1 != ''  & $cant1 != '')
             {
                 if($cant1 <= 99)
                 {
@@ -970,7 +970,7 @@ class Modelo_registros
                     return false;
                 }
             }
-            else 
+            else
             {
                 $GLOBALS['mensaje'] = MJ_NO_CAMPOS_VACIOS;
                 return false;
@@ -1009,7 +1009,7 @@ class Modelo_registros
                     $GLOBALS['mensaje'] = "Éxito";
                 }
             }
-           
+
         }
         if($p == 02){
             $sql = "SELECT codigo,nombre,pisos FROM edifsanfernando ORDER BY codigo;";
@@ -1028,7 +1028,7 @@ class Modelo_registros
                     $GLOBALS['mensaje'] = "Éxito";
                 }
             }
-           
+
         }
         if($p == 03){
             $sql = "SELECT codigo,nombre,pisos FROM otrosespacios ORDER BY codigo;";
@@ -1047,27 +1047,31 @@ class Modelo_registros
                     $GLOBALS['mensaje'] = "Éxito";
                 }
             }
-            
+
         }
 
-        return $result;    
+        return $result;
     }
 
     /**
      * Funcion que permite buscar las novedad registradas en la base de datos
-     * 
+     *
      * @return [ResultSet] $result contiene los datos obtenidos en la busqueda
      */
     public function buscarDBNovedad()
     {
-        
+
         //$sql = "SELECT sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON sistema.cod_sistema = novedad_sistema.cod_sistema ORDER BY nombre_sistema, novedad;";
-        $sql = "SELECT novedad_sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON novedad_sistema.cod_sistema = sistema.cod_sistema ORDER BY sistema.sistema, novedad_sistema.novedad;";
+        if(strcmp($perfil, 'mobiliario') == 0){
+          $sql = "SELECT novedad_sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON novedad_sistema.cod_sistema = sistema.cod_sistema ORDER BY sistema.sistema, novedad_sistema.novedad;";
+        }else{
+          $sql = "SELECT novedad_sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON novedad_sistema.cod_sistema = sistema.cod_sistema WHERE novedad_sistema.id <> '46' ORDER BY sistema.sistema, novedad_sistema.novedad;";
+        }
 
         $l_stmt = $this->conexion->prepare($sql);
         if (!$l_stmt)
         {
-            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;            
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
         }
         else{
             if(!$l_stmt->execute()){
@@ -1077,9 +1081,9 @@ class Modelo_registros
             if($l_stmt->rowCount() > 0){
                 $result = $l_stmt->fetchAll();
                 $GLOBALS['mensaje'] = "Éxito";
-            }             
+            }
         }
-         
+
         return $result;
     }
 
@@ -1095,7 +1099,7 @@ class Modelo_registros
         $l_stmt = $this->conexion->prepare($sql);
 
         if(!$l_stmt){
-            $GLOBALS['mensaje'] = "Error en la consulta"; 
+            $GLOBALS['mensaje'] = "Error en la consulta";
         }
         else{
             if(!$l_stmt->execute()){
@@ -1159,7 +1163,7 @@ class Modelo_registros
         else{
 
             if(!$l_stmt->execute()){
-                $GLOBALS['mensaje'] = "Error en la consulta"; 
+                $GLOBALS['mensaje'] = "Error en la consulta";
             }
 
             if($l_stmt->rowCount() > 0){
@@ -1174,7 +1178,7 @@ class Modelo_registros
     /**
      * Funcion que permite obtener el codugo de la sede para la orden de mantenimiento ingresada por el usuario
      * @param  [string] $sede [description]
-     * @return $sede. hace referencia al codigo de la sede 
+     * @return $sede. hace referencia al codigo de la sede
      */
     public function getCodigoSede($dato)
     {
@@ -1183,7 +1187,7 @@ class Modelo_registros
         $sql = "SELECT cod_sede from sede where sede = '".$parametro."';";
 
         $l_stmt = $this->conexion->prepare($sql);
-        
+
         if(!$l_stmt){
             $GLOBALS['mensaje'] = "Error SQL";
         }
@@ -1201,7 +1205,7 @@ class Modelo_registros
 
         return $sede;
     }
-    
+
     /**
      * [Funcion que obtiene el nombre de la novedad]
      * @param  [integer] $n [Hace referencia al identificador de la novedad]
@@ -1264,7 +1268,7 @@ class Modelo_registros
         $campus = $result[0];
 
         return $campus;
-        
+
     }
 
     /**
@@ -1274,8 +1278,8 @@ class Modelo_registros
     public function getNumeroSolicitud()
     {
 
-        $sql = "SELECT numero_solicitud FROM solicitudes_mantenimiento ORDER BY numero_solicitud DESC LIMIT 1;"; 
-        
+        $sql = "SELECT numero_solicitud FROM solicitudes_mantenimiento ORDER BY numero_solicitud DESC LIMIT 1;";
+
         $l_stmt = $this->conexion->prepare($sql);
 
         if(!$l_stmt->execute()){
@@ -1293,7 +1297,7 @@ class Modelo_registros
 
     /**
      * funcion que permite obtener el codigo de una novedad registrada por el usuario
-     * @return $novedad. Hace referencia al codigo de la novedad 
+     * @return $novedad. Hace referencia al codigo de la novedad
      */
     public function getCodigoNovedad($dato)
     {
@@ -1309,7 +1313,7 @@ class Modelo_registros
 
         if($l_stmt->rowCount() > 0){
             $result = $l_stmt->fetchAll();
-    
+
         }
         else
         {
@@ -1337,7 +1341,7 @@ class Modelo_registros
         if(!$l_stmt->execute()){
            $GLOBALS['mensaje'] = var_export($this->conexion->errorInfo(),true);;
         }
-        
+
         if($l_stmt->rowCount() > 0){
             $result = $l_stmt->fetchAll();
         }
@@ -1351,7 +1355,7 @@ class Modelo_registros
     }
 
     /**
-     * funcion que permite obtener el login del usuario 
+     * funcion que permite obtener el login del usuario
      * @return $dato. Hace referencia a el nombre del usuario
      */
     public function getLoginUsuario($dato)
@@ -1366,7 +1370,7 @@ class Modelo_registros
         if(!$l_stmt->execute()){
            $GLOBALS['mensaje'] = var_export($this->conexion->errorInfo(),true);;
         }
-        
+
         if($l_stmt->rowCount() > 0){
             $result = $l_stmt->fetchAll();
         }
@@ -1375,7 +1379,7 @@ class Modelo_registros
 
         return $data;
     }
-    
+
     /**
      * [Funcion que obtiene el nombre de la novedad]
      * @param  [integer] $n [Hace referencia al identificador de la novedad]
@@ -1409,7 +1413,7 @@ class Modelo_registros
     }
 
     /**
-    *funcion que permite devolver las ultimas 5 ordenes del sistema 
+    *funcion que permite devolver las ultimas 5 ordenes del sistema
     *@param campus hace referencia al campus elegido por el usuario en el frm
     *@param edificio hace referencia al edificio elegido por el usuario en el frm
     *@param piso hace referencia al piso elegido por el usuario en el frm
@@ -1443,22 +1447,22 @@ class Modelo_registros
                 $GLOBALS['mensaje'] = "Éxito";
             }
         }
-       
+
 
         return $result;
     }
 
     /**
      * Función que envía un correo
-     */    
+     */
     public function enviarMail($e,$u,$n,$d,$s){
         $n = htmlspecialchars($n);
         $e = htmlspecialchars($e);
         $d = htmlspecialchars($d);
         $s = htmlspecialchars($s);
-        
+
         $mail = new PHPMailer();
-        
+
         $mail->IsSMTP();
         //$mail->SMTPDebug  = 2;
         //$mail->Debugoutput = 'html';
@@ -1467,11 +1471,11 @@ class Modelo_registros
         $mail->Host = "smtp.gmail.com";
         $mail->Port = 465;
         $mail->CharSet = 'UTF-8';
-        
+
         //Nuestra cuenta
         $mail->Username = EMAIL;
         $mail->Password = PASS; //Su password
-        
+
         if($s == 1){
             $email = EMAILSISTHIDRAULICO;
         }else if($s == 2){
@@ -1483,10 +1487,10 @@ class Modelo_registros
         }else{
             $email = 'mantenimiento.univalle@correounivalle.edu.co';
         }
-        
+
         $mail->From = $email;
         $mail->FromName= 'Mantenimiento Universidad del Valle';
-        
+
         //Agregar destinatario
         $mail->AddAddress($u);
         //$mail->AddAddress('juan.camilo.lopez@correounivalle.edu.co');

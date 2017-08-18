@@ -2800,7 +2800,7 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    $("#divDialogVisualizacionPDF").modal("show");
+                    window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
                     $("#divDialogVisualizacionPDF").modal("show");
                     //generarLinkDescarga(PDFContentBase64);
                 });
@@ -2863,8 +2863,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    $("#divDialogVisualizacionPDF").modal("show");
                     window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
+                    $("#divDialogVisualizacionPDF").modal("show");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -2926,8 +2926,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    $("#divDialogVisualizacionPDF").modal("show");
                     window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
+                    $("#divDialogVisualizacionPDF").modal("show");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -2989,8 +2989,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    $("#divDialogVisualizacionPDF").modal("show");
                     window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
+                    $("#divDialogVisualizacionPDF").modal("show");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
@@ -3052,8 +3052,8 @@ $(document).ready(function() {
                     for(i=0;i<arregloNumSolicitudes.length;i++){
                         actualizarImpreso(arregloNumSolicitudes[i]);
                     }
-                    $("#divDialogVisualizacionPDF").modal("show");
                     window.open('data:application/pdf;base64,' + PDFContentBase64,"frame");
+                    $("#divDialogVisualizacionPDF").modal("show");
                     //generarLinkDescarga(PDFContentBase64);
                 });
             }else{
