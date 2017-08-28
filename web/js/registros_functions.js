@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var campus, arregloEdificios, edificiosSotano = ['100','106','116','118','124','310','316','318'], edificiosTerraza = ['316'];
+    var campus, arregloEdificios, edificiosSotano = ['100','106','116','118','124','126','310','316','318'], edificiosTerraza = ['316'];
 
 
 /************** Funciones de consultas *****************/
