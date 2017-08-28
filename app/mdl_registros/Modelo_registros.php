@@ -1062,7 +1062,7 @@ class Modelo_registros
     {
 
         //$sql = "SELECT sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON sistema.cod_sistema = novedad_sistema.cod_sistema ORDER BY nombre_sistema, novedad;";
-        if(strcmp($perfil, 'mobiliario') == 0){
+        if(strcmp($_SESSION["perfil"], 'mobiliario') == 0){
           $sql = "SELECT novedad_sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON novedad_sistema.cod_sistema = sistema.cod_sistema ORDER BY sistema.sistema, novedad_sistema.novedad;";
         }else{
           $sql = "SELECT novedad_sistema.novedad, novedad_sistema.cod_sistema FROM novedad_sistema JOIN sistema ON novedad_sistema.cod_sistema = sistema.cod_sistema WHERE novedad_sistema.id <> '46' ORDER BY sistema.sistema, novedad_sistema.novedad;";
