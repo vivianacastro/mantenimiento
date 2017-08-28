@@ -1,0 +1,5 @@
+[28-Aug-2017 12:37:47 America/New_York] PHP Notice:  Undefined index: autorizado in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 235
+[28-Aug-2017 12:37:47 America/New_York] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 259
+[28-Aug-2017 12:37:47 America/New_York] PHP Notice:  Undefined index: autorizado in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 304
+[28-Aug-2017 12:37:47 America/New_York] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 215
+[28-Aug-2017 12:37:47 America/New_York] PHP Notice:  Undefined index: perfil in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 227
