@@ -1,13 +1,13 @@
 <?php
 //definicion de la ruta de la aplicacion
 define('__ROOT__', dirname(dirname(__FILE__)));
-
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 ini_set('error_log',  __ROOT__.'/errores.log');
+date_default_timezone_set('America/Bogota');
 
-//dependencias de la aplicacion 
-require_once __ROOT__.'/app/Config.php'; 
+//dependencias de la aplicacion
+require_once __ROOT__.'/app/Config.php';
 require_once __ROOT__.'/app/Constantes.php';
 require_once __ROOT__.'/app/Controlador_vista.php';
 require_once __ROOT__.'/app/mdl_registros/Modelo_registros.php';
@@ -55,7 +55,7 @@ $map = array(
     'buscar_solicitudes_mantenimiento' => array('controlador' =>'Controlador_modificacion', 'action' =>'buscarSolicitud'),
     'enviar_correo' => array('controlador' =>'Controlador_modificacion', 'action' =>'enviarCorreo'),
     'administrar_autorizado_usuario' => array('controlador' =>'Controlador_usuario', 'action' =>'administrar_usuario_autorizado'),
-    'buscar_autorizados_manejar_sistema' => array('controlador' =>'Controlador_usuario', 'action' =>'buscar_autorizados_manejar_sistema'),    
+    'buscar_autorizados_manejar_sistema' => array('controlador' =>'Controlador_usuario', 'action' =>'buscar_autorizados_manejar_sistema'),
     'iniciar_sesion' => array('controlador' =>'Controlador_usuario', 'action' =>'iniciar_sesion'),
     'listar_electrico_consultas' => array('controlador' =>'Controlador_consultas', 'action' =>'listar_electrico'),
     'listar_hidraulico_consultas' => array('controlador' =>'Controlador_consultas', 'action' =>'listar_hidraulico'),
@@ -125,7 +125,7 @@ $controlador = $map[$ruta];
 
 // Ejecución del controlador asociado a la ruta
 if (method_exists($controlador['controlador'],$controlador['action']))
-{   
+{
     call_user_func(array(new $controlador['controlador'], $controlador['action']));
 }
 else
