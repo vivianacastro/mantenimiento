@@ -17,7 +17,7 @@ for($i=1; $i<=10; $i++){
 }
 
 $mail = new PHPMailer();
-     
+
 $mail->IsSMTP();
 /*$mail->SMTPDebug  = 2;
 $mail->Debugoutput = 'html';*/
@@ -55,7 +55,7 @@ $result3 = pg_query("SELECT * FROM usuarios_autorizados_sistema WHERE correo = '
 if(pg_num_rows($result3) == 0) {
   echo '<script type="text/javascript">confirm("El correo y/o login no se encuentran asociados a una cuenta");</script>';
   echo '<script type="text/javascript">' ."\n";
-  echo 'window.location="../olvido_contrasenia.html";'; 
+  echo 'window.location="../olvido_contrasenia.html";';
   echo '</script>';
   pg_close($dbconn);
 }else{
@@ -65,7 +65,7 @@ if(pg_num_rows($result3) == 0) {
   {
     echo '<script type="text/javascript">confirm("El correo y/o login no se encuentran asociados a una cuenta");</script>';
   	echo '<script type="text/javascript">' ."\n";
-    echo 'window.location="../olvido_contrasenia.html";'; 
+    echo 'window.location="../olvido_contrasenia.html";';
     echo '</script>';
   	pg_close($dbconn);
   }
@@ -82,7 +82,7 @@ if(pg_num_rows($result3) == 0) {
       }
       echo "<script type='text/javascript'>confirm('Se ha enviado un correo a ".$correo." con la informaci\u00F3n para reestablecer la contrase\u00F1a. Revise la bandeja de SPAM de su correo.');</script>";
       echo '<script type="text/javascript">' . "\n";
-      echo 'window.location="http://192.168.46.53/mantenimiento/web/index.php";'; 
+      echo 'window.location="http://192.168.46.53/mantenimiento/web/index.php";';
       echo '</script>';
   }
 }

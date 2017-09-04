@@ -19,10 +19,10 @@ $query = "INSERT INTO usuarios_autorizados_sistema (nombre_usuario, perfil, corr
 
 
 if( ! $result = pg_query($dbconn, $query) ){
-  echo '<script type="text/javascript">confirm("El usuario ya se encuentra registrado");</script>';
-	echo '<script type="text/javascript">' ."\n";
-  echo 'window.location="../crear_usuarios.html";';
-  echo '</script>';
+    echo '<script type="text/javascript">confirm("El usuario ya se encuentra registrado");</script>';
+    echo '<script type="text/javascript">' ."\n";
+    echo 'window.location="../crear_usuarios.html";';
+    echo '</script>';
 	pg_close($dbconn);
 }else{
     pg_close($dbconn);
