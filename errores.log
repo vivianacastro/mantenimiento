@@ -53,3 +53,12 @@
 [04-Sep-2017 11:36:10 America/Bogota] PHP Notice:  Undefined index: autorizado in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 304
 [04-Sep-2017 11:36:10 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 215
 [04-Sep-2017 11:36:10 America/Bogota] PHP Notice:  Undefined index: perfil in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 227
+[08-Sep-2017 10:51:14 America/Bogota] PHP Notice:  Undefined index: autorizado in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 235
+[08-Sep-2017 10:51:15 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 259
+[08-Sep-2017 10:51:22 America/Bogota] PHP Notice:  Undefined index: autorizado in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 304
+[08-Sep-2017 10:51:22 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 215
+[08-Sep-2017 10:51:22 America/Bogota] PHP Notice:  Undefined index: perfil in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 227
+[08-Sep-2017 10:51:46 America/Bogota] PHP Notice:  Undefined index: autorizado in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 235
+[08-Sep-2017 10:51:46 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 259
+[08-Sep-2017 11:14:35 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 259
+[08-Sep-2017 11:18:27 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in /media/windows/mantenimiento/app/mdl_usuario/Controlador_usuario.php on line 259
