@@ -89,3 +89,10 @@
 [13-Sep-2017 15:05:11 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 304
 [13-Sep-2017 15:05:11 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
 [13-Sep-2017 15:05:11 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[14-Sep-2017 11:26:36 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[14-Sep-2017 11:26:36 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[14-Sep-2017 11:26:40 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 304
+[14-Sep-2017 11:26:40 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[14-Sep-2017 11:26:40 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[14-Sep-2017 11:26:46 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[14-Sep-2017 11:26:46 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259

@@ -5,7 +5,7 @@ $(document).ready(function() {
 
     var dataEdificios;
 
-    var edificiosSotano = ['100','106','116','118','124','310','316','318'], edificiosTerraza = ['100,108,110,116,117,118,120,122,122A,124,126,127,130,132,134,135,316'];
+    var edificiosSotano = ['100','106','116','118','124','310','316','318'], edificiosTerraza = ['100','108','110','116','117','118','120','122','122A','124','126','127','130','132','134','135','316'];
 
     var primeraVez = true, primeraVez2 = true, primeraVez3 = true, primeraVez4 = true;
 

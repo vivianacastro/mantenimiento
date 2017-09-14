@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var campus, arregloEdificios, edificiosSotano = ['100','106','116','118','124','126','310','316','318'],
-    edificiosTerraza = ['100,108,110,116,117,118,120,122,122A,124,126,127,130,132,134,135,316'];
+    edificiosTerraza = ['100','108','110','116','117','118','120','122','122A','124','126','127','130','132','134','135','316'];
 
 
 /************** Funciones de consultas *****************/
@@ -357,11 +357,11 @@ $(document).ready(function() {
     **/
     function actualizarSelectPisoEdificio(edificio)
     {
-         var codigo = edificio.split(" ")[0];
-         var data = arregloEdificios;
-         var numeroPisos;
-         var mensaje = "Seleccionar Piso", sotano = "Sótano", terraza = "Terraza";
-         $("#piso").empty();
+        var codigo = edificio.split(" ")[0];
+        var data = arregloEdificios;
+        var numeroPisos;
+        var mensaje = "Seleccionar Piso", sotano = "Sótano", terraza = "Terraza";
+        $("#piso").empty();
         $.each(data, function(index, record) {
             if(data[index].codigo == codigo) {
                  numeroPisos = record.pisos;
@@ -372,19 +372,19 @@ $(document).ready(function() {
         row.appendTo("#piso");
         if(edificiosSotano.indexOf(codigo) != -1){
             var row2 = $("<option value='" + sotano + "'/>");
-         row2.text(sotano);
-         row2.appendTo("#piso");
-            }
+            row2.text(sotano);
+            row2.appendTo("#piso");
+        }
         for(i=1;i<=numeroPisos;i++){
             var row3 = $("<option value='" + i + "'/>");
-         row3.text(i);
-         row3.appendTo("#piso");
+            row3.text(i);
+            row3.appendTo("#piso");
         }
         if(edificiosTerraza.indexOf(codigo) != -1){
             var row4 = $("<option value='" + terraza + "'/>");
-         row4.text(terraza);
-         row4.appendTo("#piso");
-            }
+            row4.text(terraza);
+            row4.appendTo("#piso");
+        }
     }
 
     /**
