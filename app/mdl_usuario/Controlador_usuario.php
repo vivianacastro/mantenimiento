@@ -288,7 +288,7 @@ class Controlador_usuario {
                 }else if($_SESSION["perfil"] == 'hidraulico' || $_SESSION["perfil"] == 'electrico' || $_SESSION["perfil"] == 'planta' || $_SESSION["perfil"] == 'mobiliario'){
                     $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST_DIA, $data);
                 }else if($_SESSION["perfil"] == 'sanfernando'){
-                    $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST, $data);
+                    $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST_DIA, $data);
                 }else{
                     $v->retornar_vista($_SESSION["perfil"],REGISTROS, OPERATION_SET, $data);
                 }

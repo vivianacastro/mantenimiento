@@ -61,7 +61,7 @@ tbody>tr{
     border-color: transparent;
 }
 
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary:hover:disabled{
     background-color: #e15661;
     border-color: transparent;
 }
