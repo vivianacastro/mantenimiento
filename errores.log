@@ -7331,3 +7331,49 @@
 [26-Sep-2017 16:46:27 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 540
 [26-Sep-2017 16:46:27 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 542
 [26-Sep-2017 16:46:27 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 542
+[17-Oct-2017 09:15:19 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:15:19 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:15:19 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 304
+[17-Oct-2017 09:15:19 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[17-Oct-2017 09:15:19 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[17-Oct-2017 09:15:43 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:15:43 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:16:40 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:16:40 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:16:40 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:16:40 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:17:35 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:17:35 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:17:35 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:17:35 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:19:36 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:19:36 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:19:36 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:19:36 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:21:14 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:21:14 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 369
+[17-Oct-2017 09:21:14 America/Bogota] PHP Warning:  Illegal string offset 'novedad' in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:21:14 America/Bogota] PHP Notice:  Uninitialized string offset: 0 in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_consultas\Controlador_consultas.php on line 371
+[17-Oct-2017 09:26:39 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[17-Oct-2017 09:26:39 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[17-Oct-2017 09:26:42 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:26:42 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:26:42 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 301
+[17-Oct-2017 09:26:47 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:26:47 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:27:04 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[17-Oct-2017 09:27:04 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[17-Oct-2017 09:27:06 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:27:06 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:27:26 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[17-Oct-2017 09:27:26 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[17-Oct-2017 09:27:28 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:27:28 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:27:50 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[17-Oct-2017 09:27:50 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[17-Oct-2017 09:27:57 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:27:57 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
+[17-Oct-2017 09:29:11 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 215
+[17-Oct-2017 09:29:11 America/Bogota] PHP Notice:  Undefined index: perfil in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 227
+[17-Oct-2017 09:29:13 America/Bogota] PHP Notice:  Undefined index: autorizado in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 235
+[17-Oct-2017 09:29:13 America/Bogota] PHP Notice:  A session had already been started - ignoring session_start() in C:\Users\juanc_000\Google Drive\Trabajo\mantenimiento\app\mdl_usuario\Controlador_usuario.php on line 259
