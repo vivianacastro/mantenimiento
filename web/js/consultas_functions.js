@@ -1,3 +1,17 @@
+/**
+**/
+function ejecutarFuncion(e)
+{
+    var keynum;
+    if(window.event) { // IE
+      keynum = e.keyCode;
+    } else if(e.which){ // Netscape/Firefox/Opera
+      keynum = e.which;
+    }
+    if (keynum == 13) {
+        $("#buscarOrdenes").click();
+    }
+}
 $(document).ready(function() {
     var usuario = "";
 
