@@ -13,6 +13,11 @@ function ejecutarFuncion(e)
     }
 }
 $(document).ready(function() {
+    var URLactual = window.location;
+    if(URLactual['href'].indexOf('novedad_consultas') >= 0){
+        actualizarSelectNovedad("novedadSearch");
+    }
+
     var usuario = "";
 
     var arregloNumSolicitudes = [];
@@ -430,6 +435,57 @@ $(document).ready(function() {
     }
 
     /**
+    * Función que realiza la consulta de una orden por medio de ajax.
+    * @param {string} consulta, Cadena que representa la palabra clave.
+    * @returns {data}
+    **/
+    function buscarOrdenesNovedad(consulta){
+        var dataResult;
+        var dataSave = {};
+
+        var novedad = $.trim(consulta[0]);
+        var campus = $.trim(consulta[1]);
+        var edificio = $.trim(consulta[2]);
+        var piso = $.trim(consulta[3]);
+        var fechaInicial = $.trim(consulta[4]);
+        var fechaFinal = $.trim(consulta[5]);
+
+        dataSave['novedad']= novedad;
+        dataSave['campus']= campus;
+        dataSave['edificio']= edificio;
+        dataSave['piso']= piso;
+        dataSave['fechaInicio'] = fechaInicial + " 00:00:00";
+        dataSave['fechaFin'] = fechaFinal + " 23:59:59";
+
+        var jObject = JSON.stringify(dataSave);
+
+        try
+        {
+            $.ajax({
+                type: "POST",
+                url: "index.php?action=buscar_orden_novedad",
+                data: {jObject:  jObject},
+                dataType: "json",
+                async: false,
+                error: function(error){
+                    alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
+                    location.reload(true);
+                },
+                success: function(data){
+                    dataResult = data;
+                    mostrarMensaje(dataResult.mensaje);
+                }
+            });
+            return dataResult;
+        }
+        catch(ex)
+        {
+            console.log(ex);
+            alert("Error");
+        }
+    }
+
+    /**
      * Función que realiza una consulta de los edificios
      * con base en una palabra clave.
      * @param {type} consulta, palabra clave para realizar la consulta.
@@ -553,6 +609,37 @@ $(document).ready(function() {
         catch(ex){
             console.log(ex);
             alert("Error");
+        }
+    }
+
+    /**
+     * Función que realiza una consulta de las novedades
+     * con base en una palabra clave.
+     * @param {type} consulta, palabra clave para realizar la consulta.
+     * @returns {data} object json
+    **/
+    function buscarNovedad(consulta)
+    {
+        var dataResult;
+
+        try {
+            $.ajax({
+                type: "POST",
+                url: "index.php?action=buscar_novedad",
+                data: "buscar=" + consulta,
+                dataType: "json",
+                async: false,
+                error: function (request, status, error) {
+                    location.reload(true);
+                },
+                success: function(data){
+                    dataResult = data;
+                }
+            });
+            return dataResult;
+        }
+        catch(ex) {
+            alert("ERROR: Ocurrio un error " + ex);
         }
     }
 
@@ -2782,6 +2869,72 @@ $(document).ready(function() {
     });
 
     /**
+     * Se captura el evento cuando de da click en el boton buscar y se
+     * realiza la operacion correspondiente.
+     */
+    $("#buscarOrdenes6").click(function () {
+        var URLactual = window.location;
+        var campus = $("#campusSearch").find(':selected').val();
+        var edificio = $("#edificioSearch").find(':selected').val();
+        var sistema = $("#sistemaSearch").find(':selected').val();
+        var piso = $("#pisoSearch").find(':selected').val();
+        var novedad = $("#novedadSearch").val();
+        var fechaInicial = $("#searchFechaInicial").val();
+        var fechaFinal = $("#searchFechaFinal").val();
+
+        if (campus == 0) {
+            campus = "-1";
+        }
+
+        if (edificio == undefined) {
+            edificio = 'TODOS';
+        }
+
+        if (piso == undefined || piso == 'TODOS') {
+            piso = '-1';
+        }
+
+        if(campus != 0 & sistema != 0 & edificio != "--" & fechaInicial != "" & fechaFinal != "")
+        {
+            saveData = [novedad,campus,edificio,piso,fechaInicial,fechaFinal];
+            var data =  buscarOrdenesNovedad(saveData);
+            actualizarTablaOrdenes2(data);
+            $("#divTablas").show();
+            $("#btImprimir3").removeAttr('Disabled');
+            $("#visualizarOrdenes3").removeAttr('Disabled');
+            $("#modificarOrdenes2").removeAttr('Disabled');
+            primeraVez3 = false;
+       }
+       else{
+            if (novedad == 'Seleccionar') {
+                alert("Error. Seleccione una novedad.");
+                $("#novedadSearch").focus();
+            }else if(campus == 0){
+                alert("Error. Seleccione un campus.");
+                $("#campusSearch").focus();
+            }else if(edificio == '--'){
+                alert("Error. Seleccione un edificio.");
+                $("#edificioSearch").focus();
+            }else if(sistema == 0){
+                alert("Error. Seleccione un sistema.");
+                $("#sistemaSearch").focus();
+            }else if(piso == 0){
+                alert("Error. Seleccione un sistema.");
+                $("#sistemaSearch").focus();
+            }else if(fechaInicial == ''){
+                alert("Error. Ingrese una fecha de inicio.");
+                $("#searchFechaInicial").focus();
+            }else{
+                alert("Error. Ingrese una fecha final.");
+                $("#searchFechaFinal").focus();
+            }
+            $("#btImprimir3").prop('disabled', true);
+            $("#visualizarOrdenes3").prop('disabled', true);
+            $("#modificarOrdenes2").prop('disabled', true);
+        }
+    });
+
+    /**
      * Evento que permite imprimir una o más ordenes o solicitudes de mantenimiento
      */
     $("#btImprimir").click(function (e) {
@@ -3670,16 +3823,18 @@ $(document).ready(function() {
 
         if(vlr == 0){
             alert("Seleccione una opcion validad en el selector sistema");
-        }
-
-        if (URLactual['href'].indexOf('listar_multiple_consultas') >= 0) {
-            //$("#sistemaSearch option[value='TODOS']").remove();
-            $('#divCampus').css('display','block');
-            if (vlr != -1) {
-                $('#campusSearch').val("0");
-            }else{
-                $('#divEdificio').css('display','none');
-                $('#divPiso').css('display','none');
+            $('#divEdificio').css('display','none');
+            $('#divPiso').css('display','none');
+        }else{
+            if (URLactual['href'].indexOf('listar_multiple_consultas') >= 0) {
+                //$("#sistemaSearch option[value='TODOS']").remove();
+                $('#divCampus').css('display','block');
+                if (vlr != -1) {
+                    $('#campusSearch').val("0");
+                }else{
+                    $('#divEdificio').css('display','none');
+                    $('#divPiso').css('display','none');
+                }
             }
         }
     });
@@ -3687,10 +3842,10 @@ $(document).ready(function() {
      /**
      * captura el elemento seleccionado del select campus y de acuerdo a la seleccion actualiza el select de edificios
      */
-
     $("#campusSearch").change(function (e) {
         var vlr = $("#campusSearch").find(':selected').val();
         var URLactual = window.location;
+        var correcto = true;
 
         if(vlr == 0){
             $("#edificioSearch").empty();
@@ -3719,20 +3874,31 @@ $(document).ready(function() {
             $("#edificioSearch").empty();
         }
         else{
-            alert("Error. No selecciono un campus de la lista");
+            correcto = false;
+
+        }
+        if (correcto) {
+            if (URLactual['href'].indexOf('listar_multiple_consultas') >= 0 || URLactual['href'].indexOf('novedad_consultas') >= 0) {
+                //$("#edificioSearch option[value='TODOS']").remove();
+                if (vlr != -1) {
+                    $('#divEdificio').css('display','block');
+                    $('#buscarOrdenes3').attr("disabled", true);
+                    $('#buscarOrdenes6').attr("disabled", true);
+                }else{
+                    $('#divEdificio').css('display','none');
+                    $('#divPiso').css('display','none');
+                    $("#buscarOrdenes3").removeAttr('Disabled');
+                    $("#buscarOrdenes6").removeAttr('Disabled');
+                }
+            }
+        }else{
+            $('#divEdificio').css('display','none');
+            $('#divPiso').css('display','none');
+            $("#buscarOrdenes3").removeAttr('Disabled');
+            $("#buscarOrdenes6").removeAttr('Disabled');
         }
 
-        if (URLactual['href'].indexOf('listar_multiple_consultas') >= 0) {
-            //$("#edificioSearch option[value='TODOS']").remove();
-            if (vlr != -1) {
-                $('#divEdificio').css('display','block');
-                $('#buscarOrdenes3').attr("disabled", true);
-            }else{
-                $('#divEdificio').css('display','none');
-                $('#divPiso').css('display','none');
-                $("#buscarOrdenes3").removeAttr('Disabled');
-            }
-        }
+
     });
 
     /**
@@ -3744,17 +3910,23 @@ $(document).ready(function() {
 
         if(edificio == "--"){
             alert("Error. Seleccione una opción valida");
-        }
-        if (URLactual['href'].indexOf('listar_multiple_consultas') >= 0) {
-            if (edificio != 'TODOS') {
-                $("#pisoSearch").empty();
-                var edificio = $("#edificioSearch").find(':selected').val();
-                actualizarSelectPiso(edificio);
-                $('#divPiso').css('display','block');
-                $('#buscarOrdenes3').attr("disabled", true);
-            }else{
-                $('#divPiso').css('display','none');
-                $("#buscarOrdenes3").removeAttr('Disabled');
+            $('#divPiso').css('display','none');
+            $("#buscarOrdenes3").removeAttr('Disabled');
+            $("#buscarOrdenes6").removeAttr('Disabled');
+        }else{
+            if (URLactual['href'].indexOf('listar_multiple_consultas') >= 0 || URLactual['href'].indexOf('novedad_consultas') >= 0) {
+                if (edificio != 'TODOS') {
+                    $("#pisoSearch").empty();
+                    var edificio = $("#edificioSearch").find(':selected').val();
+                    actualizarSelectPiso(edificio);
+                    $('#divPiso').css('display','block');
+                    $('#buscarOrdenes3').attr("disabled", true);
+                    $('#buscarOrdenes6').attr("disabled", true);
+                }else{
+                    $('#divPiso').css('display','none');
+                    $("#buscarOrdenes3").removeAttr('Disabled');
+                    $("#buscarOrdenes6").removeAttr('Disabled');
+                }
             }
         }
     });
@@ -3767,12 +3939,26 @@ $(document).ready(function() {
         var URLactual = window.location;
 
         if(piso == "Seleccionar Piso"){
-            alert("Error. Seleccione un piso");
             $('#buscarOrdenes3').attr("disabled", true);
+            $('#buscarOrdenes6').attr("disabled", true);
         }else{
             $("#buscarOrdenes3").removeAttr('Disabled');
+            $('#buscarOrdenes6').removeAttr('Disabled');
         }
     });
+
+    /**
+    * captura el elemento seleccionado del select campus y de acuerdo a la seleccion actualiza el select de edificios
+    */
+   $("#novedadSearch").change(function (e) {
+       var vlr = $("#novedadSearch").find(':selected').val();
+       var fechaInicio = $("#searchFechaInicial").val();
+       var fechaFin = $("#searchFechaFinal").val();
+
+       if(vlr == 'Seleccionar'){
+           $('#buscarOrdenes6').attr("disabled", true);
+       }
+   });
 
     /**
      * Se captura el evento cuando de da click en el boton modificar y se
@@ -4231,4 +4417,78 @@ $(document).ready(function() {
             $('#divSelectOperario').css('display','none');
         }
     });
+
+    /**
+     * Función que llena y actualiza el selector de novedad.
+     * @param {array} data, datos que se van a actualizar en el selector.
+     * @returns {undefined}
+    **/
+    function actualizarSelectNovedad(selector)
+    {
+        var tableName = "novedades";
+        var data = buscarNovedad(tableName);
+        var codSistemaActual = 0;
+        var it = 0;
+        var codSistema;
+        var nombreSistema;
+        var row, row2, row3;
+
+        $("#"+selector+"").empty();
+        $.each(data, function(index, record) {
+            if($.isNumeric(index)) {
+
+                codSistema = record.cod_sistema;
+
+                if (record.cod_sistema == '1') {
+                    nombreSistema = "Hidráulico y Sanitario";
+                }else if (record.cod_sistema == '2') {
+                    nombreSistema = "Eléctrico";
+                }else if (record.cod_sistema == '3') {
+                    nombreSistema = "Planta Física";
+                }else if (record.cod_sistema == '4') {
+                    nombreSistema = "Aires Acondicionados";
+                }else if (record.cod_sistema == '5') {
+                    nombreSistema = "Cubiertas de los Edificios";
+                }
+
+                if ((codSistemaActual == 0) & (codSistema == 5)){
+                    row = $('<option value="Seleccionar">Seleccionar</option>');
+                    row2 = $('<optgroup label="'+nombreSistema+'">');
+                    row3 = $("<option value='" + record.id + "'>"+record.novedad+"</option>");
+                    //$row.text("Seleccionar");
+                    $("#"+selector+"").append(row);
+                    $("#"+selector+"").append('<option disabled="disabled"></option>');
+                    row2.append(row3);
+                    //row2.appendTo("#descripcion", "#descripcion2", "#descripcion3");
+                    //$('#descripcion').append(row2);
+                    //row3.text(record.novedad);
+                    //row3.appendTo("#descripcion", "#descripcion2", "#descripcion3");
+                    codSistemaActual = record.cod_sistema;
+                }else if ((codSistemaActual == codSistema) & ((record.cod_sistema != null) || (record.novedad != 'Seleccionar'))) {
+                    row3 = $("<option value='" + record.id + "'>"+record.novedad+"</option>");
+                    row2.append(row3);
+                    //row.text(record.novedad);
+                    //row.appendTo("#descripcion", "#descripcion2", "#descripcion3");
+                }else if((record.cod_sistema != null) || (record.novedad != 'Seleccionar')){
+                    row3 = $('</optgroup>');
+                    if(codSistemaActual != 3)
+                        row2.append('<option disabled="disabled"></option>');
+                    row2.append(row3);
+                    $("#"+selector+"").append(row2);
+                    //$('#descripcion2').append(row2);
+                    //$('#descripcion3').append(row2);
+                    //var row = $('</optiongroup>');
+                    row2 = $('<optgroup label="'+nombreSistema+'">');
+                    row3 = $("<option value='" + record.id + "'>"+record.novedad+"</option>");
+
+                    row2.append(row3);
+                    //row.appendTo("#descripcion", "#descripcion2", "#descripcion3");
+                    //row2.appendTo("#descripcion", "#descripcion2", "#descripcion3");
+                    //row3.text(record.novedad);
+                    //row3.appendTo("#descripcion", "#descripcion2", "#descripcion3");
+                    codSistemaActual = record.cod_sistema;
+                }
+            }
+        });
+    }
 });

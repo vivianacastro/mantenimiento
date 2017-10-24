@@ -25,6 +25,7 @@ class Controlador_vista
                 'LIST_CONSULTAS'=>'index.php?action='.OPERATION_LIST.'_'.CONSULTAS,
                 'LIST_CONSULTAS_F'=>'index.php?action='.OPERATION_LIST_F.'_'.CONSULTAS,
                 'LIST_MODIFICACION_N'=>'index.php?action='.OPERATION_LIST_N.'_'.MODIFICACION,
+                'LIST_CONSULTAS_NOVEDAD'=>'index.php?action='.OPERATION_LIST_NOVEDAD.'_'.CONSULTAS,
                 'LIST_CONSULTAS_MULTIPLE'=>'index.php?action='.OPERATION_LIST_MULTIPLE.'_'.CONSULTAS,
                 'LIST_BUSCAR'=>'index.php?action='.BUSCAR_DINAMICO,
                 'LIST_CONSULTAS_DIA' => 'index.php?action='.OPERATION_LIST_DIA.'_'.CONSULTAS,

@@ -717,6 +717,80 @@ class Modelo_consultas
     }
 
     /**
+     * Funcion que permite buscar una orden/solicitud por parametros avanzados campus, edificio, sistema, rango fecha inicio-fecha Final
+     * @param  [string] $n, hace referencia a la novedad seleccionado.
+     * @param  [string] $c, hace referencia al campus seleccionado.
+     * @param  [string] $e, hace referencia al edificio seleccionado.
+     * @param  [string] $p, hace referencia al piso seleccionado.
+     * @param  [string] $fi, hace referencia a la fecha inicial seleccionada
+     * @param  [string] $ff, hace referencia a la fecha final seleccionada
+     * @return [array] Un array con los parametros resultantes de la busqueda
+     */
+    public function buscarOrdenNovedad($n, $c, $e, $p, $fi, $ff){
+        $n = htmlspecialchars(trim($n));
+        $c = htmlspecialchars(trim($c));
+        $e = htmlspecialchars(trim($e));
+        $p = htmlspecialchars(trim($p));
+        $fi = htmlspecialchars(trim($fi));
+        $ff = htmlspecialchars(trim($ff));
+
+        if ($c == -1) {
+            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+            FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
+            WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
+            AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
+        }else{
+            if ($e == 'TODOS') {
+                $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
+                WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
+                AND a.codigo_campus = '".$c."'
+                AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
+            }else{
+                if ($p == -1) {
+                    $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                    FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
+                    WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
+                    AND a.codigo_campus = '".$c."' AND codigo_edificio = '".$e."'
+                    AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
+                }else{
+                    $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                    FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
+                    WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
+                    AND a.codigo_campus = '".$c."' AND codigo_edificio = '".$e."' AND piso = '".$p."'
+                    AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
+                }
+            }
+        }
+
+        $l_stmt = $this->conexion->prepare($sql);
+
+        if (!$l_stmt)
+        {
+            $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
+        }
+        else
+        {
+            if(!$l_stmt->execute())
+            {
+                $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
+            }
+
+            if($l_stmt->rowCount() > 0)
+            {
+                $result = $l_stmt->fetchAll();
+                $GLOBALS['mensaje'] = MJ_CONSULTA_EXITOSA;
+            }
+            else
+            {
+                $GLOBALS['mensaje'] = "No hay registro asociado a su consulta";
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * funcion que devuelve el nombre del edificio dado su codigo y campus asociado
      * @param  [integer] $c [Hace referencia al codigo del campus]
      * @param  [integer] $e [hace referencia al codigo del edificio]

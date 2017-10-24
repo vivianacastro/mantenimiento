@@ -102,6 +102,25 @@ class Controlador_consultas
 
     /**
     * Función que despliega el panel que permite visualizar las ordenes que
+    * hay en el sistemas por sistemas
+    */
+    public function listarNovedad() {
+
+        $GLOBALS['mensaje'] = "";
+
+        $m = new Modelo_consultas(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
+                    Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
+
+        $data = array(
+            'mensaje' => 'Consultar órdenes de mantenimiento.',
+        );
+
+        $v = new Controlador_vista();
+        $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST_NOVEDAD, $data);
+    }
+
+    /**
+    * Función que despliega el panel que permite visualizar las ordenes que
     * hay en el sistema por dia
     */
     public function listarDia() {
@@ -522,7 +541,7 @@ class Controlador_consultas
                 if($tipoUser == 'sanfernando'){
                     if ($sistema == -1) {
                         $info['campus'] = 2;
-                    }                    
+                    }
                 }
 
                 $data = $m->buscarOrdenesParametrosAvanzados($info['campus'], $info['edificio'], $info['sistema'], $info['piso'], $info['fechaInicio'], $info['fechaFin']);
@@ -575,6 +594,77 @@ class Controlador_consultas
             {
                 $dataNew['mensaje'] = 'Error selecciones opciones válidas';
             }
+        }
+
+        $dataNew['mensaje'] = $GLOBALS['mensaje'];
+
+        echo json_encode($dataNew);
+
+    }
+
+    /**
+     * funcion que permite buscar una orden/solicitud de mantenimiento por campus, edificio, sistema, rango de fechas
+     * @return [type] [description]
+     */
+    public function buscarOrdenesNovedad()
+    {
+        $GLOBALS['mensaje'] = "";
+
+        $tipoUser = $_SESSION['perfil'];
+
+        $m = new Modelo_consultas(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
+                    Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
+
+        $dataNew = array();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $info = json_decode($_POST['jObject'], true);
+
+            $data = $m->buscarOrdenNovedad($info['novedad'], $info['campus'], $info['edificio'], $info['piso'], $info['fechaInicio'], $info['fechaFin']);
+
+            foreach ($data as $clave => $valor) {
+        	 $temp1 = $valor['descripcion1'];
+	  		 $temp2 = $valor['descripcion2'];
+			 $temp3 = $valor['descripcion3'];
+         	 $novedad1 = $m->getNombreNovedad($temp1);
+			 $novedad2 = $m->getNombreNovedad($temp2);
+			 $novedad3 = $m->getNombreNovedad($temp3);
+        	 foreach ($novedad1 as $a => $b) {
+         		 $novedad1 = $b['novedad'];
+        	 }foreach ($novedad2 as $c => $d) {
+        		 $novedad2 = $d['novedad'];
+        	 }foreach ($novedad3 as $e => $f) {
+        		 $novedad3 = $f['novedad'];
+        	 }
+            $arrayAux = array(
+                'numero_solicitud' => $valor['numero_solicitud'],
+                'usuario' => $valor['usuario'],
+                'telefono' => $valor['telefono'],
+                'extension' => $valor['extension'],
+                'cod_sede' => $valor['cod_sede'],
+                'codigo_campus' => $valor['codigo_campus'],
+                'codigo_edificio' => $valor['codigo_edificio'],
+                'piso' => $valor['piso'],
+                'espacio' => $valor['espacio'],
+                'cantidad1' => $valor['cantidad1'],
+                'descripcion1' => $novedad1,
+                'descripcion_novedad' => $valor['descripcion_novedad'],
+                'cantidad2' => $valor['cantidad2'],
+                'descripcion2' => $novedad2,
+                'descripcion_novedad2' => $valor['descripcion_novedad2'],
+                'cantidad3' => $valor['cantidad3'],
+                'descripcion3' => $novedad3,
+                'descripcion_novedad3' => $valor['descripcion_novedad3'],
+                'contacto' => $valor['contacto'],
+                'estado' => $valor['estado'],
+                'descripcion' => $valor['descripcion'],
+                'fecha' => $valor['fecha'],
+                'impreso' => $valor['impreso'],
+                'operario' => $valor['operario'],
+            );
+            array_push($dataNew, $arrayAux);
+
+        	}
         }
 
         $dataNew['mensaje'] = $GLOBALS['mensaje'];

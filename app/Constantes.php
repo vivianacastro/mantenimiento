@@ -1,6 +1,6 @@
 <?php
 /**
- * Constantes del sistema 
+ * Constantes del sistema
  */
 const T_SEGUNDOS_INACTIVIDAD_PERMITIDO = 1200;
 
@@ -32,12 +32,13 @@ const OPERATION_EDIT = 'modificar';
 const OPERATION_LIST = 'listar';
 const OPERATION_LIST_F = 'listarf';
 const OPERATION_LIST_N = 'listarn';
+const LIST_CONSULTAS_NOVEDAD = 'listarnovedad';
 const OPERATION_LIST_MULTIPLE = 'listar_multiple';
 const OPERATION_LIST_DIA = 'listardia';
 const OPERATION_LIST_NORMAL = 'listar_normal';
 const OPERATION_LIST_HISTORIAL = 'listar_historial';
 const OPERATION_LIST_ORDENES = 'listar_ordenes';
-const OPERATION_LIST_NOVEDADES = 'novedades';
+const OPERATION_LIST_NOVEDAD = 'listar_novedad';
 const OPERATION_SALIR_SESION = 'salir_sesion';
 const OPERATION_ADM_SUPERV = 'administrar_autorizado';
 const OPERATION_NEW_USER = 'crear_nuevo_usuario';

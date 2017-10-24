@@ -10,10 +10,10 @@ class Controlador_registros
      * Función despliega el panel que permite crear ordenes en el sistema,
     **/
     public function insertar()
-    {   
-        
+    {
+
         $GLOBALS['mensaje'] = "";
-        
+
         $data = array(
             'mensaje' => 'Registrar órdenes de mantenimiento',
         );
@@ -23,7 +23,7 @@ class Controlador_registros
     }
 
     /**
-     * Funcion que permite registrar las orden o solcitudes de mantenimiento y almacenarla en la base de datos 
+     * Funcion que permite registrar las orden o solcitudes de mantenimiento y almacenarla en la base de datos
      * @return array $result. Un array con 2 key el mensaje que devuelve el metodo del modelo y el value que es un valor booleano
      */
     public function insertarOrden(){
@@ -56,7 +56,7 @@ class Controlador_registros
             {
 
                 if($m->insertarOrdenes($tmp_usuario, $tmp_sede, $tmp_campus, $tmp_edificio, $tmp_piso, $tmp_espacio, $tmp_contacto, $tmp_cantidad, $tmp_novedad, $tmp_cantidad2, $tmp_novedad2, $tmp_cantidad3, $tmp_novedad3, $tmp_otraNovedad, $tmp_otraNovedad2, $tmp_otraNovedad3))
-                {    
+                {
                     $result = array('value' => true,);
                     //$m->enviarMail();
                 }
@@ -64,7 +64,7 @@ class Controlador_registros
                     $result = array('value' => false,);
                 }
             }
-            else 
+            else
             {
                 $result = array('value' => false,);
             }
@@ -92,16 +92,17 @@ class Controlador_registros
             $data = $m->buscarDBNovedad();
             while (list($clave, $valor) = each($data)) {
                 $arrayAux = array(
+                    'id' => $valor['id'],
                     'novedad' => $valor['novedad'],
                     'cod_sistema' => $valor['cod_sistema'],
                     );
                 array_push($dataNew, $arrayAux);
             }
-        }            
-        
+        }
+
         $dataNew['mensaje'] = $GLOBALS['mensaje'];
-        
-        echo json_encode($dataNew);        
+
+        echo json_encode($dataNew);
     }
 
     /**
@@ -128,13 +129,13 @@ class Controlador_registros
 
                 array_push($dataNew, $arrayAux);
             }
-        }            
-        
-        $dataNew['mensaje'] = $GLOBALS['mensaje'];
-        
-        echo json_encode($dataNew); 
+        }
 
-    } 
+        $dataNew['mensaje'] = $GLOBALS['mensaje'];
+
+        echo json_encode($dataNew);
+
+    }
 
     /**
      * funcion que permite buscar los campus registrados en el sistema
@@ -158,15 +159,15 @@ class Controlador_registros
 
                 array_push($dataNew, $arrayAux);
             }
-        }            
-        
+        }
+
         $dataNew['mensaje'] = $GLOBALS['mensaje'];
-        
+
         echo json_encode($dataNew);
     }
 
     /**
-     * funcion que permite buscar los pisos de la base de datos 
+     * funcion que permite buscar los pisos de la base de datos
      * @return array $dataNew con el nombre del piso registrados en formato json
      */
     public function buscarPiso()
@@ -187,11 +188,11 @@ class Controlador_registros
 
                 array_push($dataNew, $arrayAux);
             }
-        }            
-        
+        }
+
         $dataNew['mensaje'] = $GLOBALS['mensaje'];
-        
-        echo json_encode($dataNew); 
+
+        echo json_encode($dataNew);
     }
 
     /**
@@ -202,14 +203,14 @@ class Controlador_registros
     {
         $GLOBALS['mensaje'] = "";
 
-        $m = new Modelo_registros(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario, 
+        $m = new Modelo_registros(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
             Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
 
         $user = $_SESSION['login'];
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $dataNew = array();
-            
+
             $data = $m->buscarDBUsuario($user);
 
             while(list($clave, $valor) = each($data)){
@@ -219,7 +220,7 @@ class Controlador_registros
                     'telefono' => $valor['telefono'],
                     'extension' => $valor['extension'],
                     );
-                array_push($dataNew, $arrayAux);    
+                array_push($dataNew, $arrayAux);
             }
 
             $dataNew['mensaje'] = $GLOBALS['mensaje'];
@@ -236,14 +237,14 @@ class Controlador_registros
     public function buscarOrdenes(){
         $GLOBALS['mensaje'] = "";
 
-        $m = new Modelo_registros(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario, 
+        $m = new Modelo_registros(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
             Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $info = json_decode($_POST['jObject'], true);
             $dataNew = array();
-           
+
             $data = $m->buscarUltimasOrdenes($info['campus'], $info['edificio'], $info['piso']);
 
 
@@ -276,7 +277,7 @@ class Controlador_registros
                     'tipo_usuario' => $_SESSION["perfil"],
                     );
                 array_push($dataNew, $arrayAux);
-                
+
             }
 
             $dataNew['mensaje'] = $GLOBALS['mensaje'];

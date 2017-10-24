@@ -277,14 +277,14 @@ $(document).ready(function() {
         });
     }
 
-/**
+    /**
      * Función que llena y actualiza el selector de novedad con el id asociado.
      * @param {array} data, datos que se van a actualizar en el selector.
      * @returns {undefined}
     **/
     function actualizarSelectorNovedad(id)
     {
-        var tableName = "novedades"
+        var tableName = "novedades";
         var data = buscarNovedad(tableName);
 
         $("#"+id).empty();
