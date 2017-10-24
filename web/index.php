@@ -39,7 +39,7 @@ $map = array(
     'listar_multiple_consultas' => array('controlador' =>'Controlador_consultas', 'action' =>'listars'),
     'listar_normal_consultas' => array('controlador' =>'Controlador_consultas', 'action' =>'listarNormal'),
     'listar_ordenes' => array('controlador' =>'Controlador_consultas', 'action' =>'listarOrdenes'),
-    'novedad_consultas' => array('controlador' =>'Controlador_consultas', 'action' =>'listarNovedad'),
+    'listar_novedad_consultas' => array('controlador' =>'Controlador_consultas', 'action' =>'listarNovedad'),
     'obtener_edificio' => array('controlador' =>'Controlador_consultas', 'action' =>'obtenerEdificio'),
     'obtener_historial' => array('controlador' =>'Controlador_consultas', 'action' =>'obtenerHistorial'),
     'obtener_ordenes_sistema' => array('controlador' =>'Controlador_consultas', 'action' =>'obtenerOrdenesSistema'),
