@@ -59,7 +59,7 @@ class Controlador_vista
     **/
     function crear_enlace_libreria($module)
     {
-        $link = "<script type='text/javascript' src='js/".$module."_functions.js?v=2.9'>"
+        $link = "<script type='text/javascript' src='js/".$module."_functions.js?v=2.91'>"
                 . "</script>";
 
         return $link;
