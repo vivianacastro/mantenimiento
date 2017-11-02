@@ -283,11 +283,11 @@ class Modelo_consultas
             if($l_stmt->rowCount() > 0)
             {
                 $result = $l_stmt->fetchAll();
-                $GLOBALS['mensaje'] = $sql;//MJ_CONSULTA_EXITOSA;
+                $GLOBALS['mensaje'] = MJ_CONSULTA_EXITOSA;
             }
             else
             {
-                $GLOBALS['mensaje'] = $sql;//"No hay registro asociado a su consulta";
+                $GLOBALS['mensaje'] = "No hay registro asociado a su consulta";
             }
         }
 

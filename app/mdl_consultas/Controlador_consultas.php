@@ -826,8 +826,7 @@ class Controlador_consultas
      * funcion que permite obtener los edificios con más ordenes asociadas
      * @return [type] [description]
      */
-    public function buscarEstadisticasNovedades()
-    {
+    public function buscarEstadisticasNovedades(){
         $GLOBALS['mensaje'] = "";
 
         $m = new Modelo_consultas(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
