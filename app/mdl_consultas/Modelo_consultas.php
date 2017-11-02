@@ -249,14 +249,14 @@ class Modelo_consultas
             }else{
                 $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
-                            WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.piso = '".$p."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
+                            WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                 /*$sql = "SELECT * FROM solicitudes_mantenimiento JOIN novedad_sistema ON solicitudes_mantenimiento.descripcion1 = novedad_sistema.id WHERE novedad_sistema.cod_sistema = '".$s."' AND solicitudes_mantenimiento.fecha BETWEEN '".$fi."' AND '".$ff."' ORDER BY solicitudes_mantenimiento.numero_solicitud;";*/
             }
         }else{
             if($s == -1){
                 $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
-                        WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
+                        WHERE a.codigo_campus = '".$c."' AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                 //$sql = "SELECT * FROM solicitudes_mantenimiento WHERE codigo_campus = '".$c."' AND fecha BETWEEN '".$fi."' AND '".$ff."' ORDER BY numero_solicitud;";
             }else{
                 $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
@@ -283,11 +283,11 @@ class Modelo_consultas
             if($l_stmt->rowCount() > 0)
             {
                 $result = $l_stmt->fetchAll();
-                $GLOBALS['mensaje'] = MJ_CONSULTA_EXITOSA;
+                $GLOBALS['mensaje'] = $sql;//MJ_CONSULTA_EXITOSA;
             }
             else
             {
-                $GLOBALS['mensaje'] = "No hay registro asociado a su consulta";
+                $GLOBALS['mensaje'] = $sql;//"No hay registro asociado a su consulta";
             }
         }
 
