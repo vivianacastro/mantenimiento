@@ -77,8 +77,7 @@ class Modelo_consultas
      * serial.
      * @param numerico $k, Entero que hace referencia al serial de la orden
      */
-    public function buscarOrdenesPorKey($k)
-    {
+    public function buscarOrdenesPorKey($k){
         $k = htmlspecialchars(trim($k));
 
         //$sql = "SELECT * FROM solicitudes_mantenimiento WHERE estado = 'Solicitado' AND numero_solicitud = '".$k."' ORDER BY numero_solicitud;";
@@ -113,8 +112,7 @@ class Modelo_consultas
     /**
      * Función que permite consultar el historial de ordenes de un usuario
      */
-    public function buscarBDHistorial($u)
-    {
+    public function buscarBDHistorial($u){
         $u = htmlspecialchars(trim($u));
         $result = array();
 
@@ -147,11 +145,10 @@ class Modelo_consultas
         return $result;
     }
 
-     /**
+    /**
      * Función que permite consultar el historial de ordenes de un usuario
-     */
-    public function buscarOrdenesSistema($u)
-    {
+    */
+    public function buscarOrdenesSistema($u){
         $u = htmlspecialchars(trim($u));
 
         if($u == 0){
@@ -185,11 +182,10 @@ class Modelo_consultas
         return $result;
     }
 
-     /**
+    /**
      * Función que permite consultar el historial de ordenes de un usuario
-     */
-    public function buscarOrdenesSistemaCampus($u, $c)
-    {
+    */
+    public function buscarOrdenesSistemaCampus($u, $c){
         $u = htmlspecialchars(trim($u));
         $c = htmlspecialchars(trim($c));
 
@@ -298,8 +294,7 @@ class Modelo_consultas
      * Función que permite obtener los edificios con más solicitudes.
      * @return array Resulset con los parametros de la busqueda
      */
-    public function buscarEdificiosMasSolicitudes($campus, $sistema, $fechaInicio, $fechaFin)
-    {
+    public function buscarEdificiosMasSolicitudes($campus, $sistema, $fechaInicio, $fechaFin){
         $campus = htmlspecialchars(trim($campus));
         $sistema = htmlspecialchars(trim($sistema));
         $fechaInicio = htmlspecialchars(trim($fechaInicio));
@@ -342,8 +337,7 @@ class Modelo_consultas
      * Función que permite obtener los edificios con más solicitudes.
      * @return array Resulset con los parametros de la busqueda
      */
-    public function buscarEstadisticasSistemas($campus, $sistema, $fechaInicio, $fechaFin)
-    {
+    public function buscarEstadisticasSistemas($campus, $sistema, $fechaInicio, $fechaFin){
 
         $campus = htmlspecialchars(trim($campus));
         $sistema = htmlspecialchars(trim($sistema));
@@ -387,8 +381,7 @@ class Modelo_consultas
      * Función que permite obtener los edificios con más solicitudes.
      * @return array Resulset con los parametros de la busqueda
      */
-    public function buscarEspaciosMasSolicitudes($campus, $sistema, $fechaInicio, $fechaFin)
-    {
+    public function buscarEspaciosMasSolicitudes($campus, $sistema, $fechaInicio, $fechaFin){
 
         $campus = htmlspecialchars(trim($campus));
         $sistema = htmlspecialchars(trim($sistema));
@@ -432,8 +425,7 @@ class Modelo_consultas
      * Función que permite obtener los edificios con más solicitudes.
      * @return array Resulset con los parametros de la busqueda
      */
-    public function buscarEstadisticasOperador($campus, $sistema, $fechaInicio, $fechaFin)
-    {
+    public function buscarEstadisticasOperador($campus, $sistema, $fechaInicio, $fechaFin){
 
         $campus = htmlspecialchars(trim($campus));
         $sistema = htmlspecialchars(trim($sistema));
@@ -477,8 +469,7 @@ class Modelo_consultas
      * Función que permite obtener los edificios con más solicitudes.
      * @return array Resulset con los parametros de la busqueda
      */
-    public function buscarEstadisticasNovedades($campus, $sistema, $fechaInicio, $fechaFin, $numeroNovedad)
-    {
+    public function buscarEstadisticasNovedades($campus, $sistema, $fechaInicio, $fechaFin, $numeroNovedad){
 
         $campus = htmlspecialchars(trim($campus));
         $sistema = htmlspecialchars(trim($sistema));

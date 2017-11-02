@@ -73,8 +73,7 @@ $(document).ready(function() {
     * @param {string} consulta, Cadena que representa la palabra clave.
     * @returns {data}
     **/
-    function buscarSolicitud(consulta)
-    {
+    function buscarSolicitud(consulta){
         var dataResult;
 
         try {
@@ -106,7 +105,7 @@ $(document).ready(function() {
     * @param {string} consulta, Cadena que representa la palabra clave.
     * @returns {data}
     **/
-    function buscarOrdenesParametros(consulta) {
+    function buscarOrdenesParametros(consulta){
         var dataResult;
         var dataSave = {};
 
@@ -153,7 +152,7 @@ $(document).ready(function() {
     * @param {string} consulta, Cadena que representa la palabra clave.
     * @returns {data}
     **/
-    function obtenerEstadisticasEdificios(consulta) {
+    function obtenerEstadisticasEdificios(consulta){
         var dataResult;
         var dataSave = {};
 
@@ -200,7 +199,7 @@ $(document).ready(function() {
     * @param {string} consulta, Cadena que representa la palabra clave.
     * @returns {data}
     **/
-    function obtenerEstadisticasNovedades(consulta) {
+    function obtenerEstadisticasNovedades(consulta){
         var dataResult;
         var dataSave = {};
 
@@ -247,7 +246,7 @@ $(document).ready(function() {
     * @param {string} consulta, Cadena que representa la palabra clave.
     * @returns {data}
     **/
-    function obtenerEstadisticasEspacios(consulta) {
+    function obtenerEstadisticasEspacios(consulta){
         var dataResult;
         var dataSave = {};
 
@@ -517,7 +516,7 @@ $(document).ready(function() {
         }
     }
 
-     /**
+    /**
      * Función que realiza una consulta de las ordenes dado
      un usuario
      * @param {type} consulta, palabra clave para realizar la consulta.
@@ -580,12 +579,11 @@ $(document).ready(function() {
         }
     }
 
-     /**
+    /**
      * funcion que permite recuperar los datos del usuario asociados a una orden/solicitud
      * @param  {string} consulta [nombre de login del usuario]
      * @return {object}          [Objeto json con los datos del usuario]
-     */
-
+    */
     function buscarHistorialUsuario(consulta){
         var dataResult;
 
@@ -618,8 +616,7 @@ $(document).ready(function() {
      * @param {type} consulta, palabra clave para realizar la consulta.
      * @returns {data} object json
     **/
-    function buscarNovedad(consulta)
-    {
+    function buscarNovedad(consulta){
         var dataResult;
 
         try {
@@ -1185,7 +1182,6 @@ $(document).ready(function() {
         });
     }
 
-
     /**
      * Función que actualiza la tabla en donde se muestran las ordenes
      * en el sistema.
@@ -1537,7 +1533,7 @@ $(document).ready(function() {
         return dataResult;
     }
 
-     /**
+    /**
      * Función que llena y actualiza el selector de Edificio.
      * @param {array} data, datos que se van a actualizar en el selector.
      * @returns {undefined}
@@ -1619,6 +1615,8 @@ $(document).ready(function() {
         }
     }
 
+    /** funcion auxiliar que permite devolver el código de un campus
+    */
     function getCodCampus(data){
         if(data == "Meléndez"){
             return 1;
@@ -1724,6 +1722,7 @@ $(document).ready(function() {
             return "";
         }
     }
+
     /**
     *funcion axuliar que permite recuperar el nombre de un edificio
     */
@@ -1758,8 +1757,7 @@ $(document).ready(function() {
      * Se captura el evento cuando de da click en el boton guardar modificación
      * y se realiza la operacion correspondiente.
      */
-    function guardarModOrdenes(idTabla,id)
-    {
+    function guardarModOrdenes(idTabla,id){
         try {
             if(id == ""){
                 aux = 2;
@@ -1848,8 +1846,7 @@ $(document).ready(function() {
      * Se captura el evento cuando de da click en el boton guardar modificación
      * y se realiza la operacion correspondiente.
      */
-    function guardarModOrdenes2(id)
-    {
+    function guardarModOrdenes2(id){
         try {
 
             if(id == ""){
@@ -1976,9 +1973,8 @@ $(document).ready(function() {
     /**
      * funcion que genera el archivo pdf usando la libreria BytescoutPDF.js
      *se utiliza la libreria bytescoutpdf para la generacion del pdf documentacion ->https://bytescout.com/products/developer/pdfgeneratorsdkjs/index.html
-     */
-    function generarPDF(data, numeroSolicitudes)
-    {
+    */
+    function generarPDF(data, numeroSolicitudes){
         var arregloSolicitudes = data[0];
         var arregloUsers = data[1];
         var arregloCampus = data[2];
@@ -2201,9 +2197,8 @@ $(document).ready(function() {
     /**
      * funcion que permite generar el link de descargar de la orden en formato pdf en del div de mensajes de la aplicacion
      * @param {[type]} PDFContentBase64 [description]
-     */
-    function generarLinkDescarga(PDFContentBase64)
-    {
+    */
+    function generarLinkDescarga(PDFContentBase64){
         var pdfdiv = document.getElementById("divMensaje");
         for(i=0;i<arregloNumSolicitudes.length;i++){
             actualizarImpreso(arregloNumSolicitudes[i]);
@@ -2656,7 +2651,6 @@ $(document).ready(function() {
             alert("Error. Por favor rellene todos los campos")
         }
     });
-
 
     /**
      * Se captura el evento cuando de da click en el boton buscar y se
@@ -3839,9 +3833,9 @@ $(document).ready(function() {
         }
     });
 
-     /**
+    /**
      * captura el elemento seleccionado del select campus y de acuerdo a la seleccion actualiza el select de edificios
-     */
+    */
     $("#campusSearch").change(function (e) {
         var vlr = $("#campusSearch").find(':selected').val();
         var URLactual = window.location;
