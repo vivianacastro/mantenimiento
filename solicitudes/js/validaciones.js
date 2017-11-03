@@ -71,16 +71,18 @@ $(document).ready(function() {
 				   console.log(err.Message);
 			   },
 			   success: function(data) {
-				   for (var i = 0; i < data.length; i++) {
-					   console.log(data[i]);
-					   $("#tabla_usuarios").append("<tr id='tr_tabla_usuarios'><td>"+data[i]["usuario"]+"</td><td>"+data[i]["nombre"]+"</td></tr>");
+				   if (data.length < 1) {
+					   alert("No hay usuarios registrados con el correo ingresado");
+				   }else{
+					   for (var i = 0; i < data.length; i++) {
+						   $("#tabla_usuarios").append("<tr id='tr_tabla_usuarios'><td>"+data[i]["usuario"]+"</td><td>"+data[i]["nombre"]+"</td></tr>");
+					   }
+					   $("#divDialogUsuario").modal("show");
 				   }
-				   $("#divDialogUsuario").modal("show");
 			   }
 		   });
 		}
 	});
-
 	$("#divDialogUsuario").on('hidden.bs.modal', function () {
 		window.location = "http://192.168.46.53/mantenimiento/web/index.php";
     });

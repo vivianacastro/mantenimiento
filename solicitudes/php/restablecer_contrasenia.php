@@ -1,4 +1,10 @@
-<?
+<?php
+define('__ROOT__', dirname(dirname(__FILE__)));
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+ini_set('error_log',  __ROOT__.'/errores.log');
+date_default_timezone_set('America/Bogota');
+
 include_once('class.phpmailer.php');
 include_once('class.smtp.php');
 session_start();
@@ -53,38 +59,38 @@ $dbconn = pg_connect("host=localhost port=5432 dbname=solicitudes_mantenimiento 
 $result3 = pg_query("SELECT * FROM usuarios_autorizados_sistema WHERE correo = '".$correo."' AND login = '".$login."';");
 
 if(pg_num_rows($result3) == 0) {
-  echo '<script type="text/javascript">confirm("El correo y/o login no se encuentran asociados a una cuenta");</script>';
-  echo '<script type="text/javascript">' ."\n";
-  echo 'window.location="../olvido_contrasenia.html";';
-  echo '</script>';
-  pg_close($dbconn);
-}else{
-  $query = "UPDATE usuarios_autorizados_sistema SET password = '".$c."' WHERE correo = '".$correo."' AND login = '".$login."';";
-
-  if( ! $result = pg_query($dbconn, $query) )
-  {
     echo '<script type="text/javascript">confirm("El correo y/o login no se encuentran asociados a una cuenta");</script>';
-  	echo '<script type="text/javascript">' ."\n";
+    echo '<script type="text/javascript">' ."\n";
     echo 'window.location="../olvido_contrasenia.html";';
     echo '</script>';
-  	pg_close($dbconn);
-  }
-  else
-  {
-      pg_close($dbconn);
-      //Enviar correo
-      try {
-        $mail->Send();
-      } catch (phpmailerException $e) {
-        //return $e->errorMessage();
-      } catch (Exception $e) {
-        //return $e->getMessage();
-      }
-      echo "<script type='text/javascript'>confirm('Se ha enviado un correo a ".$correo." con la informaci\u00F3n para reestablecer la contrase\u00F1a. Revise la bandeja de SPAM de su correo.');</script>";
-      echo '<script type="text/javascript">' . "\n";
-      echo 'window.location="http://192.168.46.53/mantenimiento/web/index.php";';
-      echo '</script>';
-  }
+    pg_close($dbconn);
+}else{
+    $query = "UPDATE usuarios_autorizados_sistema SET password = '".$c."' WHERE correo = '".$correo."' AND login = '".$login."';";
+
+    if( ! $result = pg_query($dbconn, $query) )
+    {
+        echo '<script type="text/javascript">confirm("El correo y/o login no se encuentran asociados a una cuenta");</script>';
+        echo '<script type="text/javascript">'.'\n';
+        echo 'window.location="../olvido_contrasenia.html";';
+        echo '</script>';
+        pg_close($dbconn);
+    }
+    else
+    {
+        pg_close($dbconn);
+        //Enviar correo
+        try {
+            $mail->Send();
+        } catch (phpmailerException $e) {
+            //return $e->errorMessage();
+        } catch (Exception $e) {
+            //return $e->getMessage();
+        }
+        echo "<script type='text/javascript'>confirm('Se ha enviado un correo a ".$correo." con la informaci\u00F3n para reestablecer la contrase\u00F1a. Revise la bandeja de SPAM de su correo.');</script>";
+        echo '<script type="text/javascript">' . "\n";
+        echo 'window.location="http://192.168.46.53/mantenimiento/web/index.php";';
+        echo '</script>';
+    }
 }
 session_destroy();
 ?>
