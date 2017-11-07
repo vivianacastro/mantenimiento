@@ -987,71 +987,83 @@ class Modelo_registros
      * @param  [int] $p hace referencia al codigo del campus 01==melendez,02==San fernando,03==Otros
      * @return [ResultSet] contiene la informacion de la busqueda.
      */
-    public function buscarDBEdificio($p){
+     public function buscarDBEdificio($p){
 
-        $p = htmlspecialchars(trim($p));
+         $p = htmlspecialchars(trim($p));
 
-        if($p == 01)
-        {
-            $sql = "SELECT codigo,nombre,pisos FROM edificiomelendez ORDER BY codigo;";
-            $l_stmt = $this->conexion->prepare($sql);
-            if (!$l_stmt){
-                $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
-            }
-            else{
-                if(!$l_stmt->execute()){
-                    $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
-                }
+         if($p == 01)
+         {
+             if ($_SESSION["perfil"] != 'normal') {
+                 $sql = "SELECT codigo,nombre,pisos FROM edificiomelendez ORDER BY codigo;";
+             }else{
+                 $sql = "SELECT codigo,nombre,pisos FROM edificiomelendez WHERE codigo <> '999' ORDER BY codigo;";
+             }
+             $l_stmt = $this->conexion->prepare($sql);
+             if (!$l_stmt){
+                 $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
+             }
+             else{
+                 if(!$l_stmt->execute()){
+                     $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
+                 }
 
-                if($l_stmt->rowCount() > 0)
-                {
-                    $result = $l_stmt->fetchAll();
-                    $GLOBALS['mensaje'] = "Éxito";
-                }
-            }
+                 if($l_stmt->rowCount() > 0)
+                 {
+                     $result = $l_stmt->fetchAll();
+                     $GLOBALS['mensaje'] = "Éxito";
+                 }
+             }
 
-        }
-        if($p == 02){
-            $sql = "SELECT codigo,nombre,pisos FROM edifsanfernando ORDER BY codigo;";
-            $l_stmt = $this->conexion->prepare($sql);
-            if (!$l_stmt){
-                $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
-            }
-            else{
-                if(!$l_stmt->execute()){
-                    $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
-                }
+         }
+         if($p == 02){
+             if ($_SESSION["perfil"] != 'normal') {
+                 $sql = "SELECT codigo,nombre,pisos FROM edifsanfernando ORDER BY codigo;";
+             }else{
+                 $sql = "SELECT codigo,nombre,pisos FROM edifsanfernando WHERE codigo <> '998' ORDER BY codigo;";
+             }
+             $l_stmt = $this->conexion->prepare($sql);
+             if (!$l_stmt){
+                 $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
+             }
+             else{
+                 if(!$l_stmt->execute()){
+                     $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
+                 }
 
-                if($l_stmt->rowCount() > 0)
-                {
-                    $result = $l_stmt->fetchAll();
-                    $GLOBALS['mensaje'] = "Éxito";
-                }
-            }
+                 if($l_stmt->rowCount() > 0)
+                 {
+                     $result = $l_stmt->fetchAll();
+                     $GLOBALS['mensaje'] = "Éxito";
+                 }
+             }
 
-        }
-        if($p == 03){
-            $sql = "SELECT codigo,nombre,pisos FROM otrosespacios ORDER BY codigo;";
-            $l_stmt = $this->conexion->prepare($sql);
-            if (!$l_stmt){
-                $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
-            }
-            else{
-                if(!$l_stmt->execute()){
-                    $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
-                }
+         }
+         if($p == 03){
+             if ($_SESSION["perfil"] != 'normal') {
+                 $sql = "SELECT codigo,nombre,pisos FROM otrosespacios ORDER BY codigo;";
+             }else{
+                 $sql = "SELECT codigo,nombre,pisos FROM otrosespacios WHERE codigo <> '997' ORDER BY codigo;";
+             }
+             $l_stmt = $this->conexion->prepare($sql);
+             if (!$l_stmt){
+                 $GLOBALS['mensaje'] = MJ_PREPARAR_CONSULTA_FALLIDA;
+             }
+             else{
+                 if(!$l_stmt->execute()){
+                     $GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA;
+                 }
 
-                if($l_stmt->rowCount() > 0)
-                {
-                    $result = $l_stmt->fetchAll();
-                    $GLOBALS['mensaje'] = "Éxito";
-                }
-            }
+                 if($l_stmt->rowCount() > 0)
+                 {
+                     $result = $l_stmt->fetchAll();
+                     $GLOBALS['mensaje'] = "Éxito";
+                 }
+             }
 
-        }
+         }
 
-        return $result;
-    }
+         return $result;
+     }
 
     /**
      * Funcion que permite buscar las novedad registradas en la base de datos
