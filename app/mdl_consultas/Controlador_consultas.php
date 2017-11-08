@@ -375,47 +375,48 @@ class Controlador_consultas
                 $data['mensaje'] = 'Error ingrese un valor';
             }
             if($control){
-            	foreach ($data as $clave => $valor) {
-            	 $temp1 = $valor['descripcion1'];
-		  		 $temp2 = $valor['descripcion2'];
-				 $temp3 = $valor['descripcion3'];
-             	 $novedad1 = $m->getNombreNovedad($temp1);
-				 $novedad2 = $m->getNombreNovedad($temp2);
-				 $novedad3 = $m->getNombreNovedad($temp3);
-            	 foreach ($novedad1 as $a => $b) {
-             		 $novedad1 = $b['novedad'];
-            	 }foreach ($novedad2 as $c => $d) {
-            		 $novedad2 = $d['novedad'];
-            	 }foreach ($novedad3 as $e => $f) {
-            		 $novedad3 = $f['novedad'];
-            	 }
-                $arrayAux = array(
-                    'numero_solicitud' => $valor['numero_solicitud'],
-                    'usuario' => $valor['usuario'],
-                    'cod_sede' => $valor['cod_sede'],
-                    'codigo_campus' => $valor['codigo_campus'],
-                    'codigo_edificio' => $valor['codigo_edificio'],
-                    'piso' => $valor['piso'],
-                    'espacio' => $valor['espacio'],
-                    'cantidad1' => $valor['cantidad1'],
-                    'descripcion1' => $novedad1,
-                    'descripcion_novedad' => $valor['descripcion_novedad'],
-                    'cantidad2' => $valor['cantidad2'],
-                    'descripcion2' => $novedad2,
-                    'descripcion_novedad2' => $valor['descripcion_novedad2'],
-                    'cantidad3' => $valor['cantidad3'],
-                    'descripcion3' => $novedad3,
-                    'descripcion_novedad3' => $valor['descripcion_novedad3'],
-                    'contacto' => $valor['contacto'],
-                    'estado' => $valor['estado'],
-                    'descripcion' => $valor['descripcion'],
-                    'fecha' => $valor['fecha'],
-                    'impreso' => $valor['impreso'],
-                    'operario' => $valor['operario'],
-                );
-                array_push($dataNew, $arrayAux);
-
-            	}
+                foreach ($data as $clave => $valor) {
+                    $temp1 = $valor['descripcion1'];
+                    $temp2 = $valor['descripcion2'];
+                    $temp3 = $valor['descripcion3'];
+                    $novedad1 = $m->getNombreNovedad($temp1);
+                    $novedad2 = $m->getNombreNovedad($temp2);
+                    $novedad3 = $m->getNombreNovedad($temp3);
+                    foreach ($novedad1 as $a => $b) {
+                        $novedad1 = $b['novedad'];
+                    }foreach ($novedad2 as $c => $d) {
+                        $novedad2 = $d['novedad'];
+                    }foreach ($novedad3 as $e => $f) {
+                        $novedad3 = $f['novedad'];
+                    }
+                    $fecha_mod = explode(".",$valor['hora']);
+                    $arrayAux = array(
+                        'numero_solicitud' => $valor['numero_solicitud'],
+                        'usuario' => $valor['usuario'],
+                        'cod_sede' => $valor['cod_sede'],
+                        'codigo_campus' => $valor['codigo_campus'],
+                        'codigo_edificio' => $valor['codigo_edificio'],
+                        'piso' => $valor['piso'],
+                        'espacio' => $valor['espacio'],
+                        'cantidad1' => $valor['cantidad1'],
+                        'descripcion1' => $novedad1,
+                        'descripcion_novedad' => $valor['descripcion_novedad'],
+                        'cantidad2' => $valor['cantidad2'],
+                        'descripcion2' => $novedad2,
+                        'descripcion_novedad2' => $valor['descripcion_novedad2'],
+                        'cantidad3' => $valor['cantidad3'],
+                        'descripcion3' => $novedad3,
+                        'descripcion_novedad3' => $valor['descripcion_novedad3'],
+                        'contacto' => $valor['contacto'],
+                        'estado' => $valor['estado'],
+                        'descripcion' => $valor['descripcion'],
+                        'fecha' => $valor['fecha'],
+                        'fecha_modificado' => $fecha_mod[0],
+                        'impreso' => $valor['impreso'],
+                        'operario' => $valor['operario'],
+                    );
+                    array_push($dataNew, $arrayAux);
+                }
             }
         }
 

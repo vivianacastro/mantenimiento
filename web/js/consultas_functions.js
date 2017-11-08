@@ -3362,6 +3362,7 @@ $(document).ready(function() {
                         $("#estado").val(record.estado);
                         $("#descripcion").val(record.descripcion);
                         $("#fecha").val(record.fecha);
+                        $("#fecha_modificado").val(record.fecha_modificado);
                     }
                 });
 
@@ -3465,6 +3466,7 @@ $(document).ready(function() {
                         $("#estado").val(record.estado);
                         $("#descripcion").val(record.descripcion);
                         $("#fecha").val(record.fecha);
+                        $("#fecha_modificado").val(record.fecha_modificado);
                     }
                 });
 
@@ -3568,6 +3570,7 @@ $(document).ready(function() {
                         $("#estado").val(record.estado);
                         $("#descripcion").val(record.descripcion);
                         $("#fecha").val(record.fecha);
+                        $("#fecha_modificado").val(record.fecha_modificado);
                     }
                 });
 
@@ -3671,6 +3674,7 @@ $(document).ready(function() {
                         $("#estado").val(record.estado);
                         $("#descripcion").val(record.descripcion);
                         $("#fecha").val(record.fecha);
+                        $("#fecha_modificado").val(record.fecha_modificado);
                     }
                 });
 
@@ -3774,6 +3778,7 @@ $(document).ready(function() {
                         $("#estado").val(record.estado);
                         $("#descripcion").val(record.descripcion);
                         $("#fecha").val(record.fecha);
+                        $("#fecha_modificado").val(record.fecha_modificado);
                     }
                 });
 

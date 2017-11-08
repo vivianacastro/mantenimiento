@@ -81,7 +81,9 @@ class Modelo_consultas
         $k = htmlspecialchars(trim($k));
 
         //$sql = "SELECT * FROM solicitudes_mantenimiento WHERE estado = 'Solicitado' AND numero_solicitud = '".$k."' ORDER BY numero_solicitud;";
-          $sql = "SELECT * FROM solicitudes_mantenimiento WHERE estado <> 'Eliminado' AND numero_solicitud = '".$k."' ORDER BY numero_solicitud;";
+        $sql = "SELECT a.numero_solicitud,a.usuario,a.cod_sede,a.codigo_campus,a.codigo_edificio,a.piso,a.espacio,a.cantidad1,a.descripcion1,a.descripcion2,a.descripcion3,a.descripcion_novedad,a.cantidad2,a.descripcion_novedad2,a.cantidad3,a.descripcion_novedad3,a.contacto,a.descripcion,a.estado,a.fecha,b.hora,a.impreso,a.operario
+                    FROM solicitudes_mantenimiento a LEFT JOIN estado_orden b ON a.numero_solicitud = b.numero_solicitud
+                    WHERE a.estado <> 'Eliminado' AND a.numero_solicitud = '".$k."' ORDER BY b.hora DESC, a.numero_solicitud LIMIT 1;";
 
         $l_stmt = $this->conexion->prepare($sql);
         if (!$l_stmt)
@@ -117,7 +119,9 @@ class Modelo_consultas
         $result = array();
 
 
-          $sql = "SELECT * FROM solicitudes_mantenimiento WHERE estado <> 'Eliminado' AND usuario = '".$u."' ORDER BY numero_solicitud DESC;";
+          $sql = "SELECT a.numero_solicitud,a.usuario,a.cod_sede,a.codigo_campus,a.codigo_edificio,a.piso,a.espacio,a.cantidad1,a.descripcion1,a.descripcion2,a.descripcion3,a.descripcion_novedad,a.cantidad2,a.descripcion_novedad2,a.cantidad3,a.descripcion_novedad3,a.contacto,a.descripcion,a.estado,a.fecha,b.hora,a.impreso,a.operario
+                    FROM solicitudes_mantenimiento a LEFT JOIN estado_orden b ON a.numero_solicitud = b.numero_solicitud
+                    WHERE a.estado <> 'Eliminado' AND a.usuario = '".$u."' ORDER BY b.hora DESC, a.numero_solicitud LIMIT 1;";
 
         $l_stmt = $this->conexion->prepare($sql);
         if (!$l_stmt)
