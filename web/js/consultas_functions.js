@@ -932,7 +932,7 @@ $(document).ready(function() {
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
                 campus = getNombreCampus(record.codigo_campus);
-                if(record.estado == 'Solicitado'){
+                if(record.estado == 'Pendiente'){
                     tablaSolicitado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1115,7 +1115,7 @@ $(document).ready(function() {
             if($.isNumeric(index)) {
                 campus = getNombreCampus(record.codigo_campus);
 
-                if(record.estado == 'Solicitado'){
+                if(record.estado == 'Pendiente'){
                     tablaSolicitado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1298,7 +1298,7 @@ $(document).ready(function() {
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
                 campus = getNombreCampus(record.codigo_campus);
-                if(record.estado == 'Solicitado'){
+                if(record.estado == 'Pendiente'){
                     tablaSolicitado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1695,6 +1695,81 @@ $(document).ready(function() {
                 name: '',
                 data: info,
                 color: '#E60013'
+            }]
+        });
+    }
+
+    /** funcion auxiliar que pinta un grafico dado los datos de entrada
+    */
+    function generarGraficoSistemas(titulo,subtitulo,xCategorias,xTitulo,yTitulo,sistema,info){
+        $('#divGraficos').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: titulo,
+                style: {
+                     fontweight: 'bolder'
+                }
+            },
+            subtitle: {
+                text: subtitulo
+            },
+            xAxis: {
+                categories: xCategorias,
+                title: {
+                    text: xTitulo,
+                    style: {
+                         color: 'black',
+                         fontweight: 'bolder'
+                    }
+                },
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: yTitulo,
+                    style: {
+                         color: 'black',
+                         fontweight: 'bolder'
+                    },
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: sistema[0],
+                data: info[0]
+            },{
+                name: sistema[1],
+                data: info[1]
+            },{
+                name: sistema[2],
+                data: info[2]
+            },{
+                name: sistema[3],
+                data: info[3]
+            },{
+                name: sistema[4],
+                data: info[4]
             }]
         });
     }
@@ -2254,7 +2329,7 @@ $(document).ready(function() {
 
             if(URLactual['href'].indexOf('estadisticas_edificios') >= 0){
                 estadisticas = obtenerEstadisticasEdificios(saveData);
-                label = [], informacion = [];
+                var label = [], informacion = [];
                 tipo = "Edificios";
 
                 $.each(estadisticas, function(posicion, info){
@@ -2328,7 +2403,7 @@ $(document).ready(function() {
                 }
             }else if(URLactual['href'].indexOf('estadisticas_espacios') >= 0){
                 estadisticas = obtenerEstadisticasEspacios(saveData);
-                label = [], informacion = [];
+                var label = [], informacion = [];
                 tipo = "Espacios";
 
                 $.each(estadisticas, function(posicion, info){
@@ -2405,106 +2480,157 @@ $(document).ready(function() {
 
                 var data =  obtenerEstadisticasSistema(saveData);
 
-                label = [], informacion = [];
+                if (sistema == -1) {
+                    var label = [], sistemas = [], informacion = [];
+                    var estadosArray = ['Pendiente','Revisado','Realizado','No Aplica','Duplicado'];
+                    var sistemasArray = ['Sistema Cubiertas','Sistema Eléctrico','Sistema Equipos','Sistema Hidráulico y Sanitario','Sistema Planta Física'];
+                    var informacionArray = [];
 
-                $.each(data, function(posicion, info){
-                    if(posicion < 5){
-                        label.push(info.estado);
-                        informacion.push(info.conteosolicitudes);
+                    $.each(data, function(posicion, info){
+                        if($.isNumeric(posicion)){
+                            label.push(info.estado);
+                            sistemas.push(info.sistema);
+                            informacion.push(info.conteosolicitudes);
+                        }
+                    });
+                    console.log(data);
+                    console.log(label);
+                    console.log(sistemas);
+                    console.log(informacion);
+
+                    for (var i = 0; i < sistemasArray.length; i++) {
+                        var arrayAux = [];
+                        for (var j = 0; j < sistemas.length; j++) {
+                            if (sistemasArray[i] == sistemas[j]) {
+                                for (var k = 0; k < estadosArray.length; k++) {
+                                    for (var l = 0; l < label.length; l++) {
+                                        if (estadosArray[k] == label[l]) {
+                                            arrayAux[k] = informacion[l];
+                                        }else{
+                                            arrayAux[k] = 0;
+                                        }
+                                    }
+                                }
+                            }else{
+                                arrayAux = [0,0,0,0,0];
+                            }
+                        }
+                        informacionArray[i] = arrayAux;
                     }
-                });
 
-                var aux;
-                if (!isNaN(informacion[0])) {
-                    aux = parseInt(informacion[0]);
-                    totalSolicitudes = aux;
-                };
-                if (!isNaN(informacion[1])) {
-                    aux = parseInt(informacion[1]);
-                    totalSolicitudes += aux;
-                };
-                if (!isNaN(informacion[2])) {
-                    aux = parseInt(informacion[2]);
-                    totalSolicitudes += aux;
-                };
-                if (!isNaN(informacion[3])) {
-                    aux = parseInt(informacion[3]);
-                    totalSolicitudes += aux;
-                };
-                if (!isNaN(informacion[4])) {
-                    aux = parseInt(informacion[4]);
-                    totalSolicitudes += aux;
-                };
+                    var titulo = 'Estadísticas '+nombreSistema;
+                    var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
+                    var categorias = sistemasArray;
+                    var xTitulo = "Estado solicitud";
+                    var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
+                    //var info = [infoSolicitud[0],infoSolicitud[1],infoSolicitud[2],infoSolicitud[3],infoSolicitud[4]];
+                    var info = [[10,20,30,50,90],[80,40,20,0,20],[100,80,70,20,80],[90,70,40,20,0],[10,20,70,40,90]];
 
-                var infoSolicitud = [0,0,0,0,0];
+                    generarGraficoSistemas(titulo,subtitulo,categorias,xTitulo,yTitulo,estadosArray,informacionArray);
+                }else{
+                    var label = [], informacion = [];
 
-                if(label[0] == 'Solicitado'){
-                    infoSolicitud[0] = parseInt(informacion[0]);
-                }else if(label[0] == 'Revisado'){
-                    infoSolicitud[1] = parseInt(informacion[0]);
-                }else if(label[0] == 'Realizado'){
-                    infoSolicitud[2] = parseInt(informacion[0]);
-                }else if(label[0] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[0]);
-                }else if(label[0] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[0]);
+                    $.each(data, function(posicion, info){
+                        if($.isNumeric(posicion)){
+                            label.push(info.estado);
+                            informacion.push(info.conteosolicitudes);
+                        }
+                    });
+
+                    console.log(label);
+
+                    var aux;
+                    if (!isNaN(informacion[0])) {
+                        aux = parseInt(informacion[0]);
+                        totalSolicitudes = aux;
+                    };
+                    if (!isNaN(informacion[1])) {
+                        aux = parseInt(informacion[1]);
+                        totalSolicitudes += aux;
+                    };
+                    if (!isNaN(informacion[2])) {
+                        aux = parseInt(informacion[2]);
+                        totalSolicitudes += aux;
+                    };
+                    if (!isNaN(informacion[3])) {
+                        aux = parseInt(informacion[3]);
+                        totalSolicitudes += aux;
+                    };
+                    if (!isNaN(informacion[4])) {
+                        aux = parseInt(informacion[4]);
+                        totalSolicitudes += aux;
+                    };
+
+                    var infoSolicitud = [0,0,0,0,0];
+
+                    if(label[0] == 'Revisado'){
+                        infoSolicitud[1] = parseInt(informacion[0]);
+                    }else if(label[0] == 'Realizado'){
+                        infoSolicitud[2] = parseInt(informacion[0]);
+                    }else if(label[0] == 'Pendiente'){
+                        infoSolicitud[0] = parseInt(informacion[0]);
+                    }else if(label[0] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[0]);
+                    }else if(label[0] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[0]);
+                    }
+
+                    if(label[1] == 'Realizado'){
+                        infoSolicitud[2] = parseInt(informacion[1]);
+                    }else if(label[1] == 'Pendiente'){
+                        infoSolicitud[0] = parseInt(informacion[1]);
+                    }else if(label[1] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[1]);
+                    }else if(label[1] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[1]);
+                    }
+
+                    if(label[2] == 'Pendiente'){
+                        infoSolicitud[0] = parseInt(informacion[2]);
+                    }else if(label[2] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[2]);
+                    }else if(label[2] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[2]);
+                    }
+
+                    if(label[3] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[3]);
+                    }else if(label[3] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[3]);
+                    }
+
+                    if(label[4] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[4]);
+                    }
+
+                    if (sistema == 1) {
+                        nombreSistema = "Sistema Hidráulico y Sanitario";
+                    }if (sistema == 2) {
+                        nombreSistema = "Sistema Eléctrico";
+                    }if (sistema == 3) {
+                        nombreSistema = "Sistema Planta Física";
+                    }if (sistema == 4) {
+                        nombreSistema = "Sistema Aires Acondicionados";
+                    }if (sistema == 5) {
+                        nombreSistema = "Sistema Cubiertas";
+                    }if (sistema == -1) {
+                        nombreSistema = "Todos los Sistemas";
+                    }
+
+                    var titulo = 'Estadísticas '+nombreSistema;
+                    var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
+                    var categorias = ['Pendiente','Revisado','Realizado','No Aplica','Duplicado'];
+                    var xTitulo = "Estado solicitud";
+                    var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
+                    var info = [infoSolicitud[0],infoSolicitud[1],infoSolicitud[2],infoSolicitud[3],infoSolicitud[4]];
+
+                    generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
                 }
-
-                if(label[1] == 'Revisado'){
-                    infoSolicitud[1] = parseInt(informacion[1]);
-                }else if(label[1] == 'Realizado'){
-                    infoSolicitud[2] = parseInt(informacion[1]);
-                }else if(label[1] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[1]);
-                }else if(label[1] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[1]);
-                }
-
-                if(label[2] == 'Realizado'){
-                    infoSolicitud[2] = parseInt(informacion[2]);
-                }else if(label[2] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[2]);
-                }else if(label[2] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[2]);
-                }
-
-                if(label[3] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[3]);
-                }else if(label[3] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[3]);
-                }
-
-                if(label[4] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[4]);
-                }
-
-                if (sistema == 1) {
-                    nombreSistema = "Sistema Hidráulico y Sanitario";
-                }if (sistema == 2) {
-                    nombreSistema = "Sistema Eléctrico";
-                }if (sistema == 3) {
-                    nombreSistema = "Sistema Planta Física";
-                }if (sistema == 4) {
-                    nombreSistema = "Sistema Aires Acondicionados";
-                }if (sistema == 5) {
-                    nombreSistema = "Sistema Cubiertas";
-                }if (sistema == -1) {
-                    nombreSistema = "Todos los Sistemas";
-                }
-
-                var titulo = 'Estadísticas '+nombreSistema;
-                var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
-                var categorias = ['Solicitado','Revisado','Realizado','No Aplica','Duplicado'];
-                var xTitulo = "Estado solicitud";
-                var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
-                var info = [infoSolicitud[0],infoSolicitud[1],infoSolicitud[2],infoSolicitud[3],infoSolicitud[4]];
-
-                generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
             }else if(URLactual['href'].indexOf('estadisticas_operador') >= 0){
 
                 var data =  obtenerEstadisticasOperador(saveData);
 
-                label = [], informacion = [];
+                var label = [], informacion = [];
 
                 $.each(data, function(posicion, info){
                     if(posicion < 2){
@@ -2566,7 +2692,7 @@ $(document).ready(function() {
                 generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
             }else if(URLactual['href'].indexOf('estadisticas_novedades') >= 0){
                 estadisticas = obtenerEstadisticasNovedades(saveData);
-                label = [], informacion = [];
+                var label = [], informacion = [];
                 tipo = "Novedad";
 
                 $.each(estadisticas, function(posicion, info){
@@ -2729,9 +2855,9 @@ $(document).ready(function() {
         var fechaInicial = $("#searchFechaInicial").val();
         var fechaFinal = $("#searchFechaFinal").val();
 
-        if (campus == 0) {
+        /*if (campus == 0) {
             campus = "-1";
-        }
+        }*/
 
         if (edificio == undefined) {
             edificio = 'TODOS';
@@ -4343,7 +4469,7 @@ $(document).ready(function() {
     function actualizarSelectorEstado() {
         $('#selectEstado').empty();
         $('#selectEstado').append('<option value="Seleccionar">----Seleccionar----</option>');
-        $('#selectEstado').append('<option value="Solicitado">Solicitado</option>');
+        $('#selectEstado').append('<option value="Pendiente">Pendiente</option>');
         $('#selectEstado').append('<option value="Revisado">Revisado</option>');
         $('#selectEstado').append('<option value="Cerrado">Cerrado</option>');
         $('#selectTipoCerrado').empty();

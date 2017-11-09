@@ -349,9 +349,13 @@ class Modelo_consultas
         $fechaFin = htmlspecialchars(trim($fechaFin));
 
         if($sistema == -1){
-            $sql = "SELECT estado, count(*) AS conteosolicitudes FROM solicitudes_mantenimiento WHERE estado <> 'Eliminado' AND codigo_campus = '".$campus."' AND fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY estado ORDER BY estado DESC;";
+            $sql = "SELECT a.estado,c.sistema, count(*) AS conteosolicitudes
+                        FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN sistema c ON b.cod_sistema = c.cod_sistema
+                        WHERE a.estado <> 'Eliminado' AND a.codigo_campus = '".$campus."' AND a.fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY c.sistema,a.estado ORDER BY c.sistema,a.estado DESC;";
         }else{
-            $sql = "SELECT solicitudes_mantenimiento.estado, count(*) AS conteosolicitudes FROM solicitudes_mantenimiento JOIN novedad_sistema ON solicitudes_mantenimiento.descripcion1 = novedad_sistema.id WHERE solicitudes_mantenimiento.estado <> 'Eliminado' AND solicitudes_mantenimiento.codigo_campus = '".$campus."' AND novedad_sistema.cod_sistema = '".$sistema."' AND solicitudes_mantenimiento.fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY solicitudes_mantenimiento.estado ORDER BY estado DESC;";
+            $sql = "SELECT a.estado, c.sistema, count(*) AS conteosolicitudes
+                        FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN sistema c ON b.cod_sistema = c.cod_sistema
+                        WHERE a.estado <> 'Eliminado' AND a.codigo_campus = '".$campus."' AND b.cod_sistema = '".$sistema."' AND a.fecha BETWEEN '".$fechaInicio."' AND '".$fechaFin."' GROUP BY c.sistema,a.estado ORDER BY c.sistema, a.estado DESC;";
         }
 
         $l_stmt = $this->conexion->prepare($sql);
