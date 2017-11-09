@@ -2729,9 +2729,9 @@ $(document).ready(function() {
         var fechaInicial = $("#searchFechaInicial").val();
         var fechaFinal = $("#searchFechaFinal").val();
 
-        if (campus == 0) {
+        /*if (campus == 0) {
             campus = "-1";
-        }
+        }*/
 
         if (edificio == undefined) {
             edificio = 'TODOS';
