@@ -735,7 +735,6 @@ class Controlador_consultas
 
                 $arrayAux = array(
                     'estado' => $valor['estado'],
-                    'sistema' => $valor['sistema'],
                     'conteosolicitudes' => $valor['conteosolicitudes'],
                     );
 
