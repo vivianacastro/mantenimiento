@@ -932,7 +932,7 @@ $(document).ready(function() {
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
                 campus = getNombreCampus(record.codigo_campus);
-                if(record.estado == 'Solicitado'){
+                if(record.estado == 'Pendiente'){
                     tablaSolicitado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1115,7 +1115,7 @@ $(document).ready(function() {
             if($.isNumeric(index)) {
                 campus = getNombreCampus(record.codigo_campus);
 
-                if(record.estado == 'Solicitado'){
+                if(record.estado == 'Pendiente'){
                     tablaSolicitado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1298,7 +1298,7 @@ $(document).ready(function() {
         $.each(data, function(index, record) {
             if($.isNumeric(index)) {
                 campus = getNombreCampus(record.codigo_campus);
-                if(record.estado == 'Solicitado'){
+                if(record.estado == 'Pendiente'){
                     tablaSolicitado.row.add([
                         record.numero_solicitud,
                         record.impreso,
@@ -1695,6 +1695,81 @@ $(document).ready(function() {
                 name: '',
                 data: info,
                 color: '#E60013'
+            }]
+        });
+    }
+
+    /** funcion auxiliar que pinta un grafico dado los datos de entrada
+    */
+    function generarGraficoSistemas(titulo,subtitulo,xCategorias,xTitulo,yTitulo,sistema,info){
+        $('#divGraficos').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: titulo,
+                style: {
+                     fontweight: 'bolder'
+                }
+            },
+            subtitle: {
+                text: subtitulo
+            },
+            xAxis: {
+                categories: xCategorias,
+                title: {
+                    text: xTitulo,
+                    style: {
+                         color: 'black',
+                         fontweight: 'bolder'
+                    }
+                },
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: yTitulo,
+                    style: {
+                         color: 'black',
+                         fontweight: 'bolder'
+                    },
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: sistema[0],
+                data: info[0]
+            },{
+                name: sistema[1],
+                data: info[1]
+            },{
+                name: sistema[2],
+                data: info[2]
+            },{
+                name: sistema[3],
+                data: info[3]
+            },{
+                name: sistema[4],
+                data: info[4]
             }]
         });
     }
@@ -2254,7 +2329,7 @@ $(document).ready(function() {
 
             if(URLactual['href'].indexOf('estadisticas_edificios') >= 0){
                 estadisticas = obtenerEstadisticasEdificios(saveData);
-                label = [], informacion = [];
+                var label = [], informacion = [];
                 tipo = "Edificios";
 
                 $.each(estadisticas, function(posicion, info){
@@ -2328,7 +2403,7 @@ $(document).ready(function() {
                 }
             }else if(URLactual['href'].indexOf('estadisticas_espacios') >= 0){
                 estadisticas = obtenerEstadisticasEspacios(saveData);
-                label = [], informacion = [];
+                var label = [], informacion = [];
                 tipo = "Espacios";
 
                 $.each(estadisticas, function(posicion, info){
@@ -2438,30 +2513,30 @@ $(document).ready(function() {
 
                 var infoSolicitud = [0,0,0,0,0];
 
-                if(label[0] == 'Solicitado'){
-                    infoSolicitud[0] = parseInt(informacion[0]);
-                }else if(label[0] == 'Revisado'){
+                if(label[0] == 'Revisado'){
                     infoSolicitud[1] = parseInt(informacion[0]);
                 }else if(label[0] == 'Realizado'){
                     infoSolicitud[2] = parseInt(informacion[0]);
+                }else if(label[0] == 'Pendiente'){
+                    infoSolicitud[0] = parseInt(informacion[0]);
                 }else if(label[0] == 'No Aplica'){
                     infoSolicitud[3] = parseInt(informacion[0]);
                 }else if(label[0] == 'Duplicado'){
                     infoSolicitud[4] = parseInt(informacion[0]);
                 }
 
-                if(label[1] == 'Revisado'){
-                    infoSolicitud[1] = parseInt(informacion[1]);
-                }else if(label[1] == 'Realizado'){
+                if(label[1] == 'Realizado'){
                     infoSolicitud[2] = parseInt(informacion[1]);
+                }else if(label[1] == 'Pendiente'){
+                    infoSolicitud[0] = parseInt(informacion[1]);
                 }else if(label[1] == 'No Aplica'){
                     infoSolicitud[3] = parseInt(informacion[1]);
                 }else if(label[1] == 'Duplicado'){
                     infoSolicitud[4] = parseInt(informacion[1]);
                 }
 
-                if(label[2] == 'Realizado'){
-                    infoSolicitud[2] = parseInt(informacion[2]);
+                if(label[2] == 'Pendiente'){
+                    infoSolicitud[0] = parseInt(informacion[2]);
                 }else if(label[2] == 'No Aplica'){
                     infoSolicitud[3] = parseInt(informacion[2]);
                 }else if(label[2] == 'Duplicado'){
@@ -2494,7 +2569,7 @@ $(document).ready(function() {
 
                 var titulo = 'Estadísticas '+nombreSistema;
                 var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
-                var categorias = ['Solicitado','Revisado','Realizado','No Aplica','Duplicado'];
+                var categorias = ['Pendiente','Revisado','Realizado','No Aplica','Duplicado'];
                 var xTitulo = "Estado solicitud";
                 var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
                 var info = [infoSolicitud[0],infoSolicitud[1],infoSolicitud[2],infoSolicitud[3],infoSolicitud[4]];
@@ -2504,7 +2579,7 @@ $(document).ready(function() {
 
                 var data =  obtenerEstadisticasOperador(saveData);
 
-                label = [], informacion = [];
+                var label = [], informacion = [];
 
                 $.each(data, function(posicion, info){
                     if(posicion < 2){
@@ -2566,7 +2641,7 @@ $(document).ready(function() {
                 generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
             }else if(URLactual['href'].indexOf('estadisticas_novedades') >= 0){
                 estadisticas = obtenerEstadisticasNovedades(saveData);
-                label = [], informacion = [];
+                var label = [], informacion = [];
                 tipo = "Novedad";
 
                 $.each(estadisticas, function(posicion, info){
@@ -4343,7 +4418,7 @@ $(document).ready(function() {
     function actualizarSelectorEstado() {
         $('#selectEstado').empty();
         $('#selectEstado').append('<option value="Seleccionar">----Seleccionar----</option>');
-        $('#selectEstado').append('<option value="Solicitado">Solicitado</option>');
+        $('#selectEstado').append('<option value="Pendiente">Pendiente</option>');
         $('#selectEstado').append('<option value="Revisado">Revisado</option>');
         $('#selectEstado').append('<option value="Cerrado">Cerrado</option>');
         $('#selectTipoCerrado').empty();
