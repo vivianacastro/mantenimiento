@@ -1756,20 +1756,25 @@ $(document).ready(function() {
                 enabled: false
             },
             series: [{
+                name: sistema[2],
+                data: info[2],
+                color: '#E60013'
+            },{
                 name: sistema[0],
-                data: info[0]
+                data: info[0],
+                color: 'yellow'
             },{
                 name: sistema[1],
-                data: info[1]
-            },{
-                name: sistema[2],
-                data: info[2]
+                data: info[1],
+                color: 'green'
             },{
                 name: sistema[3],
-                data: info[3]
+                data: info[3],
+                color: 'purple'
             },{
                 name: sistema[4],
-                data: info[4]
+                data: info[4],
+                color: 'orange'
             }]
         });
     }
@@ -2480,101 +2485,137 @@ $(document).ready(function() {
 
                 var data =  obtenerEstadisticasSistema(saveData);
 
-                label = [], informacion = [];
+                if (sistema == -1) {
+                    var label = [], sistemas = [], informacion = [];
+                    var estadosArray = ['Revisado','Realizado','Pendiente','No Aplica','Duplicado'];
+                    var sistemasArray = ['Sistema Cubiertas','Sistema Eléctrico','Sistema Equipos','Sistema Hidráulico y Sanitario','Sistema Planta Física'];
+                    var informacionArray = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
 
-                $.each(data, function(posicion, info){
-                    if(posicion < 5){
-                        label.push(info.estado);
-                        informacion.push(info.conteosolicitudes);
+                    $.each(data, function(posicion, info){
+                        if($.isNumeric(posicion)){
+                            label.push(info.estado);
+                            sistemas.push(info.sistema);
+                            informacion.push(info.conteosolicitudes);
+                        }
+                    });
+
+                    for (var i = 0; i < sistemasArray.length; i++) {
+                        var arrayAux = [];
+                        for (var j = 0; j < sistemas.length; j++) {
+                            if (sistemasArray[i] == sistemas[j]) {
+                                for (var k = 0; k < estadosArray.length; k++) {
+                                    if (estadosArray[k] == label[j]) {
+                                        informacionArray[k][i] = informacion[j];
+                                    }
+                                }
+                            }
+                        }
                     }
-                });
 
-                var aux;
-                if (!isNaN(informacion[0])) {
-                    aux = parseInt(informacion[0]);
-                    totalSolicitudes = aux;
-                };
-                if (!isNaN(informacion[1])) {
-                    aux = parseInt(informacion[1]);
-                    totalSolicitudes += aux;
-                };
-                if (!isNaN(informacion[2])) {
-                    aux = parseInt(informacion[2]);
-                    totalSolicitudes += aux;
-                };
-                if (!isNaN(informacion[3])) {
-                    aux = parseInt(informacion[3]);
-                    totalSolicitudes += aux;
-                };
-                if (!isNaN(informacion[4])) {
-                    aux = parseInt(informacion[4]);
-                    totalSolicitudes += aux;
-                };
+                    var titulo = 'Estadísticas '+nombreSistema;
+                    var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
+                    var categorias = sistemasArray;
+                    var xTitulo = "Estado solicitud";
+                    var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
 
-                var infoSolicitud = [0,0,0,0,0];
+                    generarGraficoSistemas(titulo,subtitulo,categorias,xTitulo,yTitulo,estadosArray,informacionArray);
+                }else{
+                    var label = [], informacion = [];
 
-                if(label[0] == 'Revisado'){
-                    infoSolicitud[1] = parseInt(informacion[0]);
-                }else if(label[0] == 'Realizado'){
-                    infoSolicitud[2] = parseInt(informacion[0]);
-                }else if(label[0] == 'Pendiente'){
-                    infoSolicitud[0] = parseInt(informacion[0]);
-                }else if(label[0] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[0]);
-                }else if(label[0] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[0]);
+                    $.each(data, function(posicion, info){
+                        if($.isNumeric(posicion)){
+                            label.push(info.estado);
+                            informacion.push(info.conteosolicitudes);
+                        }
+                    });
+
+                    var aux;
+                    if (!isNaN(informacion[0])) {
+                        aux = parseInt(informacion[0]);
+                        totalSolicitudes = aux;
+                    };
+                    if (!isNaN(informacion[1])) {
+                        aux = parseInt(informacion[1]);
+                        totalSolicitudes += aux;
+                    };
+                    if (!isNaN(informacion[2])) {
+                        aux = parseInt(informacion[2]);
+                        totalSolicitudes += aux;
+                    };
+                    if (!isNaN(informacion[3])) {
+                        aux = parseInt(informacion[3]);
+                        totalSolicitudes += aux;
+                    };
+                    if (!isNaN(informacion[4])) {
+                        aux = parseInt(informacion[4]);
+                        totalSolicitudes += aux;
+                    };
+
+                    var infoSolicitud = [0,0,0,0,0];
+
+                    if(label[0] == 'Revisado'){
+                        infoSolicitud[1] = parseInt(informacion[0]);
+                    }else if(label[0] == 'Realizado'){
+                        infoSolicitud[2] = parseInt(informacion[0]);
+                    }else if(label[0] == 'Pendiente'){
+                        infoSolicitud[0] = parseInt(informacion[0]);
+                    }else if(label[0] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[0]);
+                    }else if(label[0] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[0]);
+                    }
+
+                    if(label[1] == 'Realizado'){
+                        infoSolicitud[2] = parseInt(informacion[1]);
+                    }else if(label[1] == 'Pendiente'){
+                        infoSolicitud[0] = parseInt(informacion[1]);
+                    }else if(label[1] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[1]);
+                    }else if(label[1] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[1]);
+                    }
+
+                    if(label[2] == 'Pendiente'){
+                        infoSolicitud[0] = parseInt(informacion[2]);
+                    }else if(label[2] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[2]);
+                    }else if(label[2] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[2]);
+                    }
+
+                    if(label[3] == 'No Aplica'){
+                        infoSolicitud[3] = parseInt(informacion[3]);
+                    }else if(label[3] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[3]);
+                    }
+
+                    if(label[4] == 'Duplicado'){
+                        infoSolicitud[4] = parseInt(informacion[4]);
+                    }
+
+                    if (sistema == 1) {
+                        nombreSistema = "Sistema Hidráulico y Sanitario";
+                    }if (sistema == 2) {
+                        nombreSistema = "Sistema Eléctrico";
+                    }if (sistema == 3) {
+                        nombreSistema = "Sistema Planta Física";
+                    }if (sistema == 4) {
+                        nombreSistema = "Sistema Aires Acondicionados";
+                    }if (sistema == 5) {
+                        nombreSistema = "Sistema Cubiertas";
+                    }if (sistema == -1) {
+                        nombreSistema = "Todos los Sistemas";
+                    }
+
+                    var titulo = 'Estadísticas '+nombreSistema;
+                    var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
+                    var categorias = ['Pendiente','Revisado','Realizado','No Aplica','Duplicado'];
+                    var xTitulo = "Estado solicitud";
+                    var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
+                    var info = [infoSolicitud[0],infoSolicitud[1],infoSolicitud[2],infoSolicitud[3],infoSolicitud[4]];
+
+                    generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
                 }
-
-                if(label[1] == 'Realizado'){
-                    infoSolicitud[2] = parseInt(informacion[1]);
-                }else if(label[1] == 'Pendiente'){
-                    infoSolicitud[0] = parseInt(informacion[1]);
-                }else if(label[1] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[1]);
-                }else if(label[1] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[1]);
-                }
-
-                if(label[2] == 'Pendiente'){
-                    infoSolicitud[0] = parseInt(informacion[2]);
-                }else if(label[2] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[2]);
-                }else if(label[2] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[2]);
-                }
-
-                if(label[3] == 'No Aplica'){
-                    infoSolicitud[3] = parseInt(informacion[3]);
-                }else if(label[3] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[3]);
-                }
-
-                if(label[4] == 'Duplicado'){
-                    infoSolicitud[4] = parseInt(informacion[4]);
-                }
-
-                if (sistema == 1) {
-                    nombreSistema = "Sistema Hidráulico y Sanitario";
-                }if (sistema == 2) {
-                    nombreSistema = "Sistema Eléctrico";
-                }if (sistema == 3) {
-                    nombreSistema = "Sistema Planta Física";
-                }if (sistema == 4) {
-                    nombreSistema = "Sistema Aires Acondicionados";
-                }if (sistema == 5) {
-                    nombreSistema = "Sistema Cubiertas";
-                }if (sistema == -1) {
-                    nombreSistema = "Todos los Sistemas";
-                }
-
-                var titulo = 'Estadísticas '+nombreSistema;
-                var subtitulo = 'Desde: '+fechaInicial+" hasta: "+fechaFinal;
-                var categorias = ['Pendiente','Revisado','Realizado','No Aplica','Duplicado'];
-                var xTitulo = "Estado solicitud";
-                var yTitulo = 'Número de Solicitudes (Total: '+totalSolicitudes+')';
-                var info = [infoSolicitud[0],infoSolicitud[1],infoSolicitud[2],infoSolicitud[3],infoSolicitud[4]];
-
-                generarGrafico(titulo,subtitulo,categorias,xTitulo,yTitulo,info);
             }else if(URLactual['href'].indexOf('estadisticas_operador') >= 0){
 
                 var data =  obtenerEstadisticasOperador(saveData);
