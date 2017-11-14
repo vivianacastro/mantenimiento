@@ -130,10 +130,10 @@ class Modelo_usuario {
      * @param string $l, Login del usuario a consultar.
      * @return boolean
      */
-    function retornarContrasena($l) {
+    function retornarContrasena($l,$table) {
         $l = htmlspecialchars($l);
 
-        $sql = "SELECT password FROM usuarios_autorizados_sistema "
+        $sql = "SELECT password FROM ".$table." "
                 . " WHERE login = '".$l."';";
 
         $l_stmt = $this->conexion->prepare($sql);
@@ -172,8 +172,9 @@ class Modelo_usuario {
      * @param string $cinput, password que digito el usuario.
      * @return boolean
      */
-    public function verificarContrasena($linput, $cinput) {
-        $passwdBd = $this->retornarContrasena($linput);
+    public function verificarContrasena($linput, $cinput, $table) {
+
+        $passwdBd = $this->retornarContrasena($linput, $table);
         
         if (md5($cinput) == $passwdBd) {
             return true;
@@ -420,7 +421,7 @@ class Modelo_usuario {
         if($cn != ""){
             if(!$this->verificarContrasena($l, $c)){
                 $GLOBALS['mensaje'] = MJ_ERROR_NO_EXISTE_USUARIO;
-                return false;            
+                return false;
             }
         }
 
@@ -555,19 +556,19 @@ class Modelo_usuario {
      * @param string $login, Cadena que hace referencia al login del usuario.
      * @param string $password, Cadena que hace referencia al login del usuario.
      */
-    public function comprobarAcceso($login, $password) {
+    public function comprobarAcceso($login, $password, $table) {
         $login = htmlspecialchars($login);
         $login = strtolower($login);
         
-        if(!$this->verificarContrasena($login, $password))
+        if(!$this->verificarContrasena($login, $password, $table))
         {
             $GLOBALS['mensaje'] = MJ_ERROR_CONTRASENA_INCORRECTA;
             return;
         }
         
-        $password = $this->retornarContrasena($login);
+        $password = $this->retornarContrasena($login,$table);
         
-        $sql = "SELECT id,nombre_usuario,login,perfil,correo,telefono,extension FROM usuarios_autorizados_sistema WHERE login = '".$login."' AND 
+        $sql = "SELECT * FROM ".$table." WHERE login = '".$login."' AND 
                 password = '".$password."' AND estado = 'ACTIVO';";
 
         $l_stmt = $this->conexion->prepare($sql);
@@ -591,7 +592,7 @@ class Modelo_usuario {
 
         $GLOBALS['mensaje'] = MJ_CONSULTA_EXITOSA;
 
-        return $result[0];        
+        return $result[0];
     }
 
     public function actualizarUltimoAcceso($login){

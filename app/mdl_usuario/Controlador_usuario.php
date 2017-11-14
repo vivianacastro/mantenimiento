@@ -232,7 +232,7 @@ class Controlador_usuario {
     */
     public function check() {
         session_start();
-        if(isset($_SESSION['userid']) & $_SESSION["autorizado"]) {
+        if(isset($_SESSION['userID']) & $_SESSION["autorizado"]) {
 
             $fechaGuardada = $_SESSION["ultimoAcceso"];
             $ahora = time();
@@ -262,23 +262,42 @@ class Controlador_usuario {
         $m = new Modelo_usuario(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
                     Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
 
+        $n = new Modelo_usuario(Config::$mvc_bd_sistemas, Config::$mvc_bd_usuario,
+                    Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
+
         $v = new Controlador_vista();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            if ($infoResult = $m->comprobarAcceso($_POST['login'], $_POST['password']))
+            if ($infoResult = $m->comprobarAcceso($_POST['login'], $_POST['password'], 'usuarios_autorizados_sistema'))
             {
                 $_SESSION["autorizado"] = true;
                 session_regenerate_id();
-                $_SESSION["userid"] = session_id();
+                $_SESSION["userID"] = session_id();
                 $_SESSION["perfil"] = $infoResult["perfil"];
                 $_SESSION["login"] = $infoResult["login"];
                 $_SESSION["nombre_usuario"] = $infoResult["nombre_usuario"];
-                $_SESSION["id_db_user"] = $infoResult["id"];
+                $_SESSION["id_db_userID"] = $infoResult["id"];
                 $_SESSION["ultimoAcceso"] = time();
 
+                if ($infoResultSistemas = $n->comprobarAcceso($_POST['login'], $_POST['password'], 'usuarios')){
+                    $_SESSION["userID_login"] = $infoResultSistemas["login"];
+                    $_SESSION["perfil_sistemas"] = $infoResultSistemas["perfil"];
+                    $_SESSION["correo_sistemas"] = $infoResultSistemas["correo"];
+                    $_SESSION["telefono_sistemas"] = $infoResultSistemas["telefono"];
+                    $_SESSION["extension_sistemas"] = $infoResultSistemas["extension"];
+                    $_SESSION["nombre_usuario_sistemas"] = ucwords($infoResultSistemas["nombre_usuario"]);
+                    $_SESSION["modulo_planta"] = $infoResultSistemas["modulo_planta"];
+                    $_SESSION["modulo_inventario"] = $infoResultSistemas["modulo_inventario"];
+                    $_SESSION["modulo_aires"] = $infoResultSistemas["modulo_aires"];
+                    $_SESSION["creacion_planta"] = $infoResultSistemas["creacion_planta"];
+                    $_SESSION["creacion_inventario"] = $infoResultSistemas["creacion_inventario"];
+                    $_SESSION["creacion_aires"] = $infoResultSistemas["creacion_aires"];
+                }
+
                 $data = array(
-                    'mensaje' => 'Bienvenido/a al sistema '. $_SESSION["nombre_usuario"],
+                    //'mensaje' => 'Bienvenido/a al sistema '. $_SESSION["nombre_usuario"],
+                    'mensaje' => 'Bienvenido/a al sistema '. $GLOBALS['mensaje'],
                 );
 
                 $m->actualizarUltimoAcceso($_SESSION["login"]);
@@ -301,11 +320,20 @@ class Controlador_usuario {
                 $v->retornar_vista($_SESSION["perfil"],USUARIO, INICIAR_SESION, $data);
             }
         } else {
-            if($_SESSION["autorizado"] & isset($_SESSION['userid'])
+            if($_SESSION["autorizado"] & isset($_SESSION['userID'])
                     & isset($_SESSION['perfil'])) {
                 $data = array('mensaje' => 'Bienvenido/a al sistema '.$_SESSION["nombre_usuario"],);
 
-                $v->retornar_vista($_SESSION["perfil"],REGISTROS, OPERATION_SET, $data);
+                //$v->retornar_vista($_SESSION["perfil"],REGISTROS, OPERATION_SET, $data);
+                if($_SESSION["perfil"] == 'admin'){
+                    $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST, $data);
+                }else if($_SESSION["perfil"] == 'hidraulico' || $_SESSION["perfil"] == 'electrico' || $_SESSION["perfil"] == 'planta' || $_SESSION["perfil"] == 'mobiliario'){
+                    $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST_DIA, $data);
+                }else if($_SESSION["perfil"] == 'sanfernando'){
+                    $v->retornar_vista($_SESSION["perfil"],CONSULTAS, OPERATION_LIST_DIA, $data);
+                }else{
+                    $v->retornar_vista($_SESSION["perfil"],REGISTROS, OPERATION_SET, $data);
+                }
             } else {
                 $this->salir_sesion();
             }
@@ -330,11 +358,11 @@ class Controlador_usuario {
             {
                 $_SESSION["autorizado"] = true;
                 session_regenerate_id();
-                $_SESSION["userid"] = session_id();
+                $_SESSION["userID"] = session_id();
                 $_SESSION["perfil"] = $infoResult["perfil"];
                 $_SESSION["login"] = $infoResult["login"];
                 $_SESSION["nombre_usuario"] = $infoResult["nombre_usuario"];
-                $_SESSION["id_db_user"] = $infoResult["id"];
+                $_SESSION["id_db_userID"] = $infoResult["id"];
                 $_SESSION["ultimoAcceso"] = time();
 
                 $data = array(
@@ -350,7 +378,7 @@ class Controlador_usuario {
                 $v->retornar_vista("",USUARIO, OLVIDO_CONTRASENIA, $data);
             }
         } else {
-            if($_SESSION["autorizado"] & isset($_SESSION['userid'])
+            if($_SESSION["autorizado"] & isset($_SESSION['userID'])
                     & isset($_SESSION['perfil'])) {
                 $data = array('mensaje' => 'Bienvenido/a al sistema '.$_SESSION["nombre_usuario"],);
 
