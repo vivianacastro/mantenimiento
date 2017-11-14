@@ -281,7 +281,7 @@ class Controlador_usuario {
                 $_SESSION["ultimoAcceso"] = time();
 
                 if ($infoResultSistemas = $n->comprobarAcceso($_POST['login'], $_POST['password'], 'usuarios')){
-                    $_SESSION["userID_login"] = $infoResultSistemas["login"];
+                    $_SESSION["user_login"] = $infoResultSistemas["login"];
                     $_SESSION["perfil_sistemas"] = $infoResultSistemas["perfil"];
                     $_SESSION["correo_sistemas"] = $infoResultSistemas["correo"];
                     $_SESSION["telefono_sistemas"] = $infoResultSistemas["telefono"];
