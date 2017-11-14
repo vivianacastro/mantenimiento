@@ -296,8 +296,7 @@ class Controlador_usuario {
                 }
 
                 $data = array(
-                    //'mensaje' => 'Bienvenido/a al sistema '. $_SESSION["nombre_usuario"],
-                    'mensaje' => 'Bienvenido/a al sistema '. $GLOBALS['mensaje'],
+                    'mensaje' => 'Bienvenido/a al sistema '. $_SESSION["nombre_usuario"],
                 );
 
                 $m->actualizarUltimoAcceso($_SESSION["login"]);
