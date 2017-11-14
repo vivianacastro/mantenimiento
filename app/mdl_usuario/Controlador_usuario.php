@@ -277,7 +277,7 @@ class Controlador_usuario {
                 $_SESSION["perfil"] = $infoResult["perfil"];
                 $_SESSION["login"] = $infoResult["login"];
                 $_SESSION["nombre_usuario"] = $infoResult["nombre_usuario"];
-                $_SESSION["id_db_userID"] = $infoResult["id"];
+                $_SESSION["id_db_user"] = $infoResult["id"];
                 $_SESSION["ultimoAcceso"] = time();
 
                 if ($infoResultSistemas = $n->comprobarAcceso($_POST['login'], $_POST['password'], 'usuarios')){
@@ -362,7 +362,7 @@ class Controlador_usuario {
                 $_SESSION["perfil"] = $infoResult["perfil"];
                 $_SESSION["login"] = $infoResult["login"];
                 $_SESSION["nombre_usuario"] = $infoResult["nombre_usuario"];
-                $_SESSION["id_db_userID"] = $infoResult["id"];
+                $_SESSION["id_db_user"] = $infoResult["id"];
                 $_SESSION["ultimoAcceso"] = time();
 
                 $data = array(
