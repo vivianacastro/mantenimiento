@@ -541,7 +541,7 @@ class Controlador_consultas
 
                 if($tipoUser == 'sanfernando'){
                     if ($sistema == -1) {
-                        $info['campus'] = 2;
+                        $info['campus'] = -2; //Para que muestre las ordenes del campus San Fernando y Otro.
                     }
                 }
 
