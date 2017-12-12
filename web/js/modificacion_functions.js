@@ -118,12 +118,20 @@ $(document).ready(function() {
 
             var elementoSeleccionado = tablaNovedades.rows('.selected').data();
 
-            $("#divDialogModificacion").modal("show");
+            if (elementoSeleccionado.length > 0) {
+                $("#divDialogModificacion").modal("show");
 
-            $.each(elementoSeleccionado, function(index, record) {
-                $("#novedad").val(record[0]);
-                $("#selectSistema").val(record[1]);
-            });
+                $.each(elementoSeleccionado, function(index, record) {
+                    $("#novedad").val(record[0]);
+                    if (record[1] == "Sistema Equipos") {
+                        $("#selectSistema").val("Sistema Aires Acondicionados");
+                    }else{
+                        $("#selectSistema").val(record[1]);
+                    }
+                });
+            }else{
+                alert("ERROR. Seleccione una novedad");
+            }
         }
         catch(ex) {
             console.log(ex);
