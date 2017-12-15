@@ -176,6 +176,7 @@ $(document).ready(function() {
                         $("#correo").val('');
                         $("#telefono").val('');
                         $("#extension").val('');
+                        $("#divCrearNuevoUsuario").modal("hide");
                     }
                     else {
                         alert(result.mensaje);
