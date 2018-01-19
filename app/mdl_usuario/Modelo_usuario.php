@@ -156,6 +156,33 @@ class Modelo_usuario {
     }
 
     /**
+     * Función que retorna la contraseña se un usuario por medio de su login.
+     * @param string $l, Login del usuario a consultar.
+     * @return boolean
+     */
+    function consultarInformacionUsuario() {
+        $n = htmlspecialchars(trim($n));
+
+        $sql = "SELECT correo,telefono,extension FROM usuarios_autorizados_sistema WHERE login = '".$_SESSION['login']."';";
+
+        $l_stmt = $this->conexion->prepare($sql);
+
+        if(!$l_stmt){
+            //$GLOBALS['mensaje'] = MJ_CONSULTA_FALLIDA."Novedad";
+        }
+        else{
+            if($l_stmt->execute()){
+                if($l_stmt->rowCount() > 0){
+                    $result = $l_stmt->fetchAll();
+                    $GLOBALS['result'] = true;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * funcion que encripta la constraseña del usuario usando el metodo md5
      * @param  [type] $password [description]
      * @return [type]           [description]

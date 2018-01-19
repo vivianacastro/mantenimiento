@@ -340,6 +340,37 @@ class Controlador_usuario {
     }
 
     /**
+     * Función que devuelve la información del usuario que inició sesión.
+     */
+    public function consultar_informacion_usuario() {
+
+        $GLOBALS['mensaje'] = "";
+
+        $m = new Modelo_usuario(Config::$mvc_bd_nombre, Config::$mvc_bd_usuario,
+                    Config::$mvc_bd_clave, Config::$mvc_bd_hostname);
+
+        $dataNew = array();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $data = $m->consultarInformacionUsuario();
+
+            foreach ($data as $clave => $valor) {
+                $arrayAux = array(
+                    'correo' => $valor['correo'],
+                    'telefono' => $valor['telefono'],
+                    'extension' => $valor['extension'],
+                );
+                array_push($dataNew, $arrayAux);
+            }
+        }
+
+        $dataNew['mensaje'] = $GLOBALS['mensaje'];
+
+        echo json_encode($dataNew);
+    }
+
+    /**
      * Función que genera una contraseña aleatoria y la envía por mail
      *al usuario.
      */

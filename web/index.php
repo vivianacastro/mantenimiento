@@ -92,6 +92,7 @@ $map = array(
     'obtener_estadisticas_espacios' => array('controlador' =>'Controlador_consultas', 'action' =>'buscarEspaciosMasOrdenes'),
     'obtener_estadisticas_operador' => array('controlador' =>'Controlador_consultas', 'action' =>'buscarEstadisticasOperador'),
     'obtener_estadisticas_novedades' => array('controlador' =>'Controlador_consultas', 'action' =>'buscarEstadisticasNovedades'),
+    'consultar_informacion_usuario' => array('controlador' =>'Controlador_usuario', 'action' =>'consultar_informacion_usuario')
     //'crear_cuenta_usuario' => array('controlador' =>'Controlador_usuario', 'action' =>'crearCuentaUsuario'),
     //'crear_nuevo_usuario' => array('controlador' =>'Controlador_usuario', 'action' =>'crear_nuevo_usuario')
 );

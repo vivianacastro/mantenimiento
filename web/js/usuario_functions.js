@@ -14,9 +14,45 @@ $(document).ready(function() {
 
     $('#tablaUsuarios tbody').on( 'click', 'tr', function () {
             $(this).toggleClass('selected');
-        } );
+    } );
+
+    var URLactual = window.location;
+    if(URLactual['href'].indexOf('cambiar_datos') >= 0){
+        consultarInformacionUsuario();
+    }
 
     actualizarTablaUsuariosAutorizados();
+
+    /**
+     * Función que permite consultar uno o varios usuarios con acceso al sistema
+     * @param {strign} consulta, palabra clave.
+     * @returns {data}
+     */
+    function consultarInformacionUsuario()
+    {
+        var dataResult;
+
+        try {
+            $.ajax({
+                type: "POST",
+                url: "index.php?action=consultar_informacion_usuario",
+                dataType: "json",
+                error: function(error){
+                    alert("La sesión ha expirado, por favor ingrese nuevamente al sistema");
+                    location.reload(true);
+                },
+                success: function(result){
+                    console.log(result);
+                    $("#correo").val(result[0].correo);
+                    $("#telefono").val(result[0].telefono);
+                    $("#extension").val(result[0].extension);
+                }
+            });
+        }
+        catch(ex) {
+            alert("ERROR: Ocurrio un error " + ex);
+        }
+    }
 
     /**
      * Función que permite consultar uno o varios usuarios con acceso al sistema
