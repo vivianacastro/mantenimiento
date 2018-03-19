@@ -10,7 +10,7 @@ const REGISTROS = 'registros';
 const MODIFICACION = 'modificacion';
 const CONSULTAS = 'consultas';
 
-const EMAIL = 'mantenimiento.univalle@gmail.com';
+const EMAIL = 'soportesolicitudes.mantenimiento@correounivalle.edu.co';
 const PASS = 'ManteUnivalle';
 const EMAILSISTHIDRAULICO = '';
 const EMAILSISTELECTRICO = '';

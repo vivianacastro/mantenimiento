@@ -1497,11 +1497,11 @@ class Modelo_registros
         }else if($s == 4){
             $email = EMAILSISTMOBILIARIO;
         }else{
-            $email = 'mantenimiento.univalle@correounivalle.edu.co';
+            $email = 'soportesolicitudes.mantenimiento@correounivalle.edu.co';
         }
 
         $mail->From = $email;
-        $mail->FromName= 'Mantenimiento Universidad del Valle';
+        $mail->FromName= 'Solicitudes de Mantenimiento Universidad del Valle';
 
         //Agregar destinatario
         $mail->AddAddress($u);

@@ -33,7 +33,7 @@ $mail->Host = "smtp.gmail.com";
 $mail->Port = 465;
 $mail->CharSet = 'UTF-8';
 
-$email = 'mantenimiento.univalle@gmail.com';
+$email = 'soportesolicitudes.mantenimiento@correounivalle.edu.co';
 $pass = 'ManteUnivalle';
 
 $mail->Username = $email;
@@ -41,7 +41,7 @@ $mail->Password = $pass; //Su password
 
 $mail->From = $email;
 $mail->Sender = $email;
-$mail->FromName= 'Mantenimiento Universidad del Valle';
+$mail->FromName= 'Solicitudes de Mantenimiento Universidad del Valle';
 
 //Agregar destinatario
 $mail->AddAddress($correo);
