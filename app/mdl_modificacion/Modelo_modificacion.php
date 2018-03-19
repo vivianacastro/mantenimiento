@@ -85,7 +85,7 @@ class Modelo_modificacion {
     {
         $k = htmlspecialchars(trim($k));
 
-        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
         WHERE numero_solicitud = '".$k."' AND a.estado <> 'Eliminado';";
 
@@ -271,20 +271,26 @@ class Modelo_modificacion {
      * @param numerico $n, Entero que hace referencia al numero de la solicitud .
      * @param string $u, Cadena que hace referencia a el usuario que ordeno la solicitud.
      * @param string $e, cadea que hace referencia al estado de la solicitud.
-     * @param string $d, Entero que hace referencia a la descripcion de la solicitud .
+     * @param string $d, Entero que hace referencia a la descripcion de la solicitud.
+     * @param string $responsable_ejecucion Responsable de la ejecucion de la orden.
+     * @param string $fecha_entrega_responsable Fecha de entrega de la orden.
      * @return boolean
      */
-    public function modificarOrdenes($n, $u, $e, $d, $o) {
+    public function modificarOrdenes($n, $u, $e, $d, $o, $responsable_ejecucion, $fecha_entrega_responsable) {
         $n = htmlspecialchars($n);
         //$u = htmlspecialchars($u);
         $e = htmlspecialchars($e);
         $d = htmlspecialchars($d);
         $o = htmlspecialchars($o);
+        $responsable_ejecucion = htmlspecialchars($responsable_ejecucion);
+        $fecha_entrega_responsable = htmlspecialchars($fecha_entrega_responsable);
 
         $sql = "UPDATE solicitudes_mantenimiento SET "
                 . "estado = '".$e."', "
                 . "descripcion = '".$d."', "
-                . "operario = '".$o."'"
+                . "operario = '".$o."', "
+                . "responsable_ejecucion = '".$responsable_ejecucion."', "
+                . "fecha_entrega_responsable = '".$fecha_entrega_responsable."' "
                 . " WHERE numero_solicitud = '".$n."';";
 
         $l_stmt = $this->conexion->prepare($sql);
