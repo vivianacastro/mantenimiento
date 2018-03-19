@@ -811,7 +811,9 @@ $(document).ready(function() {
                     record.descripcion3,
                     record.cantidad3,
                     record.contacto,
-                    record.estado]).draw(false);
+                    record.estado,
+                    record.responsable_ejecucion,
+                    record.fecha_entrega_responsable]).draw(false);
             }
         });
     }
@@ -951,7 +953,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }else if(record.estado == 'Revisado'){
                     tablaRevisado.row.add([
                         record.numero_solicitud,
@@ -971,7 +975,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Realizado' || record.estado == 'Duplicado' || record.estado == 'No Aplica'){
                     tablaRealizado.row.add([
@@ -992,7 +998,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
             }
         });
@@ -1134,7 +1142,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Revisado'){
                     tablaRevisado.row.add([
@@ -1155,7 +1165,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Realizado' || record.estado == 'Duplicado' || record.estado == 'No Aplica'){
                     tablaRealizado.row.add([
@@ -1176,7 +1188,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
             }
         });
@@ -1317,7 +1331,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Revisado'){
                     tablaRevisado.row.add([
@@ -1338,7 +1354,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Realizado' || record.estado == 'Duplicado' || record.estado == 'No Aplica'){
                     tablaRealizado.row.add([
@@ -1359,7 +1377,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
             }
         });
@@ -1413,7 +1433,9 @@ $(document).ready(function() {
                         record.descripcion3,
                         record.cantidad3,
                         record.contacto,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                         usuario = record.usuario;
                 }
             });
@@ -1875,11 +1897,11 @@ $(document).ready(function() {
                 }
                 saveData["descripcion"] = $.trim($("#descripcion"+aux).val());
 
-                if ($.trim($("#selectEstado").find(':selected').val()) == 'Cerrado' && $.trim($("#selectTipoCerrado").find(':selected').val()) == 'Realizado') {
-                    saveData["operario"] = $.trim($("#selectOperario").find(':selected').val());
-                }else{
-                    saveData["operario"] = null;
-                }
+                saveData["operario"] = $.trim($("#selectOperario").find(':selected').val());
+                // Actualizamos el responsable ejecucion.
+                saveData["responsable_ejecucion"] = $.trim($("#responsableEjecucion").val());
+                // Actualizamos la fecha de entrega.
+                saveData["fecha_entrega_responsable"] = $.trim($("#fechaEntregaInput").val());              
 
                 var jObject = JSON.stringify(saveData);
 
@@ -1981,11 +2003,12 @@ $(document).ready(function() {
                 }
                 saveData["descripcion"] = $.trim($("#descripcion"+aux).val());
 
-                if ($.trim($("#selectEstado").find(':selected').val()) == 'Cerrado' && $.trim($("#selectTipoCerrado").find(':selected').val()) == 'Realizado') {
-                    saveData["operario"] = $.trim($("#selectOperario").find(':selected').val());
-                }else{
-                    saveData["operario"] = null;
-                }
+                saveData["operario"] = $.trim($("#selectOperario").find(':selected').val());
+                // Actualizamos el responsable ejecucion.
+                saveData["responsable_ejecucion"] = $.trim($("#responsableEjecucion").val());
+                // Actualizamos la fecha de entrega.
+                saveData["fecha_entrega_responsable"] = $.trim($("#fechaEntregaInput").val());
+
 
                 var jObject = JSON.stringify(saveData);
 
@@ -2300,6 +2323,14 @@ $(document).ready(function() {
         });
 
         $('#divSelectFecha input').datepicker({
+            endDate: "today",
+            todayBtn: "linked",
+            language: "es",
+            autoclose: true,
+            orientation: "auto"
+        });
+
+        $('#fechaEntregaDiv input').datepicker({
             endDate: "today",
             todayBtn: "linked",
             language: "es",
@@ -4090,8 +4121,6 @@ $(document).ready(function() {
             }
             else {
                 actualizarSelectorEstado();
-                $("#divOperario").css('display','none');
-                $('#divSelectOperario').css('display','none');
 
                 var data = [];
 
@@ -4107,15 +4136,13 @@ $(document).ready(function() {
                         if(record.estado == 'Duplicado' || record.estado == 'No Aplica' || record.estado == 'Realizado'){
                             $('#selectEstado').val('Cerrado');
                             $("#selectTipoCerrado").val(record.estado);
-                            if(record.estado == 'Realizado'){
-                                $('#divOperario').css('display','block');
-                                $('#divSelectOperario').css('display','block');
-                                $("#selectOperario").val(record.operario);
-                            }
                             $('#divTipoCerrado').css('display','block');
                         }else{
                             $('#selectEstado').val(record.estado);
                         }
+                        $("#selectOperario").val(record.operario);
+                        $("#responsableEjecucion").val(record.responsable_ejecucion);
+                        $("#fechaEntregaInput").val(record.fecha_entrega_responsable);
                     }
                 });
             }
@@ -4147,8 +4174,6 @@ $(document).ready(function() {
             }
             else {
                 actualizarSelectorEstado();
-                $("#divOperario").css('display','none');
-                $('#divSelectOperario').css('display','none');
 
                 if(totalElementos == 1){
                      var data = [];
@@ -4173,21 +4198,21 @@ $(document).ready(function() {
                             if(record.estado == 'Duplicado' || record.estado == 'No Aplica' || record.estado == 'Realizado'){
                                 $('#selectEstado').val('Cerrado');
                                 $("#selectTipoCerrado").val(record.estado);
-                                if(record.estado == 'Realizado'){
-                                    $('#divOperario').css('display','block');
-                                    $('#divSelectOperario').css('display','block');
-                                    $("#selectOperario").val(record.operario);
-                                }
                                 $('#divTipoCerrado').css('display','block');
                             }else{
                                 $('#selectEstado').val(record.estado);
                             }
+                            $("#selectOperario").val(record.operario);
+                            $("#responsableEjecucion").val(record.responsable_ejecucion);
+                            $("#fechaEntregaInput").val(record.fecha_entrega_responsable);
                         }
                     });
                 }else{
                     $("#divDialogModificacion2").modal("show");
                     $('#selectEstado').val('Seleccionar');
                     $("#descripcion2").val("");
+                    $("#responsableEjecucion").val("");
+                    $("#fechaEntregaInput").val("");
                 }
             }
         }
@@ -4218,8 +4243,6 @@ $(document).ready(function() {
             }
             else {
                 actualizarSelectorEstado();
-                $("#divOperario").css('display','none');
-                $('#divSelectOperario').css('display','none');
 
                 if(totalElementos == 1){
                      var data = [];
@@ -4244,21 +4267,21 @@ $(document).ready(function() {
                             if(record.estado == 'Duplicado' || record.estado == 'No Aplica' || record.estado == 'Realizado'){
                                 $('#selectEstado').val('Cerrado');
                                 $("#selectTipoCerrado").val(record.estado);
-                                if(record.estado == 'Realizado'){
-                                    $('#divOperario').css('display','block');
-                                    $('#divSelectOperario').css('display','block');
-                                    $("#selectOperario").val(record.operario);
-                                }
                                 $('#divTipoCerrado').css('display','block');
                             }else{
                                 $('#selectEstado').val(record.estado);
                             }
+                            $("#selectOperario").val(record.operario);
+                            $("#responsableEjecucion").val(record.responsable_ejecucion);
+                            $("#fechaEntregaInput").val(record.fecha_entrega_responsable);
                         }
                     });
                 }else{
                     $("#divDialogModificacion3").modal("show");
                     $('#selectEstado').val('Seleccionar');
                     $("#descripcion3").val("");
+                    $("#responsableEjecucion").val("");
+                    $("#fechaEntregaInput").val("");
                 }
             }
         }
@@ -4289,8 +4312,6 @@ $(document).ready(function() {
             }
             else {
                 actualizarSelectorEstado();
-                $("#divOperario").css('display','none');
-                $('#divSelectOperario').css('display','none');
 
                 if(totalElementos == 1){
                      var data = [];
@@ -4315,21 +4336,21 @@ $(document).ready(function() {
                             if(record.estado == 'Duplicado' || record.estado == 'No Aplica' || record.estado == 'Realizado'){
                                 $('#selectEstado').val('Cerrado');
                                 $("#selectTipoCerrado").val(record.estado);
-                                if(record.estado == 'Realizado'){
-                                    $('#divOperario').css('display','block');
-                                    $('#divSelectOperario').css('display','block');
-                                    $("#selectOperario").val(record.operario);
-                                }
                                 $('#divTipoCerrado').css('display','block');
                             }else{
                                 $('#selectEstado').val(record.estado);
                             }
+							$("#selectOperario").val(record.operario);
+                            $("#responsableEjecucion").val(record.responsable_ejecucion);
+                            $("#fechaEntregaInput").val(record.fecha_entrega_responsable);
                         }
                     });
                 }else{
                     $("#divDialogModificacion4").modal("show");
                     $('#selectEstado').val('Seleccionar');
                     $("#descripcion4").val("");
+                    $("#responsableEjecucion").val("");
+                    $("#fechaEntregaInput").val("");
                 }
             }
         }
@@ -4367,7 +4388,9 @@ $(document).ready(function() {
                     record.descripcion3,
                     record.cantidad3,
                     record.contacto,
-                    record.estado]).draw(false);
+                    record.estado,
+                    record.responsable_ejecucion,
+                    record.fecha_entrega_responsable]).draw(false);
             }
         });
     }
@@ -4405,7 +4428,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Revisado'){
                     tablaRevisado.row.add([
@@ -4426,7 +4451,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
                 else if(record.estado == 'Realizado' || record.estado == 'Duplicado' || record.estado == 'No Aplica'){
                     tablaRealizado.row.add([
@@ -4447,7 +4474,9 @@ $(document).ready(function() {
                         record.contacto,
                         record.telefono,
                         record.extension,
-                        record.estado]).draw(false);
+                        record.estado,
+                        record.responsable_ejecucion,
+                        record.fecha_entrega_responsable]).draw(false);
                 }
             }
         });
@@ -4518,18 +4547,6 @@ $(document).ready(function() {
             $('#divTipoCerrado').css('display','block');
         }else{
             $('#divTipoCerrado').css('display','none');
-            $('#divOperario').css('display','none');
-            $('#divSelectOperario').css('display','none');
-        }
-    });
-
-    $("#selectTipoCerrado").change(function(){
-        if ($.trim($("#selectTipoCerrado").find(':selected').val()) == 'Realizado') {
-            $('#divOperario').css('display','block');
-            $('#divSelectOperario').css('display','block');
-        }else{
-            $('#divOperario').css('display','none');
-            $('#divSelectOperario').css('display','none');
         }
     });
 
