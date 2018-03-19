@@ -414,6 +414,8 @@ class Controlador_consultas
                         'fecha_modificado' => $fecha_mod[0],
                         'impreso' => $valor['impreso'],
                         'operario' => $valor['operario'],
+                        'responsable_ejecucion' => $valor['responsable_ejecucion'],
+                        'fecha_entrega_responsable' => $valor['fecha_entrega_responsable'],
                     );
                     array_push($dataNew, $arrayAux);
                 }
@@ -546,7 +548,6 @@ class Controlador_consultas
                 }
 
                 $data = $m->buscarOrdenesParametrosAvanzados($info['campus'], $info['edificio'], $info['sistema'], $info['piso'], $info['fechaInicio'], $info['fechaFin']);
-
                 foreach ($data as $clave => $valor) {
             	 $temp1 = $valor['descripcion1'];
 		  		 $temp2 = $valor['descripcion2'];
@@ -586,6 +587,8 @@ class Controlador_consultas
                     'fecha' => $valor['fecha'],
                     'impreso' => $valor['impreso'],
                     'operario' => $valor['operario'],
+                    'responsable_ejecucion' => $valor['responsable_ejecucion'],
+                    'fecha_entrega_responsable' => $valor['fecha_entrega_responsable'],
                 );
                 array_push($dataNew, $arrayAux);
 
@@ -662,6 +665,8 @@ class Controlador_consultas
                 'fecha' => $valor['fecha'],
                 'impreso' => $valor['impreso'],
                 'operario' => $valor['operario'],
+                'responsable_ejecucion' => $valor['responsable_ejecucion'],
+                'fecha_entrega_responsable' => $valor['fecha_entrega_responsable'],
             );
             array_push($dataNew, $arrayAux);
 
@@ -1298,6 +1303,8 @@ class Controlador_consultas
                         'fecha' => $valor['fecha'],
                         'impreso' => $valor['impreso'],
                         'operario' => $valor['operario'],
+                        'responsable_ejecucion' => $valor['responsable_ejecucion'],
+                        'fecha_entrega_responsable' => $valor['fecha_entrega_responsable'],
                     );
                     array_push($dataNew, $arrayAux);
 
