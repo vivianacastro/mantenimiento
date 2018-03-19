@@ -81,7 +81,7 @@ class Modelo_consultas
         $k = htmlspecialchars(trim($k));
 
         //$sql = "SELECT * FROM solicitudes_mantenimiento WHERE estado = 'Solicitado' AND numero_solicitud = '".$k."' ORDER BY numero_solicitud;";
-        $sql = "SELECT a.numero_solicitud,a.usuario,a.cod_sede,a.codigo_campus,a.codigo_edificio,a.piso,a.espacio,a.cantidad1,a.descripcion1,a.descripcion2,a.descripcion3,a.descripcion_novedad,a.cantidad2,a.descripcion_novedad2,a.cantidad3,a.descripcion_novedad3,a.contacto,a.descripcion,a.estado,a.fecha,b.hora,a.impreso,a.operario
+        $sql = "SELECT a.numero_solicitud,a.usuario,a.cod_sede,a.codigo_campus,a.codigo_edificio,a.piso,a.espacio,a.cantidad1,a.descripcion1,a.descripcion2,a.descripcion3,a.descripcion_novedad,a.cantidad2,a.descripcion_novedad2,a.cantidad3,a.descripcion_novedad3,a.contacto,a.descripcion,a.estado,a.fecha,b.hora,a.impreso,a.operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                     FROM solicitudes_mantenimiento a LEFT JOIN estado_orden b ON a.numero_solicitud = b.numero_solicitud
                     WHERE a.estado <> 'Eliminado' AND a.numero_solicitud = '".$k."' ORDER BY b.hora DESC, a.numero_solicitud LIMIT 1;";
 
@@ -119,7 +119,7 @@ class Modelo_consultas
         $result = array();
 
 
-          $sql = "SELECT a.numero_solicitud,a.usuario,a.cod_sede,a.codigo_campus,a.codigo_edificio,a.piso,a.espacio,a.cantidad1,a.descripcion1,a.descripcion2,a.descripcion3,a.descripcion_novedad,a.cantidad2,a.descripcion_novedad2,a.cantidad3,a.descripcion_novedad3,a.contacto,a.descripcion,a.estado,a.fecha,a.impreso,a.operario
+          $sql = "SELECT a.numero_solicitud,a.usuario,a.cod_sede,a.codigo_campus,a.codigo_edificio,a.piso,a.espacio,a.cantidad1,a.descripcion1,a.descripcion2,a.descripcion3,a.descripcion_novedad,a.cantidad2,a.descripcion_novedad2,a.cantidad3,a.descripcion_novedad3,a.contacto,a.descripcion,a.estado,a.fecha,a.impreso,a.operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                     FROM solicitudes_mantenimiento a
                     WHERE a.estado <> 'Eliminado' AND a.usuario = '".$u."' ORDER BY a.numero_solicitud;";
 
@@ -546,107 +546,125 @@ class Modelo_consultas
         $p = htmlspecialchars(trim($p));
         $fi = htmlspecialchars(trim($fi));
         $ff = htmlspecialchars(trim($ff));
-
+        // En caso de que se trate del campus Melendez.
         if($c == -1){
+            //
             if($e == "TODOS"){
+                // 
                 if($s == -1){
+                    // 
                     if($p == -1){
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha, impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
-                    }else{
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                    }
+                    // 
+                    else{
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND piso = '".$p."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }
-                }else{
+                }
+                // Para cualquier otro sistema que no sea Hidrosanitario.
+                else{
+                    // Para sotanos de otros sistemas.
                     if($p == -1){
+                        // Para sistema equipos.
+                        
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
-                        }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        }
+                        // Para cualquier otro sistema.
+                        else{
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
-                    }else{
+                    }
+                    // Para cualquier otro piso.
+                    else{
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.piso = '".$p."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.piso = '".$p."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }
                 }
-            }else {
+            }
+            else {
                 if($s == -1){
                     if($p == -1){
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND codigo_edificio = '".$e."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }else{
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND piso = '".$p."' AND codigo_edificio = '".$e."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }
                 }else{
                     if($p == -1){
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 =  b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_edificio = '".$e."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable 
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 =  b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_edificio = '".$e."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }else{
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 =  b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.piso = '".$p."' AND a.codigo_edificio = '".$e."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 =  b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.piso = '".$p."' AND a.codigo_edificio = '".$e."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }
                 }
             }
-        }else if($c == -2){
+        }
+        // Para el campus San Fernando.
+        else if($c == -2){
+            // Para todos los edificios de San Fernando.
             if($e == "TODOS"){
                 if($s == -1){
                     if($p == -1){
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND (codigo_campus = '2' OR codigo_campus = '3') AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }else{
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND (codigo_campus = '2' OR codigo_campus = '3') AND piso = '".$p."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }
                 }else{
                     if($p == -1){
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }else{
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND a.piso = '".$p."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND a.piso = '".$p."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
@@ -655,32 +673,32 @@ class Modelo_consultas
             }else {
                 if($s == -1){
                     if($p == -1){
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND (codigo_campus = '2' OR codigo_campus = '3') AND codigo_edificio = '".$e."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }else{
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND (codigo_campus = '2' OR codigo_campus = '3') AND piso = '".$p."' AND codigo_edificio = '".$e."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }
                 }else{
                     if($p == -1){
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND a.codigo_edificio = '".$e."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND a.codigo_edificio = '".$e."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }else{
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND a.piso = '".$p."' AND a.codigo_edificio = '".$e."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.(codigo_campus = '2' OR codigo_campus = '3') AND a.piso = '".$p."' AND a.codigo_edificio = '".$e."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
@@ -691,32 +709,32 @@ class Modelo_consultas
             if($e == "TODOS"){
                 if($s == -1){
                     if($p == -1){
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND codigo_campus = '".$c."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }else{
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND codigo_campus = '".$c."' AND piso = '".$p."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }
                 }else{
                     if($p == -1){
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }else{
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND a.piso = '".$p."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND a.piso = '".$p."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
@@ -725,32 +743,32 @@ class Modelo_consultas
             }else {
                 if($s == -1){
                     if($p == -1){
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND codigo_campus = '".$c."' AND codigo_edificio = '".$e."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }else{
-                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                        $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                         FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                         WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND codigo_campus = '".$c."' AND piso = '".$p."' AND codigo_edificio = '".$e."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                     }
                 }else{
                     if($p == -1){
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND a.codigo_edificio = '".$e."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND a.codigo_edificio = '".$e."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
                     }else{
                         if ($s == 4) {
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND a.piso = '".$p."' AND a.codigo_edificio = '".$e."' AND (b.cod_sistema = '".$s."' OR b.id = '1') AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }else{
-                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                             FROM solicitudes_mantenimiento a JOIN novedad_sistema b ON a.descripcion1 = b.id JOIN usuarios_autorizados_sistema c ON a.usuario = c.login
                             WHERE a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.codigo_campus = '".$c."' AND a.piso = '".$p."' AND a.codigo_edificio = '".$e."' AND b.cod_sistema = '".$s."' AND a.estado <> 'Eliminado' ORDER BY a.numero_solicitud DESC;";
                         }
@@ -804,26 +822,26 @@ class Modelo_consultas
         $ff = htmlspecialchars(trim($ff));
 
         if ($c == -1) {
-            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+            $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
             FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
             WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
             AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
         }else{
             if ($e == 'TODOS') {
-                $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                 FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                 WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
                 AND a.codigo_campus = '".$c."'
                 AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
             }else{
                 if ($p == -1) {
-                    $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                    $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                     FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                     WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
                     AND a.codigo_campus = '".$c."' AND codigo_edificio = '".$e."'
                     AND a.fecha BETWEEN '".$fi."' AND '".$ff."' AND a.estado <> 'Eliminado' ORDER BY numero_solicitud DESC;";
                 }else{
-                    $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario
+                    $sql = "SELECT numero_solicitud,usuario,telefono,extension,cod_sede,codigo_campus,codigo_edificio,piso,espacio,cantidad1,descripcion1,descripcion2,descripcion3,descripcion_novedad,cantidad2,descripcion_novedad2,cantidad3,descripcion_novedad3,contacto,descripcion,a.estado,a.fecha,impreso,operario, a.responsable_ejecucion, a.fecha_entrega_responsable
                     FROM solicitudes_mantenimiento a JOIN usuarios_autorizados_sistema b ON a.usuario = b.login
                     WHERE (a.descripcion1 = '".$n."' OR a.descripcion2 = '".$n."' OR a.descripcion3 = '".$n."')
                     AND a.codigo_campus = '".$c."' AND codigo_edificio = '".$e."' AND piso = '".$p."'

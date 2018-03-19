@@ -169,7 +169,6 @@
                         <option value="Revisado">Revisado</option>
                         <option value="Cerrado">Cerrado</option>
                     </select>
-
                     <div id="divTipoCerrado" class="form_requerid"  style="display:none;">
                         <br><select class="form-control formulario" name="selectTipoCerrado" id="selectTipoCerrado">
                             <option value="Duplicado" selected="selected">Duplicado</option>
@@ -178,15 +177,25 @@
                         </select><br>
                     </div>
 
-                    <div id="divOperario" class="div_izquierda" style="display:none;"><font color="red">*</font>Operario: </div>
-                    <div id="divSelectOperario" style="display:none;">
+                    <div id="divOperario" class="div_izquierda"><font color="red">*</font>Operario: </div>
+                    <div id="divSelectOperario">
                         <select name="selectOperario" class="form-control formulario" id="selectOperario">
                             <option value="Contratista">Contratista</option>
                             <option value="Propio" selected="selected">Propio</option>
                         </select>
-                    </div><br>
+                    </div>
                     <div class="div_izquierda"><font color="red">*</font>Descripci&oacute;n del trabajo: </div>
                     <textarea id="descripcion4" class="form-control textDescripcion" name="descripcion4" maxlength="150" rows="3"></textarea>
+                    <!-- Nombre de la persona a la que se le entrega la orden para ser ejecutada -->
+                    <div class="div_izquierda">Responsable del trabajo: </div>
+                    <input type="text" id="responsableEjecucion" class="input-uppercase form-control formulario"> 
+                    <!-- Fecha en la que se le entrega a la persona la orden para ser ejecutada-->
+                    <div class="div_izquierda">Fecha de entrega: </div>
+                    <div class="col-md-12" id="fechaEntregaDiv">
+                        <div class="row">
+                            <input type="text" class="form-control formulario" id="fechaEntregaInput">
+                        </div>
+                    </div>
                 </div><br>
 
                 <div class="divBotonMod">
@@ -221,6 +230,8 @@
                     <th style="text-align:center">Teléfono</th>
                     <th style="text-align:center">Extensión</th>
                     <th style="text-align:center">Estado</th>
+                    <th style="text-align:center">Entregado a</th>
+                    <th style="text-align:center">Fecha de entrega</th>
                 </tr>
             </thead>
             <tbody>
@@ -250,6 +261,8 @@
                     <th style="text-align:center">Teléfono</th>
                     <th style="text-align:center">Extensión</th>
                     <th style="text-align:center">Estado</th>
+                    <th style="text-align:center">Entregado a</th>
+                    <th style="text-align:center">Fecha de entrega</th>
                 </tr>
             </thead>
             <tbody>
@@ -279,6 +292,8 @@
                     <th style="text-align:center">Teléfono</th>
                     <th style="text-align:center">Extensión</th>
                     <th style="text-align:center">Estado</th>
+                    <th style="text-align:center">Entregado a</th>
+                    <th style="text-align:center">Fecha de entrega</th>
                 </tr>
             </thead>
             <tbody>

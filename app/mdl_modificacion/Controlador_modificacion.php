@@ -121,6 +121,8 @@ class Controlador_modificacion
                     'fecha' => $valor['fecha'],
                     'impreso' => $valor['impreso'],
                     'operario' => $valor['operario'],
+                    'responsable_ejecucion' => $valor['responsable_ejecucion'],
+                    'fecha_entrega_responsable' => $valor['fecha_entrega_responsable'],
                  );
                 array_push($dataNew, $arrayAux);
 
@@ -290,7 +292,7 @@ class Controlador_modificacion
             {*/
             for($i=0;$i<count($info['solicitud']);$i++){
 
-                $rslt = $m->modificarOrdenes($info['solicitud'][$i], $user ,$info['estado'], $info['descripcion'], $info['operario']);
+                $rslt = $m->modificarOrdenes($info['solicitud'][$i], $user ,$info['estado'], $info['descripcion'], $info['operario'], $info['responsable_ejecucion'], $info['fecha_entrega_responsable']);
                 //}
                 if($rslt)
                 {
